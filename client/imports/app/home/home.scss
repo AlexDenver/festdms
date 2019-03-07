@@ -1,0 +1,156 @@
+@import "../variables.scss";
+
+.sections{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    overflow-y: hidden;
+}
+
+.hero,
+.prize
+.events{
+    min-height: 100vh;
+}
+
+.hero{
+    display: grid;
+    overflow-y: hidden;
+    
+    .left, .right{
+        z-index: 2;
+    }
+    .left{
+        grid-row: 1;
+        grid-column: 1 / 3;
+        display: grid;
+        place-content: center;
+        grid-gap: 5rem;
+        .logo{
+            text-align: center; 
+            img, svg{
+                height: 30vh;
+            }
+            .tagline {
+                font-size: 2rem;
+                color: $white;
+                text-transform: uppercase;
+                padding-bottom: 20px;
+                border-bottom:2px solid $white;
+                width: max-content;
+                margin: $space auto auto;
+            }
+        }
+        .ctas{
+            display: grid;
+            grid-template-columns: auto auto;
+            grid-gap: 1.5rem;
+            .btn{
+                @extend %btn;
+                display: block;
+                text-transform: uppercase;
+                border: 2px solid $white;
+                font-size: 2rem;
+                font-weight: 500;
+                text-align: center;
+            }
+            .register{
+                background: $white;
+            }
+            .events{
+                color: $white;
+            }
+        }
+    }
+    .right{
+        grid-row: 1;
+        grid-column: 2 / 3;
+    }
+    
+    .bg{
+        grid-row: 1;
+        grid-column: 1 / 3;
+        overflow: hidden;
+        text-align: right;
+        background:  rgba(0, 0, 0, 0.71) url("https://images.unsplash.com/photo-1529540396788-7660ff026e33?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1900&q=80");
+        background-size: cover;
+        background-attachment: fixed;
+        background-position: center;
+        background-blend-mode: luminosity;
+        transform: translateY(-30px) translateZ(-5px) scale(1.25);
+        width: 80%;
+        margin: 0 auto;
+        img, svg{
+            // width: 100%;
+            object-fit: cover;
+            height: 100%;
+        }
+        z-index: 1;
+    }
+
+    .particle-wrap{
+        z-index: 1;
+        grid-row: 1;
+        grid-column: 1 / 3;
+        max-width: 100%;
+        canvas{
+            padding: 0;
+            display: block;
+            // width: 100% !important;
+            // height: 100% !important;
+        }
+        .particle{
+            // height: 100%;
+            // width: 100%;
+        }
+    }
+}
+
+
+
+
+.prize{
+    display: grid;
+    
+    .left, .right{
+        z-index: 2;
+        grid-row: 1;
+    }
+    .left{
+        grid-column: 1 / 2;
+        display: grid;
+        place-content: center;
+        .title{
+            font-size: 3rem;
+            margin-bottom: $space;
+            span{
+                display: block;
+            }
+        }
+    }
+
+    .right{
+        grid-column: 2 / 3;
+    }
+
+    .bg{
+        grid-row: 1;
+        grid-column: 1 / 3;
+        overflow: hidden;
+        align-self: flex-end;
+        img, svg{
+            height: 100%;
+            width: 100%;
+        }
+    }
+}
+
+.events{
+    .event-wrap{
+        // overflow: hidden;
+        width: 100%;
+        // display: grid;
+        .swiper-container{
+            width: 100%;
+        }
+    }
+}

@@ -4,6 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './imports/app/app.module';
+import { Router } from '@angular/router';
 
 Meteor.startup(() => {
 
@@ -12,5 +13,6 @@ Meteor.startup(() => {
   }
 
   platformBrowserDynamic().bootstrapModule(AppModule);
+
 
 });

@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { TodoAddComponent } from './todo-add/todo-add.component';
+import { HomeComponent } from './home/home.component';
 import { TodoListComponent } from './todo-list/todo-list.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
@@ -27,8 +28,9 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
       // Home Page
       {
         path: '',
-        redirectTo: '/todoList',
-        pathMatch: 'full'
+        // redirectTo: '',
+        component: HomeComponent,
+        // pathMatch: 'full'
       },
       // 404 Page
       {
@@ -41,7 +43,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     AppComponent,
     TodoAddComponent,
     TodoListComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    HomeComponent
   ],
   bootstrap: [
     AppComponent

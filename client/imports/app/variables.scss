@@ -1,0 +1,28 @@
+$white: #fff;
+$secondaryDark: #16324F;
+$primaryColor: #FFB20F;
+$radius: 10px;
+$space: 4rem;
+%btn{
+    padding: 0.34em 1.1em;
+    border-radius: $radius;
+    cursor: pointer;
+}
+.wrapper{
+    max-width: 1280px;
+}
+.color-one{
+    color: $primaryColor;
+}
+.w300{
+    font-weight: 300;
+}
+.w400{
+    font-weight: 400;
+}
+.w600{
+    font-weight: 600;
+}
+.w900{
+    font-weight: 900;
+}
