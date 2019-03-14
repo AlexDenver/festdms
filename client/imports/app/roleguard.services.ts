@@ -23,7 +23,7 @@ import {Roles} from "meteor/alanning:roles";
         state: RouterStateSnapshot){
         let roles = route.data["roles"] as Array<string>;
         // console.log(route.data);   
-        let us = Meteor.user();     
+        let us = Meteor.userId();     
           console.log(us)
         return Roles.userIsInRole(us, roles)  ;
     }
