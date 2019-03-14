@@ -14,7 +14,7 @@ import { AuthService } from './auth.service';
   @Injectable({
     providedIn: 'root'
   })
-  export class RoleGuard implements OnInit{
+  export class RoleGuard {
     user;
     constructor(private router:Router, private route: ActivatedRoute,private auth: AuthService){}
     // ngOnInit(){

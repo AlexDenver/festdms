@@ -142,7 +142,9 @@ export class EventComponent implements OnInit {
 
     // console.log(d)
   }
-
+  logout(){
+    Meteor.logout();
+  }
   ngOnInit() {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.

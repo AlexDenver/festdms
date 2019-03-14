@@ -5,6 +5,9 @@
 
     <form name="eventform" #myForm="ngForm" id="eventform">
         <div class="page-title">{{event_copy.name.actual}} Event Details</div>
+        <div class="logout-btn">
+            <div class="logout" (click)="logout()"><i class="fas fa-sign-out-alt"></i> Logout</div>
+        </div>
         <div class="two-col">
             <div class="general section">
                 <div class="title">General Event Info</div>
@@ -82,7 +85,7 @@
                             </label>
             
                             <label>
-                                <span>Round {{event_copy.rounds[i].round}}: </span>
+                                <span title="Enter How Many People Would Qualify to Next Round Here. (Leave Blank if Unsure, Fill on Fest day After seeing the turnout) ">Round {{event_copy.rounds[i].round}} Qualify Count (Hover Here)</span>
                                 <input type="number" name="event_copy.rounds{{i}}.qulifying" [(ngModel)]="event_copy.rounds[i].qulifying" >
                             </label>
                         </div>

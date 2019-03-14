@@ -22,8 +22,10 @@
                 display: grid;
                 justify-content: center;
                 align-content: space-between;
+                grid-template-columns: 1fr;
                 grid-template-rows: 1fr auto;
                 align-content: space-between;
+                min-width: 200px;
                 .icon {
                     display: grid;
                     place-content: center;

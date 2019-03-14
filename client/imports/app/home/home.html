@@ -131,9 +131,11 @@
 
 
                         
-                        <div class="swiper-slide" [routerLink]="[ '/event', ev_it.name.actual ]" *ngFor="let ev_it of events_list">
+                        <div class="swiper-slide" [routerLink]="[ '/event', ev_it.name.themed ]" *ngFor="let ev_it of events_list">
                             <div class="event-card">
-                                <img src="{{ev_it.icon}}" alt="">
+                                <div class="img">
+                                    <img src="{{ev_it.icon}}" alt="">
+                                </div>
                                 <h1>{{ev_it.name.themed}}</h1>
                                 <h3>{{ev_it.name.actual}}</h3>
                                 <div class="learn">Learn More</div>
