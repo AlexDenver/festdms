@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Output, Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Output, Input, NgZone } from '@angular/core';
 import jQuery from 'jquery';
 import { MyFestEvent } from 'imports/models/events';
 import { ObservableCursor, MeteorObservable } from 'meteor-rxjs';
@@ -8,17 +8,22 @@ import { FormsModule } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
 import Images from 'imports/collections/images';
 import {UploadFS} from 'meteor/jalik:ufs';
-
+import { Router } from '@angular/router';
+import  {Roles}  from 'meteor/alanning:roles'
+import { Tracker } from 'meteor/tracker';
+// import { Router } from '@angular/router';
 
 
 // import {toastr} from 'meteor/flawless:meteor-toastr'
+
+
 @Component({
   selector: 'event',
   templateUrl: 'event.html',
   styleUrls: ['event.scss'],
 })
 
-export class EventComponent implements AfterViewInit { 
+export class EventComponent implements OnInit { 
   
   
   
@@ -32,7 +37,8 @@ export class EventComponent implements AfterViewInit {
   original = true;
   imageData;
   changed = false;
-  constructor(){
+  constructor( private router: Router, private zone: NgZone){
+
     this.EventsListSubscription = MeteorObservable.subscribe('event_sub').subscribe(()=> {
       this.events_sub_obs = EventsCollection.find({});
       if(this.original){
@@ -137,8 +143,19 @@ export class EventComponent implements AfterViewInit {
     // console.log(d)
   }
 
+  ngOnInit() {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    Tracker.autorun(() => {
+      let user = Meteor.user();
+      // vendors permission
+      console.log("Meteor")
+      if(Roles.userIsInRole(Meteor.user(), 'manage-event')){
+        console.log(Roles)
+        this.zone.run(() => this.router.navigate(['/']));
+      }
+    });
 
-  ngAfterViewInit(){
-      
   }
+
 }

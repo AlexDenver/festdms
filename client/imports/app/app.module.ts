@@ -61,12 +61,12 @@ let routes = [
   },{
     path: 'dashboard',
     component: DashboardComponent,
-    canActivate: [RoleGuard],
     data: { roles: ['all'] }
+    
   },{
     path: 'manage/event',
     component: EventComponent,
-    canActivate: [RoleGuard],
+    // canActivate: [RoleGuard],
     data: { roles: ['manage-event', 'all'] }
   },{
     path: 'event/:id',
@@ -105,7 +105,7 @@ let routes = [
   bootstrap: [
     AppComponent
   ],
-  providers: [AuthService]
+  // providers: [AuthService]
 })
 export class AppModule { }
 

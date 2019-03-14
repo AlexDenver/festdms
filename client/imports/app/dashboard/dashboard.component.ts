@@ -3,7 +3,7 @@ import jQuery from'jquery';
 import{Router}from'@angular/router';
 import {UploadFS} from 'meteor/jalik:ufs';
 import {LocalStore} from 'meteor/jalik:ufs-local';
-
+import  {Roles}  from 'meteor/alanning:roles'
 import{MyFestService}from'../myfest.services';
 import{Observable}from'rxjs';
 import{MyFestEvent}from'imports/models/events';
@@ -50,7 +50,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     IFiles: Subscription;
     images: any;
     imageData: any;
-    constructor(private router: Router) {
+    constructor(private router: Router,private zone: NgZone) {
         this.d = "Alex"
         // this.events_sub = this.mf.findEventsDyn({})
         // this.events_sub = this.mf.findEvents({});
@@ -271,6 +271,16 @@ export class DashboardComponent implements AfterViewInit, OnInit {
         return this.user;
     }
     ngOnInit() {
+        Tracker.autorun(() => {
+            let user = Meteor.user();
+            // vendors permission
+            console.log("Meteor")
+            if(!Roles.userIsInRole(Meteor.user(), 'all')){
+              console.log(Roles)
+              this.zone.run(() => this.router.navigate(['/']));
+            }
+          });
+
         if (!Meteor.userId())
             this.router.navigate(['auth']);
         else {

@@ -20,5 +20,7 @@ Meteor.publish('event_sub', function() {
 Meteor.publish('users_sub', function() {
   return Meteor.users.find({});
 });
-
+Meteor.publish('uid_sub', function(uid) {
+  return Meteor.users.find({_id: uid});
+});
 
