@@ -69,9 +69,9 @@ export class DashboardComponent implements AfterViewInit, OnInit {
             // })
         });
 
-        MeteorObservable.subscribe('files.images.all').subscribe(() => {
-            this.images = Images.Images.find({})                
-        });
+        // MeteorObservable.subscribe('files.images.all').subscribe(() => {
+        //     this.images = Images.Images.find({})                
+        // });
 
 
 

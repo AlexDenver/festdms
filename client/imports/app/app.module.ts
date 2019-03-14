@@ -29,6 +29,7 @@ import { EventpubComponent } from './eventpub/eventpub.component';
 import  {Roles}  from 'meteor/alanning:roles'
 import { MyFestService } from './myfest.services';
 import { RoleGuard } from './roleguard.services';
+import { AuthService }from './auth.service';
 
 
 
@@ -103,7 +104,8 @@ let routes = [
   ],
   bootstrap: [
     AppComponent
-  ]
+  ],
+  providers: [AuthService]
 })
 export class AppModule { }
 
