@@ -22,7 +22,9 @@ import {Roles} from "meteor/alanning:roles";
     canActivate(route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot){
         let roles = route.data["roles"] as Array<string>;
-        // console.log(route.data);  Roles.userIsInRole(Meteor.user(), roles)        
-        return true;
+        // console.log(route.data);   
+        let us = Meteor.user();     
+          console.log(us)
+        return Roles.userIsInRole(us, roles)  ;
     }
   }

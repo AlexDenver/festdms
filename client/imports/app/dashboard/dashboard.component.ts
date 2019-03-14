@@ -156,7 +156,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
             let uploader = new UploadFS.Uploader({
                 // This is where the uploader will save the file
                 // since v0.6.7, you can pass the store instance or the store name directly
-                store: Images || 'photos',
+                store: Images.Images || 'photos',
                 // Optimize speed transfer by increasing/decreasing chunk size automatically
                 adaptive: true,
                 // Define the upload capacity (if upload speed is 1MB/s, then it will try to maintain upload at 80%, so 800KB/s)
