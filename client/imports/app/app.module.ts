@@ -22,7 +22,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AccountsModule } from 'angular2-meteor-accounts-ui';
 import { EventComponent } from './event/event.component';
 
-import { } from '@types/meteor-roles';
+
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { EventpubComponent } from './eventpub/eventpub.component';

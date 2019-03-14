@@ -5,7 +5,7 @@ import { Meteor } from 'meteor/meteor';
 import {MongoObservable, MeteorObservable, zoneOperator, ObservableCursor} from 'meteor-rxjs';
 import { Observable, Subscription  } from 'rxjs';
 import { RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
-
+import {Roles} from "meteor/alanning:roles";
 
 
 
