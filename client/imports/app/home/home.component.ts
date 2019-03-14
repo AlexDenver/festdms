@@ -53,8 +53,8 @@ export class HomeComponent implements AfterViewInit, OnInit {
   config: SwiperConfigInterface = {
     // a11y: true,
     // slidesPerView: this.isMobile? 1 : 5,
-    slidesPerView: 'auto',
-    // slidesPerGroup: 2,
+    slidesPerView: this.isMobile? 1 : 4,
+    slidesPerGroup: this.isMobile?1 :3,
     // centeredSlides: this.isMobile? false: false,
     scrollbar: false,
     nextButton: '.swiper-button-next',

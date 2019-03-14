@@ -53,5 +53,5 @@ const Images = new GridFSStore({
 
 
 
-export default {Images};
+export default {Images, Photos};
 

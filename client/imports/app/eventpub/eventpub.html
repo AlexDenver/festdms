@@ -6,7 +6,7 @@
 <div class="event-wrap">
     <div class="top">
         <div class="back-wrap">
-            <div class="back">back</div>
+            <div class="back"  [routerLink]="[ '/' ]" > <i class="fas fa-angle-left"></i> back</div>
         </div>
         <div class="card-wrap" title="Registration Fee">
             <div class="registration card">
@@ -30,7 +30,7 @@
         </div>
     </div>
     <div class="main ">
-        <div class="event-row wrapper">
+        <div class="event-row wrapper logo-title">
             <div class="logo">
                 <img src="{{EventInfo[0].icon}}" alt="">
             </div>

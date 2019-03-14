@@ -14,6 +14,7 @@
         <div class="all-events">
             <div class="event-wrap">
                 <div class="event-card" *ngFor="let event of events_sub">
+                    <div class="icon"><img (click)="updateIcon(event.icon, event._id)" src="{{event.icon}}" alt=""></div>
                     <div class="title">{{event.name.actual}}</div>
                     <div class="ev_id">{{event._id}}</div>
                     <div class="ev_id">{{event.handler}}</div>

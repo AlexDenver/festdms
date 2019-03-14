@@ -61,6 +61,6 @@ export class EventpubComponent implements OnInit{
     }
     ngOnDestroy(): void {
       this.EventsListSubscription.unsubscribe();
-      this.IFiles.unsubscribe();
+      
     }
 }

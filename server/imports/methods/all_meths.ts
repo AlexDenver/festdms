@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { EventsCollection, MyFestVars } from '../../../imports/collections/all';
 import Images  from "../../../imports/collections/images";
+import Photos from  "../../../imports/collections/images";
 import { Roles } from 'meteor/alanning:roles'
 import { from } from 'rxjs';
 
@@ -19,6 +20,7 @@ Meteor.users.after.insert(function (userId, user) {
 });
 
 import { FilesCollection } from 'meteor/ostrio:files';
+import { PathLocationStrategy } from '@angular/common';
 
 
 
@@ -51,6 +53,10 @@ Meteor.methods({
       return false
     });
   },
+  updateIcon(old, newi, evid){
+    Photos.Photos.remove({url: old});    
+    EventsCollection.update({_id: evid}, {$set: {icon: newi}});
+  }
 })
 
 

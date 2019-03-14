@@ -341,6 +341,7 @@ $yellow: #F0A202;
         }
         .img{
             width: 150px;
+            margin: auto;
             img {
                 border-radius: 100%;
                 width: 100%;
@@ -557,6 +558,9 @@ footer{
                 font-size: 2rem;
                 margin-left: 20px;
             }
+            .event-card .learn {
+                transform: translateY(0);
+            }
         }
         .people{
             .title{
@@ -580,7 +584,7 @@ footer{
             padding: 20px;
             .college-logo{            
                 img{
-                    width: 250px;
+                    width: 270px;
                 }
             }
             .ab-logo {                      

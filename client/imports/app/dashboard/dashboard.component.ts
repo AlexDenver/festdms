@@ -213,6 +213,81 @@ export class DashboardComponent implements AfterViewInit, OnInit {
  
     }
 
+    updateIcon(old, evid){
+        let self = this;
+
+        let d = UploadFS.selectFile(function (file) {
+            // Prepare the file to insert in database, note that we don't provide a URL,
+            // it will be set automatically by the uploader when file transfer is complete.
+            let photo = {
+                name: file.name,
+                size: file.size,
+                type: file.type,
+                event: self.evname,
+                handler: self.evusn
+            };
+
+            // Create a new Uploader for this file
+            let uploader = new UploadFS.Uploader({
+                // This is where the uploader will save the file
+                // since v0.6.7, you can pass the store instance or the store name directly
+                store: Images.Images || 'photos',
+                // Optimize speed transfer by increasing/decreasing chunk size automatically
+                adaptive: true,
+                // Define the upload capacity (if upload speed is 1MB/s, then it will try to maintain upload at 80%, so 800KB/s)
+                // (used only if adaptive = true)
+                capacity: 0.8, // 80%
+                // The size of each chunk sent to the server
+                chunkSize: 8 * 1024, // 8k
+                // The max chunk size (used only if adaptive = true)
+                maxChunkSize: 128 * 1024, // 128k
+                // This tells how many tries to do if an error occurs during upload
+                maxTries: 5,
+                // The File/Blob object containing the data
+                data: file,
+                // The document to save in the collection
+                file: photo,
+                // The error callback
+                onError(err, file) {
+                    console.error(err);
+                },
+                onAbort(file) {
+                    console.log(file.name + ' upload has been aborted');
+                },
+                onComplete(file) {
+                    console.log(file.name + ' has been uploaded');
+                    console.log(file)
+                    Meteor.call("updateIcon", old, file.url, evid)
+                },
+                onCreate(file) {
+                    console.log(file.name + ' has been created with ID ' + file._id);
+                },
+                onProgress(file, progress) {
+                    console.log(file.name + ' ' + (progress*100) + '% uploaded');
+                },
+                onStart(file) {
+                    console.log(file.name + ' started');
+                },
+                onStop(file) {
+                    console.log(file.name + ' stopped');
+                },
+            });
+
+            // Starts the upload
+            uploader.start();
+
+            // // Stops the upload
+            // uploader.stop();
+
+            // // Abort the upload
+            // uploader.abort();
+        });
+
+
+        console.log(d)
+ 
+    }
+
     createEvent() {
         let self = this;
         if (this.evname.length > 0 && this.evusn.length > 0 && this.evpwd.length > 0 && this.evconfirmpwd.length > 0) {

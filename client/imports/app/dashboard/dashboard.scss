@@ -130,6 +130,9 @@
     grid-gap: 20px;
     padding: 40px;
     .event-card {
+        .icon img {
+            height: 50px;
+        }
         .title{
             @extend %normal_text;
             font-weight: 500;
