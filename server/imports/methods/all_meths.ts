@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { EventsCollection, MyFestVars } from '../../../imports/collections/all';
+import { EventsCollection, MyFestVars, LogsCollection } from '../../../imports/collections/all';
 import Images  from "../../../imports/collections/images";
 import Photos from  "../../../imports/collections/images";
 import { Roles } from 'meteor/alanning:roles'
@@ -23,7 +23,16 @@ import { FilesCollection } from 'meteor/ostrio:files';
 import { PathLocationStrategy } from '@angular/common';
 
 
-
+EventsCollection.collection.after.update(function(userId, doc, fieldNames, modifier, options){  
+  LogsCollection.insert({
+    user: userId,
+    time: Date.now(),
+    modifed: modifier,
+    fieldNames: fieldNames,    
+    options: options,
+    doc: doc
+  });
+})
 
 Meteor.methods({
   addEvent(ev: any) {
