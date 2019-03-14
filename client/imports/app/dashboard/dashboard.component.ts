@@ -1,5 +1,4 @@
 import{Component,OnInit,AfterViewInit,Inject,NgZone}from'@angular/core';
-import{FilesCollection}from'meteor/ostrio:files';
 import jQuery from'jquery';
 import{Router}from'@angular/router';
 import {UploadFS} from 'meteor/jalik:ufs';
@@ -100,7 +99,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     }
     cancelAddEvent() {
         this.addEventActive = false;
-        let d:HTMLFormElement = document.getElementById('addEventForm');
+        let d = document.getElementById('addEventForm');
         d.reset();
         return false;
     }

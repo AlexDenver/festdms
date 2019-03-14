@@ -5,7 +5,7 @@ import { Observable, Subscription } from 'rxjs';
 import { EventsCollection } from 'imports/collections/all';
 import { Router, ActivatedRoute } from '@angular/router';
 import {Meteor} from 'meteor/meteor';
-import { Images } from "../../../../imports/collections/images";
+import  Images  from "../../../../imports/collections/images";
 
 
 @Component({
