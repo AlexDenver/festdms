@@ -14,27 +14,14 @@ import {Roles} from "meteor/alanning:roles";
   })
   export class RoleGuard implements OnInit{
 
-    constructor(private router: Router){
+    constructor(private router: Router,private route: ActivatedRouteSnapshot){
 
     }
     ngOnInit(){
-        
     }
-    resolve(state: RouterStateSnapshot): Observable {
-      let d = Meteor.user();
-      if(d){
-        return d;
-      }else{
-        this.router.navigate(['auth']);
-      }
 
-    }
-    canActivate(route: ActivatedRouteSnapshot,
-        state: RouterStateSnapshot){
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean>  {
         let roles = route.data["roles"] as Array<string>;
-        // console.log(route.data);   
-        let us = Meteor.userId();     
-          console.log(us)
-        return Roles.userIsInRole(us, roles)  ;
+        return   Roles.userIsInRole(Meteor.userId(), roles);
     }
   }
