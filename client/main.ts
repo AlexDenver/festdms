@@ -6,6 +6,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './imports/app/app.module';
 import { Router } from '@angular/router';
 
+
 Meteor.startup(() => {
 
   if (Meteor.isProduction) {

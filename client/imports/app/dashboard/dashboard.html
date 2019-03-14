@@ -1,0 +1,75 @@
+<nav class="side-spmenu side-spmenu-vertical side-spmenu-left" [ngClass]="{'side-spmenu-open': menu_toggle}" id="side-spmenu-s1">
+    <h3>Menu</h3>
+    <div class="links" (click)="setNavState('events')">Events</div>
+    <div class="links" (click)="setNavState('participants')">Participants</div>
+    <div class="links" (click)="setNavState('users')">Users</div>
+    <div class="links" >Settings</div>    
+    <div class="links" (click)="logout()" href="#">Logout</div>        
+</nav>
+
+<div class="sections">
+    <div class="menu-toggle" (click)="toggleMenu()">Toggle Menu</div>
+    <div class="events-section" *ngIf="navState=='events'">
+        
+        <div class="all-events">
+            <div class="event-wrap">
+                <div class="event-card" *ngFor="let event of events_sub">
+                    <div class="title">{{event.name.actual}}</div>
+                    <div class="ev_id">{{event._id}}</div>
+                    <div class="ev_id">{{event.handler}}</div>
+                    <div class="delete" (click)="deleteEvent(event._id)">             
+                            <i class="fas fa-trash-alt"></i>     
+                            Delete       
+                    </div>
+                </div>
+    
+                <div class="new-event" [ngClass]="{'active': addEventActive}">
+                        <div class="add" *ngIf="!addEventActive"  (click)="addEventStart()">
+                                <i class="fas fa-plus"></i>
+                                <small>Add New Event</small>
+                        </div>
+                        <form action="" id="addEventForm" *ngIf="addEventActive"  name="new_ev_form" (ngSubmit)="createEvent()" >
+                            <input type="text" placeholder="Event Name" name="evname" [(ngModel)]="evname" autocomplete="off">
+                            <input type="text" placeholder="Handler Username" name="evusn" [(ngModel)]="evusn" autocomplete="off">
+                            <input type="password" placeholder="Enter Password" name="evpwd" [(ngModel)]="evpwd" autocomplete="off">
+                            <input type="password" placeholder="Confirm Password" name="evconfirmpwd" [(ngModel)]="evconfirmpwd"  autocomplete="off">
+                            <div class="btn-wrap">
+                                <!-- <input type="file" name="evicon" id="evicon" > -->
+                                <div class="file" (click)="onFileChange(this)">Select File</div>
+                                <button (click)="cancelAddEvent()" class="btn cancel">Cancel</button>
+                                <button type="submit" class="btn ok">Create Event</button>
+                            </div>
+                        </form>
+                </div>
+            </div>
+        </div>
+
+        
+
+    </div>
+
+    <div class="users-section" *ngIf="navState=='users'">
+        
+            <div class="all-events">
+                <div class="event-wrap">
+                    <div class="event-card" *ngFor="let event of users_sub">
+                        <div class="title">{{event.username}}</div>
+                        <div class="ev_id">{{event._id}}</div>
+                        <div class="ev_id">{{event.handler}}</div>
+                        <div class="delete" (click)="deleteUser(event._id)">             
+                                <i class="fas fa-trash-alt"></i>     
+                                Delete       
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+
+
+    
+</div>
+
+
+<!-- <pre>{{mf.findUsers()| json}}</pre> -->
+<!-- <pre>{{events_sub.fetch() | json}}</pre> -->

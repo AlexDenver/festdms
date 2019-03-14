@@ -1,0 +1,71 @@
+<!-- <pre>
+    {{EventInfo |json}}
+</pre> -->
+
+
+<div class="event-wrap">
+    <div class="top">
+        <div class="back-wrap">
+            <div class="back">back</div>
+        </div>
+        <div class="card-wrap">
+            <div class="registration card">
+                <div class="icon">
+                    <img src="assets/form.svg" alt="">
+                </div>
+                <div class="text">₹{{EventInfo[0].fees}}</div>
+            </div>
+            <div class="prize card">
+                <div class="icon">
+                    <img src="assets/prize.svg" alt="">
+                </div>
+                <div class="text">₹{{EventInfo[0].prizemoney[0]}}</div>
+            </div>
+            <div class="particpant card">
+                <div class="icon">
+                    <img src="assets/user.svg" alt="">
+                </div>
+                <div class="text">{{EventInfo[0].participants}} <small>humans</small> </div>
+            </div>
+        </div>
+    </div>
+    <div class="main ">
+        <div class="event-row wrapper">
+            <div class="logo">
+                <img src="{{EventInfo[0].icon}}" alt="">
+            </div>
+            <div class="event-id">
+                <div class="title">{{EventInfo[0].name.themed}}</div>
+                <div class="sub-title">{{EventInfo[0].name.actual}}</div>
+            </div>
+            <div class="cta">
+                <div class="btn reg">Register</div>
+            </div>
+        </div>
+        <div class="event-row wrapper event-text">
+            <div class="event-heads">
+                <div class="ev-head-card" *ngFor="let evHead of EventInfo[0].eventHeads">
+                    <div class="image">
+                        <img src="{{evHead.dp}}" alt="">
+                    </div>
+                    <div class="name">
+                        {{evHead.name}}
+                    </div>
+                    <div class="phone">
+                        {{evHead.contact}}
+                    </div>
+                </div>
+            </div>
+            <div class="rules">
+                <div class="rules-box">
+                    <div class="sub-title">Rules: </div>
+                    <ul>
+                        <li *ngFor="let rule of EventInfo[0].rules">{{rule}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

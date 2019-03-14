@@ -1,3 +1,5 @@
+<script src="../../../../node_modules/particlesjs/dist/particles.min.js"></script>
+
 <!-- 
 <div class="sections">
     <div class="hero ">
@@ -53,16 +55,35 @@
 
 
 <div class="sections">
-    <div class="hero">
-        <div class="left">
+    <div class="section hero">
+        <div class="left wrap">
             <div class="logo">
-                <img src="assets/ab-logo-white.svg" alt="">
+                <img src="assets/ab-logo.png" alt="">
                 <div class="tagline">In Tech We Trust</div>
+
+                <div class="countdown">
+                    <div id="timer">
+
+                        <div class="days">
+                            <div class="numbers">{{days}}</div>days
+                        </div>
+                        <div class="hours">
+                            <div class="numbers">{{hours}}</div>hours
+                        </div>
+                        <div class="minutes">
+                            <div class="numbers">{{minutes}}</div>minutes
+                        </div>
+                        <div class="seconds">
+                            <div class="numbers">{{seconds}}</div>seconds
+
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="ctas">
                 <a class="btn register">Register</a>
-                <a class="btn events">Events</a>
+                <a class="btn events-btn">Events</a>
             </div>
         </div>
         <div class="right">
@@ -80,7 +101,7 @@
 
 
 
-    <div class="prize">
+    <div class="section prize wrap">
         <div class="left">
             <div class="title w400">
                 10 Challenging Events
@@ -91,43 +112,119 @@
 
         </div>
         <div class="right">
-
+            <img src="assets/trophy.svg" alt="">
         </div>
         <div class="bg">
             <!-- <img src="/assets/Clouds.svg" alt=""> -->
         </div>
     </div>
 
-    <div class="events">
-        <div class="title">
-            Exciting <span>Events</span>
-        </div>
-        <!-- <div class="event-wrap">
-            <div class="swiper-container" id="swiper-container1">
-                <div class="swiper-wrapper">
-                 <div class="swiper-slide">
-                   <div style="padding: 10px; background: red;"></div>
-                 </div>               
-                 
-                 <div class="swiper-slide">
-                    <div style="padding: 10px; background: blueviolet;"></div>
-                  </div>               
-    
-                  <div class="swiper-slide">
-                    <div style="padding: 10px; background: gold;"></div>
-                  </div>               
-                  
-                  <div class="swiper-slide">
-                    <div style="padding: 10px; background: orangered;"></div>
-                  </div>                              
-    
-                 </div>
+    <div class="section events">
+        <div class="wrap">
+            <div class="title">
+                Exciting <span>Events</span>
+            </div>
+            <div class="event-wrap">
+                <div class="swiper-container" [swiper]="config" [(index)]="index">
+
+                    <div class="swiper-wrapper">
+
+
+                        
+                        <div class="swiper-slide" [routerLink]="[ '/event', ev_it.name.actual ]" *ngFor="let ev_it of events_list">
+                            <div class="event-card">
+                                <img src="{{ev_it.icon}}" alt="">
+                                <h1>{{ev_it.name.themed}}</h1>
+                                <h3>{{ev_it.name.actual}}</h3>
+                                <div class="learn">Learn More</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--                        
+                            <div class="swiper-scrollbar"></div>
+                            <div class="swiper-pagination"></div> -->
+
+                    <div class="swiper-button-prev">
+                        <img src="data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9JzMwMHB4JyB3aWR0aD0nMzAwcHgnICBmaWxsPSIjMDAwMDAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4bWw6c3BhY2U9InByZXNlcnZlIiB2ZXJzaW9uPSIxLjEiIHN0eWxlPSJzaGFwZS1yZW5kZXJpbmc6Z2VvbWV0cmljUHJlY2lzaW9uO3RleHQtcmVuZGVyaW5nOmdlb21ldHJpY1ByZWNpc2lvbjtpbWFnZS1yZW5kZXJpbmc6b3B0aW1pemVRdWFsaXR5OyIgdmlld0JveD0iMCAwIDMzMyAzMzMiIHg9IjBweCIgeT0iMHB4IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCI+PGRlZnM+PHN0eWxlIHR5cGU9InRleHQvY3NzIj4KICAgCiAgICAuZmlsMCB7ZmlsbDojMDAwMDAwO2ZpbGwtcnVsZTpub256ZXJvfQogICAKICA8L3N0eWxlPjwvZGVmcz48Zz48cGF0aCBjbGFzcz0iZmlsMCIgZD0iTTEwOCA3N2MtMTMsLTEyIDYsLTMxIDE5LC0xOWw5OSA5OWM1LDUgNSwxNCAwLDE5bC05OSA5OWMtMTMsMTMgLTMyLC02IC0xOSwtMTlsOTAgLTg5IC05MCAtOTB6Ij48L3BhdGg+PC9nPjwvc3ZnPg=="
+                            alt="">
+                    </div>
+                    <div class="swiper-button-next">
+                        <img src="data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9JzMwMHB4JyB3aWR0aD0nMzAwcHgnICBmaWxsPSIjMDAwMDAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4bWw6c3BhY2U9InByZXNlcnZlIiB2ZXJzaW9uPSIxLjEiIHN0eWxlPSJzaGFwZS1yZW5kZXJpbmc6Z2VvbWV0cmljUHJlY2lzaW9uO3RleHQtcmVuZGVyaW5nOmdlb21ldHJpY1ByZWNpc2lvbjtpbWFnZS1yZW5kZXJpbmc6b3B0aW1pemVRdWFsaXR5OyIgdmlld0JveD0iMCAwIDMzMyAzMzMiIHg9IjBweCIgeT0iMHB4IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCI+PGRlZnM+PHN0eWxlIHR5cGU9InRleHQvY3NzIj4KICAgCiAgICAuZmlsMCB7ZmlsbDojMDAwMDAwO2ZpbGwtcnVsZTpub256ZXJvfQogICAKICA8L3N0eWxlPjwvZGVmcz48Zz48cGF0aCBjbGFzcz0iZmlsMCIgZD0iTTEwOCA3N2MtMTMsLTEyIDYsLTMxIDE5LC0xOWw5OSA5OWM1LDUgNSwxNCAwLDE5bC05OSA5OWMtMTMsMTMgLTMyLC02IC0xOSwtMTlsOTAgLTg5IC05MCAtOTB6Ij48L3BhdGg+PC9nPjwvc3ZnPg=="
+                            alt="">
+                    </div>
+
                 </div>
-        </div> -->
-         
+
+            </div>
+            <pre>{{ev|json}}</pre>
+        </div>
+
 
 
     </div>
 
-
+    <div class="section people ">
+        <div class="title ">
+            <span>People</span>
+            Of Abhyuday
+        </div>
+        <div class="people-wrap">
+            <div class="person"><img src="" alt=""></div>
+            <div class="person"><img src="" alt=""></div>
+            <div class="person"><img src="" alt=""></div>
+            <div class="person"><img src="" alt=""></div>
+            <div class="person"><img src="" alt=""></div>
+            <div class="person"><img src="" alt=""></div>
+            <div class="person"><img src="" alt=""></div>
+            <div class="person"><img src="" alt=""></div>
+            <div class="person"><img src="" alt=""></div>
+            <div class="person"><img src="" alt=""></div>
+            <div class="person"><img src="" alt=""></div>
+            <div class="person"><img src="" alt=""></div>
+            <div class="person"><img src="" alt=""></div>
+            <div class="person"><img src="" alt=""></div>
+            <div class="person"><img src="" alt=""></div>   
+            <div class="person"><img src="" alt=""></div>
+            <div class="person"><img src="" alt=""></div>
+            <div class="person"><img src="" alt=""></div>
+            <div class="person"><img src="" alt=""></div>
+            <div class="person"><img src="" alt=""></div>
+            <div class="person"><img src="" alt=""></div>
+            <div class="person"><img src="" alt=""></div>
+            <div class="person"><img src="" alt=""></div>
+            <div class="person"><img src="" alt=""></div>
+            <div class="person"><img src="" alt=""></div>
+            <div class="person"><img src="" alt=""></div>
+            <div class="person"><img src="" alt=""></div>
+            <div class="person"><img src="" alt=""></div>
+            <div class="person"><img src="" alt=""></div>
+            <div class="person"><img src="" alt=""></div>           
+        </div>
+    </div>
 </div>
+
+
+
+<footer>
+    <div class="top">
+        <div class="college-logo">
+            <img src="./assets/rit-logo.svg" alt="">
+        </div>
+        <div class="ab-logo">
+            <img src="./assets/ab-logo.png" alt="">
+        </div>
+        <div class="links">
+            <div class="text">Useful Links</div>
+            <ul>
+                <li><a href="#">About Abhyuday</a></li>
+                <li><a href="#">About Department</a></li>
+                <li><a href="#">RIT Homepage</a></li>
+
+            </ul>
+        </div>
+    </div>
+    <div class="strip">
+        <div class="credit">Designed with  <img src="./assets/heart.svg" alt=""> by <br> Department of Computer Application, RIT</div>
+        <div class="rights">© 2019 RIT <br> All Rights Reserved</div>
+    </div>
+</footer>

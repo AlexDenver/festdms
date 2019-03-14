@@ -3,6 +3,7 @@ $secondaryDark: #16324F;
 $primaryColor: #FFB20F;
 $radius: 10px;
 $space: 4rem;
+$box_shadow: 0 3px 6px 0 rgba(0,0,0,0.16);
 %btn{
     padding: 0.34em 1.1em;
     border-radius: $radius;
@@ -26,3 +27,13 @@ $space: 4rem;
 .w900{
     font-weight: 900;
 }
+
+%small_text{
+    font-size: 10px;
+}
+%normal_text{
+    font-size: 15px;
+}
+
+$title_size: 20px;
+$normal_size: 15px;

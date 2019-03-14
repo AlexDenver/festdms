@@ -1,0 +1,26 @@
+@import "../variables.scss";
+.loginform{
+    min-height: 100vh;
+    min-width: 100vw;
+    height: 100%;
+    width: 100%;
+    display: grid;
+    place-content: center;
+    form{
+        display: grid;
+        grid-gap: 20px;
+        input {
+            border: 1px solid $secondaryDark;
+            background: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+        button{
+            padding: 10px 20px;
+            background: $secondaryDark;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+        }
+    }
+}

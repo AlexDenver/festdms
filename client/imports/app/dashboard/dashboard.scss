@@ -1,0 +1,263 @@
+@import "../variables.scss";
+
+
+.side-spmenu {
+    background: $primaryColor;
+    position: fixed;
+
+    h3 {
+        color: #afdefa;
+        font-size: 1.9em;
+        padding: 20px;
+        margin: 0;
+        font-weight: 300;
+        background: #0d77b6;
+    }
+
+    .links {
+        display: block;
+        color: #fff;
+        font-size: 1.1em;
+        font-weight: 300;
+        text-decoration: none;
+        &:hover {
+            background: #258ecd;
+        }
+
+        &:active {
+            background: #afdefa;
+            color: $primaryColor;
+        }
+    }
+}
+
+/* Orientation-dependent styles for the content of the menu */
+
+.side-spmenu-vertical {
+    width: 240px;
+    height: 100%;
+    top: 0;
+    z-index: 1000;
+
+    .links {
+        cursor: pointer;
+        border-bottom: 1px solid #258ecd;
+        padding: 1em;
+        text-decoration: none;
+    }
+}
+
+
+
+/* Vertical menu that slides from the left or right */
+
+.side-spmenu-left {
+    left: -240px;
+
+    &.side-spmenu-open {
+        left: 0px;
+    }
+}
+
+.side-spmenu-right.side-spmenu-open {
+    right: 0px;
+}
+
+.side-spmenu,
+.side-spmenu-push {
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+@media screen and (max-width: 55.1875em) {
+    .side-spmenu-horizontal {
+        font-size: 75%;
+        height: 110px;
+    }
+
+    .side-spmenu-top {
+        top: -110px;
+    }
+
+    .side-spmenu-bottom {
+        bottom: -110px;
+    }
+}
+
+@media screen and (max-height: 26.375em) {
+    .side-spmenu-vertical {
+        font-size: 90%;
+        width: 190px;
+    }
+
+    .side-spmenu-left,
+    .side-spmenu-push-toleft {
+        left: -190px;
+    }
+
+    .side-spmenu-right {
+        right: -190px;
+    }
+
+    .side-spmenu-push-toright {
+        left: 190px;
+    }
+}
+
+
+
+.menu-toggle {
+    padding: 10px;
+    background: $primaryColor;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+// ALL EVENTS SECTION
+
+.event-wrap {
+    max-width: 1280px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 20px;
+    padding: 40px;
+    .event-card {
+        .title{
+            @extend %normal_text;
+            font-weight: 500;
+            
+        }
+        .ev_id{
+            @extend %small_text;
+            font-family: monospace;
+        }
+        box-shadow: $box_shadow;                
+        border-radius: 5px;
+        display: grid;        
+        min-height: 220px;
+        padding: 20px;
+        .delete {
+            display: grid;
+            grid-auto-flow: column;
+            justify-content: left;
+            grid-gap: 6px;
+            background: #f74f4f;
+            color: #fff;
+            width: max-content;
+            padding: 5px;
+            border-radius: 5px;
+            font-size: 10px;
+            cursor: pointer;
+            align-items: center;
+            height: max-content;
+            align-self: center;
+            justify-self: end;
+            margin-right: 10px;
+        }
+        
+        
+    }
+    .new-event{
+        background: #fff;
+        border: 2px dashed #000;
+        border-radius: 5px;
+        display: grid;
+        place-content: center;
+        .add{
+            display: grid;
+            padding: 20px;
+            grid-gap: 5px;
+            cursor: pointer;
+            text-align: center;
+            i{
+                font-size: 26px;
+            }
+            small{
+                display: block;
+            }
+        }
+        -webkit-transition: all 0.3s ease;
+        -moz-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+         
+    }
+    .new-event.active{
+        background: #279af1;
+        border-radius: 5px;
+        border: none;
+        padding: 10px;
+        animation: fromCircle 0.4s ease forwards;
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 5px;
+            input, button {
+                border: none;
+                padding: 10px;
+                border-radius: 5px;
+                background: none;
+                color: #fff;
+                width: calc(100% - 20px);
+            }
+            input:focus {
+                box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.07);
+            }
+            input::placeholder{
+                color: #fff;
+            }
+            
+            button {
+                background: #fff;
+                color: #279af1;                
+                justify-self: center;
+                width: max-content;
+                
+                border-radius: 5px;
+                font-size: 12px;
+                cursor: pointer;
+            }
+            .btn-wrap{
+                grid-column: 1 / 3;
+                display: grid;
+                grid-auto-flow: column;
+                grid-gap: 5px;
+                justify-self: right;
+            }
+            .cancel{
+                justify-self: right;
+                border: none;
+                color: #fff;
+                background: none;
+            }
+        }
+    }
+
+}
+
+
+@keyframes fromCircle{
+    0%{
+        border-radius: 100px;
+        opacity: 0;
+    }
+
+    100%{
+        opacity: 1;
+        border-radius: 4px;
+    }
+}
+
+
+@media (max-width: 760px){
+    .event-wrap {
+        grid-template-columns: 1fr;
+    }
+}

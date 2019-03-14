@@ -1,0 +1,128 @@
+
+
+
+<div class="event-form">
+
+    <form name="eventform" #myForm="ngForm" id="eventform">
+        <div class="page-title">{{event_copy.name.actual}} Event Details</div>
+        <div class="two-col">
+            <div class="general section">
+                <div class="title">General Event Info</div>
+                <label>
+                    <span>Event Name: </span>
+                    <input type="text" name="event_copy.name.themed" [(ngModel)]="event_copy.name.themed">
+                </label>
+        
+                <label>
+                    <span>Event Common Name: </span>
+                    <input type="text" name="event_copy.name.actual" [(ngModel)]="event_copy.name.actual">
+                </label>
+        
+                <label>
+                    <span>Participant Count: </span>
+                    <input type="number" name="event_copy.participants" [(ngModel)]="event_copy.participants">
+                </label>
+                <label>
+                        <span>Registration Fee: </span>
+                        <input type="number" name="event_copy.fees" [(ngModel)]="event_copy.fees">
+                    </label>
+    
+                <div class="iterator-input">
+                        <div class="prize" *ngFor="let p of [].constructor(event_copy.prizemoney.length), let i = index">
+                            <label>
+                                <div class="split">
+                                        <div class="sub-title">Prize {{i+1}}</div>
+                                        <div class="del" (click)="event_copy.prizemoney.splice(i,1)"> <i class="fas fa-times-circle"></i> </div>
+                                    </div> 
+                                <input type="number" name="event_copy.prizemoney{{i}}" [(ngModel)]="event_copy.prizemoney[i]">
+                                <div class="text"><i class="fas fa-award"></i></div>
+                            </label>
+                        </div>
+                        <div class="add" (click)="event_copy.prizemoney.push(0)">Add</div>
+                    </div>
+    
+            </div>
+    
+                  
+            <div class="section rules">
+                    <div class="title">Event Rules</div>
+                    
+                    <div class="iterator-input">
+                        <div class="rule" *ngFor="let p of [].constructor(event_copy.rules.length), let i = index">
+                            <label>
+                                <span>Rule {{i+1}}: </span>
+                                <input type="text" name="event_copy.rules{{i}}" [(ngModel)]="event_copy.rules[i]">
+                            </label>
+                                <div class="split">
+                                    <div class="sub-title"></div>
+                                    <div class="del" (click)="event_copy.rules.splice(i,1)"> <i class="fas fa-times-circle"></i> </div>
+                                </div> 
+                        </div>                
+                        <div class="add" (click)="event_copy.rules.push('')">Add</div>
+                    </div>
+                </div>
+        </div>
+
+        <div class="section rounds">
+            <div class="title">Round Info</div>
+                <div class="iterator-input">
+                    <div class="round" *ngFor="let p of event_copy.rounds, let i = index">
+                            <div class="split">
+                                <div class="sub-title">Round {{event_copy.rounds[i].round}} Info</div>
+                                <div class="del" (click)="event_copy.rounds.splice(i, 1)"> <i class="fas fa-times-circle"></i> </div>
+                            </div> 
+                            <label>
+                                <span>Round {{event_copy.rounds[i].round}} Name: </span>
+                                <input type="text" name="event_copy.rounds{{i}}.name" [(ngModel)]="event_copy.rounds[i].name" >
+                            </label>
+            
+                            <label>
+                                <span>Round {{event_copy.rounds[i].round}} (Number): </span>
+                                <input type="number" name="event_copy.rounds{{i}}.round" [(ngModel)]="event_copy.rounds[i].round" >
+                            </label>
+            
+                            <label>
+                                <span>Round {{event_copy.rounds[i].round}}: </span>
+                                <input type="number" name="event_copy.rounds{{i}}.qulifying" [(ngModel)]="event_copy.rounds[i].qulifying" >
+                            </label>
+                        </div>
+                        <div class="add" (click)="event_copy.rounds.push({})">Add</div>
+                    </div>
+        </div>
+
+        
+
+
+
+
+        <div class="section heads">
+            <div class="title">Event Heads</div>
+            <div class="iterator-input">
+                <div class="eventhead" *ngFor="let p of event_copy.eventHeads, let i = index">                    
+                    <div class="split">
+                        <div class="sub-title">Event Head {{i+1}} Info</div>
+                        <div class="del" (click)="event_copy.eventHeads.splice(i, 1)"> <i class="fas fa-times-circle"></i> </div>
+                    </div> 
+                    <label>
+                        <span>Event Head {{i+1}} Name: </span>
+                        <input type="text" name="event_copy.eventHeads{{i}}.name" [(ngModel)]="event_copy.eventHeads[i].name">
+                    </label>
+    
+                    <label>
+                        <span>Event Head {{i+1}} Contact: </span>
+                        <input type="number" name="event_copy.eventHeads{{i}}.contact" [(ngModel)]="event_copy.eventHeads[i].contact">
+                    </label>
+    
+                    <label>
+                        <span>Event Head {{i+1}} Picture: </span>
+                        <input type="text" placeholder="Select Image" name="event_copy.eventHeads{{i}}.dp" (click)="onFileChange(this, event_copy, i)" [(ngModel)]="event_copy.eventHeads[i].dp">
+                        
+                    </label>
+                </div>
+                <div class="add" (click)="event_copy.eventHeads.push({})">Add</div>
+            </div>
+        </div>
+        <button class="btn" [disabled]="!myForm.form.touched" (click)="save()">Save</button>
+    </form>
+    <!-- <pre>{{event_copy| json}}</pre> -->
+</div>

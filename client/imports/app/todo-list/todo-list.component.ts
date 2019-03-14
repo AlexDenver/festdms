@@ -5,8 +5,8 @@ import { Observable, Subscription } from 'rxjs';
 import { Meteor } from 'meteor/meteor';
 import { MeteorObservable } from 'meteor-rxjs';
 
-import { Todos } from '../../../../imports/collections/todos';
-import { Todo } from '../../../../imports/models/todo';
+import { EventsCollection } from '../../../../imports/collections/all';
+import { MyFestEvent } from '../../../../imports/models/events';
 
 @Component({
   selector: 'todo-list',
@@ -14,11 +14,11 @@ import { Todo } from '../../../../imports/models/todo';
   styleUrls: ['todo-list.scss']
 })
 export class TodoListComponent implements OnInit, OnDestroy {
-  todos: Observable<Todo[]>;
+  todos: Observable<MyFestEvent[]>;
   todoListSubscription: Subscription;
   ngOnInit() {
     this.todoListSubscription = MeteorObservable.subscribe('todoList').subscribe(() => {
-      this.todos = Todos.find();
+      this.todos = EventsCollection.find();
     });
   }
   ngOnDestroy() {

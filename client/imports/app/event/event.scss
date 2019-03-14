@@ -1,0 +1,172 @@
+@import "../variables.scss";
+
+
+.event-form{
+    display: grid;
+    .page-title{
+        text-align: center;
+        margin: 40px;
+        font-size: 25px;
+        font-weight: 500;
+    }
+    .two-col{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 10px;
+    }
+    form{
+        display: grid;
+    }
+    .section {        
+        display: grid;
+        grid-gap: 20px;
+        padding: 20px;
+        margin: 10px;
+        box-shadow: $box_shadow;
+        border-radius: 10px;
+        overflow: hidden;
+        height: max-content;
+        .title{
+            color: $primaryColor;
+            font-size: $title_size;
+            font-weight: 500;
+        }
+        .split{
+            display: grid;
+            grid-template-columns: auto auto;
+            .del{
+                justify-self: right;
+                cursor: pointer;
+            }
+        }
+        .sub-title{
+            color: #fff;
+            font-size: $normal_size;
+            font-weight: 600;
+        }
+        input{
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #fff;
+            color: #fff;
+        }
+        label, .iterator-input{
+            display: grid;
+        }
+        label{
+            grid-gap: 5px;
+        }
+        .iterator-input{
+            display: grid;
+            grid-auto-flow: column;
+            grid-gap: 10px;
+            justify-content: left;
+            max-width: 100%;
+            overflow-x: scroll;
+            margin-bottom: -35px;
+            padding-bottom: 35px;
+            padding-right: 35px;
+            margin-right: -35px;
+            .add {
+                display: grid;
+                place-content: center;
+                min-width: 220px;
+                color: #007dff;
+                border: 2px dashed ;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            .round, .eventhead{
+                padding: 10px;
+                display: grid;
+                grid-gap: 5px;
+                background: #007dff;
+                border-radius: $radius/2;
+                color: #fff;
+                width: max-content;
+            }
+        }
+        
+    }
+    .general{
+        color: #007dff;
+        input{
+            color: #007dff;
+            border-bottom: 1px solid;
+            width: 50%;
+        }
+        .sub-title{
+            color: #007dff;
+        }
+        .prize {
+            border: 1px solid;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    }
+    .rules{
+         .iterator-input {
+            grid-auto-flow: row ;
+            justify-content: unset;
+            .add{
+                width: max-content;
+                padding: 10px;
+                justify-self: left;
+            }
+         }
+         .rule {
+            background: #007dff;
+            color: #fff;
+            display: grid;
+            border-radius: $radius/2;
+            padding: $radius;
+            grid-template-columns: 1fr auto;
+            input{
+                width: 100%;
+            }
+        }
+    }
+    .btn{
+        @extend %btn;
+        background: #007dff;
+        color: #fff;
+        border: none;
+        font-size: $title_size;
+        padding: 10px 40px;
+        width: max-content;
+        margin: auto;
+    }
+    .btn[disabled]{
+        filter: contrast(0.1);
+        cursor: unset;
+    }
+}
+
+@media (max-width: 760px){
+    .event-form{
+        .two-col{        
+            grid-template-columns: 1fr;
+        }
+        .section{
+            
+            .iterator-input{
+                padding-right: 0;
+                margin-right: 5px;
+                
+            }
+        }
+        .general {
+            input{
+                width: 100%;
+            }
+            .iterator-input{
+                .prize{
+                    min-width: 120px;
+                }
+                .add{
+                    min-width: 100px;
+                }
+            }
+        }
+    }
+}

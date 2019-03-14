@@ -1,2 +1,3 @@
-import './imports/methods/todos';
-import './imports/publications/todos'
+import './imports/methods/all_meths';
+import './imports/publications/all_pubs'
+import 'imports/collections/images'
