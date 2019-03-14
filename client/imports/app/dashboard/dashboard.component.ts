@@ -100,7 +100,8 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     }
     cancelAddEvent() {
         this.addEventActive = false;
-        document.getElementById('addEventForm').reset();
+        let d:HTMLFormElement = document.getElementById('addEventForm');
+        d.reset();
         return false;
     }
     onFileChangeDep(e) {

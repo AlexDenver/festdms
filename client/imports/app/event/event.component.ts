@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { EventsCollection } from 'imports/collections/all';
 import { FormsModule } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
-import {Images} from 'imports/collections/images';
+import Images from 'imports/collections/images';
 import {UploadFS} from 'meteor/jalik:ufs';
 
 
@@ -26,7 +26,7 @@ export class EventComponent implements AfterViewInit {
   
 
   events_sub: Observable<MyFestEvent[]>;
-  event_copy: Observable<JSON>;
+  event_copy: Observable<MyFestEvent>;
   event_first;
   EventsListSubscription: Subscription;
   original = true;

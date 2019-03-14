@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { EventsCollection, MyFestVars } from '../../../imports/collections/all';
-import { Images } from "../../../imports/collections/images";
+import Images  from "../../../imports/collections/images";
 import { Roles } from 'meteor/alanning:roles'
 import { from } from 'rxjs';
 
@@ -58,7 +58,7 @@ Meteor.methods({
 
 if (Meteor.isServer) {
   if ( Meteor.users.find().count() === 0 ) {
-      Accounts.createUser({
+      let idx = Accounts.createUser({
           username: 'admin',
           email: 'dnvr.dsz@gmail.com',
           password: 'appleboxspace',
@@ -69,7 +69,8 @@ if (Meteor.isServer) {
           },
         
       });
-      Roles.addUsersToRoles(user._id, ['add-event','manage-event', 'manage-participants', 'view-participant', 'view-event', 'all'])
+
+      Roles.addUsersToRoles(idx, ['add-event','manage-event', 'manage-participants', 'view-participant', 'view-event', 'all'])
   }
 
   if(MyFestVars.find({}).fetch().length===0){
