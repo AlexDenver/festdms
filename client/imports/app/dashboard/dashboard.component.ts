@@ -10,13 +10,14 @@ import{Observable}from'rxjs';
 import{MyFestEvent}from'imports/models/events';
 import{MeteorObservable,zoneOperator,ObservableCursor}from'meteor-rxjs';
 import{EventsCollection}from'imports/collections/all';
-import {Images} from'imports/collections/images';
+import Images from'imports/collections/images';
 
 @Component({
     selector: 'dashboard',
     templateUrl: 'dashboard.html',
     styleUrls: ['dashboard.scss']
 })
+
 
 
 
@@ -33,14 +34,13 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     evpwd: any;
     evconfirmpwd: any;
     events_sub_obs: ObservableCursor < MyFestEvent > ;
-    users_sub_obs: ObservableCursor < any > ;
+    users_sub_obs: any;
 
-    events_sub: Observable < MyFestEvent[] > ;
-    users_sub: Observable < any[] > ;
+    events_sub: MyFestEvent[] ;
+    users_sub: Observable < MyFestEvent[] > ;
 
     EventsListSubscription: Subscription;
     UsersListSubscription: Subscription;
-
 
 
     menu_toggle: boolean = false;
@@ -55,14 +55,14 @@ export class DashboardComponent implements AfterViewInit, OnInit {
         this.d = "Alex"
         // this.events_sub = this.mf.findEventsDyn({})
         // this.events_sub = this.mf.findEvents({});
-        this.EventsListSubscription = MeteorObservable.subscribe('events_sub').subscribe(() => {
+        MeteorObservable.subscribe('events_sub').subscribe(() => {
             this.events_sub_obs = EventsCollection.find({});
             this.events_sub_obs.subscribe(c => {
                 this.events_sub = c;
             })
         });
 
-        this.UsersListSubscription = MeteorObservable.subscribe('users_sub').subscribe(() => {
+        MeteorObservable.subscribe('users_sub').subscribe(() => {
             this.users_sub_obs = Meteor.users.find({});
             this.users_sub = this.users_sub_obs.fetch();
             // this.users_sub_obs.subscribe(c => {
@@ -70,10 +70,9 @@ export class DashboardComponent implements AfterViewInit, OnInit {
             // })
         });
 
-        this.IFiles = MeteorObservable.subscribe('files.images.all').subscribe(() => {
-            this.images = Images.find({})
+        MeteorObservable.subscribe('files.images.all').subscribe(() => {
+            this.images = Images.Images.find({})                
         });
-
 
 
 
@@ -107,7 +106,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     onFileChangeDep(e) {
         console.log(e)
         e = document.getElementById('evicon');
-        this.upload = Images.insert({
+        this.upload = Images.Images.insert({
             file: e.files[0],
             streams: 'dynamic',
             chunkSize: 'dynamic',
@@ -137,6 +136,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
         this.upload.start();
 
     }
+
 
     onFileChange(){
         let self = this;
@@ -297,7 +297,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     }
 
     ngOnDestroy(): void {
-        this.EventsListSubscription.unsubscribe();
+        
     }
 
     ngAfterViewInit() {

@@ -7,6 +7,10 @@ import { EventsCollection } from 'imports/collections/all';
 import { FormsModule } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
 import {Images} from 'imports/collections/images';
+import {UploadFS} from 'meteor/jalik:ufs';
+
+
+
 // import {toastr} from 'meteor/flawless:meteor-toastr'
 @Component({
   selector: 'event',
