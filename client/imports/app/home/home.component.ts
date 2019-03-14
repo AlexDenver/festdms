@@ -61,7 +61,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
     prevButton: '.swiper-button-prev',
     spaceBetween: this.isMobile? 10: 20,    
     
-    // observer: true,  
+    observer: true,  
     // navigation: true
     
     
@@ -83,8 +83,8 @@ export class HomeComponent implements AfterViewInit, OnInit {
   
   
   ngAfterViewInit(): void {
-    console.log("Hello")
-    console.log(particleJS);
+    //console.log("Hello")
+    //console.log(particleJS);
     // particleJS("particle-js");
     window['particle']("particles-js", {
       "particles": {
@@ -197,12 +197,12 @@ export class HomeComponent implements AfterViewInit, OnInit {
       "retina_detect": true
     });
         
-    console.log("L2")
+    //console.log("L2")
     //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
     //Add 'implements AfterViewInit' to the class.
       
     
-    console.log('Hello',this.ev)
+    //console.log('Hello',this.ev)
   }
  
   ngOnInit(): void {
@@ -213,14 +213,14 @@ export class HomeComponent implements AfterViewInit, OnInit {
       // for(let i = 25; i < el.length; i++)
       //   el[i].remove();
     }
+    let selfx = this;
     this.EventsListSubscription = MeteorObservable.subscribe('events_sub').subscribe(()=> {      
       this.events_sub_obs = EventsCollection.find({});
       this.events_sub_obs.subscribe(c => {
         this.events_list = c;
-        console.log(c);
+        // //console.log(c);
         setTimeout(()=>{
-
-          this.directiveRef.update();
+          selfx.directiveRef.update();
         }, 200)
       })
    });
@@ -241,7 +241,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
     // countdown
     
     this.timer = setInterval(function() {
-      console.log("Change")
+      ////console.log("Change")
       // get today's date
       const today = new Date().getTime();
 
@@ -292,7 +292,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
           if(tries==25){
             tries = 1;
             size = size/size_cut;
-            console.log("Resized", size)
+            ////console.log("Resized", size)
           }
       } while(selfx.check_overlap(area) && ++tries<=25);
       selfx.filled_areas.push(area);
@@ -328,7 +328,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
     var counter = 0;
     var min_y = 0;
     var max_y = $('.people-wrap').outerHeight() - 100;
-    console.log(max_x, max_y)
+    ////console.log(max_x, max_y)
     $('.person').each(function(ix, el) {
         var rand_x=0;
         var rand_y=0;
@@ -363,8 +363,8 @@ export class HomeComponent implements AfterViewInit, OnInit {
             if(tries==25){
               tries = 1;
               size = size/size_cut;
-              console.log("Resized")
-              console.log("Init",size)
+              //console.log("Resized")
+              //console.log("Init",size)
             }
         } while(selfx.check_overlap(area) && (++tries<=25));
         $(this).height(size)
