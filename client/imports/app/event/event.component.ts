@@ -150,7 +150,7 @@ export class EventComponent implements OnInit {
       let user = Meteor.user();
       // vendors permission
       console.log("Meteor")
-      if(Roles.userIsInRole(Meteor.user(), 'manage-event')){
+      if(!Roles.userIsInRole(Meteor.user(), 'manage-event')){
         console.log(Roles)
         this.zone.run(() => this.router.navigate(['/']));
       }

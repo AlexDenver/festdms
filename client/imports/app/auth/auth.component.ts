@@ -43,17 +43,19 @@ export class AuthComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit(){
-    if(Meteor.user() && Meteor.user().username=='admin')          
-          // this.navigate(['dashboard'])
-          this._ngZone.run(() => {
-                this.router.navigate(['dashboard']);
-          });
-              else
-              // this.navigate(['manage/event'])
-              this._ngZone.run(() => {
-                this.router.navigate(['manage/event']);
-              });
-        console.log(Meteor.user())
+    if(Meteor.user()){
+      if(Meteor.user().username=='admin')          
+            // this.navigate(['dashboard'])
+            this._ngZone.run(() => {
+                  this.router.navigate(['dashboard']);
+            });
+          else
+                // this.navigate(['manage/event'])
+                this._ngZone.run(() => {
+                  this.router.navigate(['manage/event']);
+                });
+          console.log(Meteor.user())
+    }
   }
 
   ngAfterViewInit(){
