@@ -117,7 +117,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
         return false;
     }
     changeThing(user){
-        let pass = input("Enter New: ");
+        let pass = prompt("Enter New: ");
         Meteor.call("changeThing", user, pass, function(er, d){
             if(!er){
                 toastr.success("Thing Updated.")
