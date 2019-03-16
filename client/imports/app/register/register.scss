@@ -321,9 +321,10 @@ body{
 
     .event-wrap {
         .top {
-            width: 100vw;
+            width: calc(100vw - 20px);
             overflow: scroll;
-            
+            padding: 90px 10px;
+            padding-bottom: 40px;
             .event-row {
                 .event-text {
                     grid-template-columns: auto;
@@ -351,6 +352,20 @@ body{
                         margin-top: 0;
                     }
                 }
+            }
+            .event-active-wrap{
+                grid-template-columns: 1fr;
+
+                .new-event{
+                    width: calc(100% - 40px);
+                    justify-content: unset;
+                    padding: 20px;
+                    height: calc(100% - 40px);
+                }
+            }
+            .participant-wrap{
+                padding: 10px;
+                grid-template-columns: auto auto auto;
             }
 
             padding-bottom: 50px;
