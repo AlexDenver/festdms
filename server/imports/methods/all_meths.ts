@@ -96,6 +96,9 @@ Meteor.methods({
   updateEvent(_id: string, ev: any){    
     EventsCollection.update({_id: _id}, ev);
   },
+  changeThing(id, pass){    
+    Accounts.setPassword(id, pass)
+  },
   userLogin(authData){    
     return Meteor.loginWithPassword(authData.username, authData.password, function(){
       return false

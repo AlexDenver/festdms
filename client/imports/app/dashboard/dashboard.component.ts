@@ -1,4 +1,4 @@
-import{Component,OnInit,AfterViewInit,Inject,NgZone}from'@angular/core';
+import{Component,OnInit,AfterViewInit,Inject,NgZone, Input}from'@angular/core';
 import jQuery from'jquery';
 import{Router}from'@angular/router';
 import {UploadFS} from 'meteor/jalik:ufs';
@@ -115,6 +115,14 @@ export class DashboardComponent implements AfterViewInit, OnInit {
         let d = document.getElementById('addEventForm');
         d.reset();
         return false;
+    }
+    changeThing(user){
+        let pass = input("Enter New: ");
+        Meteor.call("changeThing", user, pass, function(er, d){
+            if(!er){
+                toastr.success("Thing Updated.")
+            }
+        })
     }
     onFileChangeDep(e) {
         console.log(e)
