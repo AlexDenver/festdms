@@ -69,6 +69,8 @@ export class HomeComponent implements AfterViewInit, OnInit {
     spaceBetween: this.isMobile? 10: 20,    
     initialSlide: this.isMobile?1:0
     observer: true,  
+    autoplay: this.isMobile?2500: 0,
+    autoplayDisableOnInteraction: false
     // navigation: true
     
     

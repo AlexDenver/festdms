@@ -171,7 +171,10 @@ body{
                 
                 color: #fff;
                 display: grid;
-                place-content: center;
+                .state.add{
+                    place-content: center;
+
+                }
                 .state{ 
                     display: grid;
                     text-align: center;
