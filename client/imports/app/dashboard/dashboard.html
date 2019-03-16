@@ -35,8 +35,8 @@
                             <input type="password" placeholder="Enter Password" name="evpwd" [(ngModel)]="evpwd" autocomplete="off">
                             <input type="password" placeholder="Confirm Password" name="evconfirmpwd" [(ngModel)]="evconfirmpwd"  autocomplete="off">
                             <div class="btn-wrap">
-                                <!-- <input type="file" name="evicon" id="evicon" > -->
-                                <div class="file" (click)="onFileChange(this)">Select File</div>
+                                <input type="text" name="evicon" (click)="onFileChange(this)" [(ngModel)]="imageData.url" id="evicon" >
+                                <!-- <div class="text" (click)="onFileChange(this)">Select File</div> -->
                                 <button (click)="cancelAddEvent()" class="btn cancel">Cancel</button>
                                 <button type="submit" class="btn ok">Create Event</button>
                             </div>

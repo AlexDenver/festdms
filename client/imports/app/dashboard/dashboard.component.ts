@@ -51,7 +51,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     upload: any;
     IFiles: Subscription;
     images: any;
-    imageData: any;
+    imageData: any = '';
     constructor(private router: Router,private zone: NgZone) {
         this.d = "Alex"
         // this.events_sub = this.mf.findEventsDyn({})
