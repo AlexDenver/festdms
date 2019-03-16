@@ -5,5 +5,20 @@ import { MyFestEvent } from '../models/events';
 const EventsCollection = new MongoObservable.Collection<MyFestEvent>('events');
 const MyFestVars = new MongoObservable.Collection<any>('myfestdb');
 const LogsCollection = new MongoObservable.Collection<any>('logs');
-export {EventsCollection, MyFestVars, LogsCollection}
+const PartiCollection = new MongoObservable.Collection<any>('participants');
+export {EventsCollection, MyFestVars, LogsCollection, PartiCollection}
 
+// {
+//     'event': "Web:80",
+//     'names': ["John", "Eric"],
+//     'contact': '',
+//     'scores': [{
+//         'round': 'Design Round',
+//         'score': 10
+//     }],
+//     'college': "SJEC",
+//     'code': "Juniper",
+//     'reg_uid': '',
+//     'checkin': true,
+//     'disqualifed': false
+// }

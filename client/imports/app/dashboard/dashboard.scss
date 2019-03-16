@@ -243,6 +243,84 @@
         }
     }
 
+    
+
+}
+
+
+
+// Settings Section
+.settings{
+    .iterator-input{
+        display: grid;        
+        grid-gap: 10px;
+        justify-content: left;
+        max-width: 100%;
+        overflow-x: scroll;
+        margin-bottom: -35px;
+        padding-bottom: 35px;
+        padding-right: 35px;
+        margin-right: -35px;
+        .add {
+            display: grid;
+            place-content: center;
+            min-width: 220px;
+            color: #007dff;
+            border: 2px dashed ;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    }
+    .btn {
+        align-self: flex-start;
+        background: #fff;
+        padding: 15px 50px;
+        margin-top: 40px;
+        border-radius: 15px;
+        font-size: 1.6rem;
+        text-transform: uppercase;
+        font-weight: 500;
+        box-shadow: $box_shadow;
+        cursor: pointer;
+    }
+    .images{
+        box-shadow: $box_shadow;
+        padding: 10px;
+    }
+    .images{
+        .iterator-input {           
+           grid-template-columns: repeat(4, 1fr);
+           grid-gap: 10px;
+           display: grid;
+           justify-content: unset;
+           .add{
+               width: max-content;
+               padding: 10px;
+               justify-self: left;
+           }
+        }
+        .image {
+           background: #007dff;
+           color: #fff;
+           display: grid;
+           border-radius: $radius/2;
+           padding: $radius+10;
+           position: relative;
+           .grid{
+               display: grid;
+               
+               grid-gap: 10px;
+               input{
+                   width: auto;
+               }
+           }
+           .del {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+            }
+       }
+   }
 }
 
 

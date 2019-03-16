@@ -231,7 +231,7 @@ $yellow: #F0A202;
                     display: block;
                     width: 50%;
                     height: 4px;
-                    background: #ef2f3c;
+                    background: #1061a0;
                     content: '';
                     margin-top: 10px;
                     margin-left: 5px;
@@ -558,8 +558,17 @@ footer{
                 font-size: 2rem;
                 margin-left: 20px;
             }
-            .event-card .learn {
-                transform: translateY(0);
+            .swiper-button-next, 
+            .swiper-button-prev{
+                display: none;
+            }
+            .event-card{                
+                width: calc(100% - 20px);
+                margin: 0;
+            
+                .learn {
+                    transform: translateY(0);
+                }
             }
         }
         .people{

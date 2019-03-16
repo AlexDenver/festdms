@@ -6,10 +6,10 @@
 <div class="event-wrap">
     <div class="top">
         <div class="back-wrap">
-            <div class="back"  [routerLink]="[ '/' ]" > <i class="fas fa-angle-left"></i> back</div>
+            <div class="back"  [routerLink]="[ '/events' ]" > <i class="fas fa-angle-left"></i> back</div>
         </div>
-        <div class="card-wrap" title="Registration Fee">
-            <div class="registration card">
+        <div class="card-wrap" >
+            <div class="registration card" title="Registration Fee">
                 <div class="icon">
                     <img src="assets/form.svg" alt="">
                 </div>
@@ -39,7 +39,7 @@
                 <div class="sub-title">{{EventInfo[0].name.actual}}</div>
             </div>
             <div class="cta">
-                <div class="btn reg">Register</div>
+                <div class="btn reg" [routerLink]="[ '/register']">Register</div>
             </div>
         </div>
         <div class="event-row wrapper event-text">

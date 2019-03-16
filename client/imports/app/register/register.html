@@ -1,0 +1,97 @@
+<!-- <pre>{{events_sub | json}}</pre> -->
+<form name="eventreg" #myForm="ngForm" method="POST"  (submit)="submitForm(this,myForm)" (change)="nameUpdate()">
+<div class="event-wrap">
+    <div class="top">
+        <div class="back-wrap">
+            <div class="back"  [routerLink]="[ '/' ]" > <i class="fas fa-angle-left"></i> back</div>
+        </div>
+        <div class="input-wrap" >
+            <small *ngIf="!reg_flag">Lets begin by entering, </small>
+            <div class="rel-wrap">
+                <input id="college" required (change)="startRegistration()" type="text" placeholder="College Name" value="" name="collegeName" [(ngModel)]="collegeName">
+                <label for="college"> <i class="fas fa-university overin"></i></label>
+            </div>
+            <div class="email">
+                <input type="email" email required placeholder="Email Address" name="email" [(ngModel)]="email">
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        
+        <div class="participant-wrap wrapper" *ngIf="reg_flag">
+            <div class="participant-count">
+                <i class="fas fa-user-circle"></i>
+                {{names.size + ' / ' + max_parti}}
+            </div>
+            <div class="participant" *ngFor="let name of names">{{name}}</div>
+        </div>
+        <div class="event-active-wrap wrapper" *ngIf="reg_flag">
+           <div class="new-event" *ngFor="let participant of participants, let j = index">
+               <div class="header">
+                   <div class="icon">
+                       <img src="{{participant.icon}}" alt="">
+                   </div>
+                   <div class="title">{{participant.event}}</div>
+                   <div class="remove" (click)="removeEvent(j)">
+                       <i class="fas fa-times-circle"></i>
+                    </div>
+               </div>
+                <input required [disabled]="participant.lock" type="text" placeholder="Enter Participant {{i+1}} Name" *ngFor="let person of participant.names, let i = index" name="{{participant.event}}.participant.names.{{i}}" [(ngModel)]="participant.names[i].name">
+                <input required [disabled]="participant.lock" pattern="[0-9]{10}" type="text" placeholder="Enter Contact Number" name="{{participant.event}}.i.participant.contact" [(ngModel)]="participant.contact">
+                <div class="footer">
+                    <!-- <div class="delete"></div>
+                    <div class="check" (click)="lockEvent(j)" *ngIf="!participant.lock">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="edit" (click)="unlockEvent(j)" *ngIf="participant.lock">
+                        <i class="fas fa-user-edit"></i>
+                    </div> -->
+                </div>
+           </div>
+           <div class="scroll-hide">
+               <div class="add-event" *ngIf="names.size<max_parti">
+                   <div class="state add" (click)="showEvents()" *ngIf="!selectEvent">
+                       <i class="fas fa-plus"></i>
+                       <small>Click To Select Event</small>
+                   </div>
+                   <div class="state select" *ngIf="selectEvent">
+                        <div class="event" *ngFor="let event of possible_events(events_sub), let i = index"  (click)="addEvent(event)">
+                            <img class="icon" src="{{event.icon}}" alt="">
+                            {{event.name.actual}}
+                        </div>
+                   </div>
+               </div>
+           </div>           
+       </div>
+
+       <div class="helpers" *ngIf="myForm.submitted && myForm.status=='INVALID' && !submissionReady">
+            <i class="fas fa-frown-open"></i><small>Form Submission Stopped,<br> All Fields Are Mandatory.</small>
+       </div>
+       <div class="register-btn-wrap" *ngIf="reg_flag && participants.length > 0">           
+            <button type="submit" class="btn-reg">Register</button>
+       </div>
+       
+       
+       <div class="success" *ngIf="registered">
+            <div class="form">
+                <div class="tick">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div class="text">
+                    Registration Successful! 
+                    
+                </div>
+                <div class="reg-details">
+                    <div class="id-box">
+                        Your Unique Id Is: <span> {{uid}} </span>
+                    </div>
+                    <div>
+                        <small>This has also been sent to the provided email address,<br> take note of it and produce it when asked at the reception for hasssle free check-in.</small>
+                    </div>
+                </div>
+            </div>
+       </div>
+    </div>
+
+</div>
+</form>

@@ -7,7 +7,7 @@ import { Observable, Subscription  } from 'rxjs';
 
 
 
-import { EventsCollection } from 'imports/collections/all';
+import { EventsCollection, MyFestVars } from 'imports/collections/all';
 import { MyFestEvent } from 'imports/models/events';
 
   @Injectable({
@@ -21,16 +21,43 @@ import { MyFestEvent } from 'imports/models/events';
     co = 0;
     events_sub: Observable<MyFestEvent[]>;
     EventsListSubscription: Subscription;
+    fest_sub_obs: Observable<any> = false;
+
+    festvars: Observable<MyFestEvent[]>;
+    FestVarsSubscription: Subscription;
+
+
     constructor() {  
           
       this.EventsListSubscription = MeteorObservable.subscribe('events_sub').subscribe(() => {        
-        this.setEvents(EventsCollection.find({}));
-        
-      });             
+        this.setEvents(EventsCollection.find({}));        
+      });
+      
+      
+      MeteorObservable.subscribe('fest_vars').subscribe(() => {        
+        this.fest_sub_obs = MyFestVars.find({})
+        this.fest_sub_obs.subscribe(c => {
+            this.festvars = c[0];                
+        })
+      });
+
+
+      // this.FestVarsSubscription = MeteorObservable.subscribe('fest_vars').subscribe(() => {        
+      //   this.festvars = MyFestVars.find({})        
+      // });
+     
+
     }
 
     
-
+    // getVars(key){
+    //   return this.festvars[key];
+    // }
+    getImages():Observable<any>{     
+      if(this.fest_sub_obs)
+      return this.fest_sub_obs;
+      ;
+    }
     setEvents(e){
       this.events_sub = e
     }
@@ -53,6 +80,7 @@ import { MyFestEvent } from 'imports/models/events';
     }
 
     ngOnInit() {
+      
     }
 
     ngOnDestroy() {

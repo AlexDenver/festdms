@@ -82,8 +82,8 @@
             </div>
 
             <div class="ctas">
-                <a class="btn register">Register</a>
-                <a class="btn events-btn">Events</a>
+                <a class="btn register" [routerLink]="[ '/register' ]">Register</a>
+                <a class="btn events-btn" [routerLink]="[ '/events' ]">Events</a>
             </div>
         </div>
         <div class="right">
@@ -104,8 +104,8 @@
     <div class="section prize wrap">
         <div class="left">
             <div class="title w400">
-                10 Challenging Events
-                <span class="">999 Generic Rounds</span>
+                {{events_list.length}} Challenging Events
+                <span class="">{{rounds}} Generic Rounds</span>
                 <span class="">2 Fun Filled Days</span>
                 <span class="w900 color-one">One Place to Be</span>
             </div>
@@ -131,7 +131,7 @@
 
 
                         
-                        <div class="swiper-slide" [routerLink]="[ '/event', ev_it.name.themed ]" *ngFor="let ev_it of events_list">
+                        <div class="swiper-slide" [routerLink]="[ '/event', ev_it.name.themed.split(' ').join('-') ]" *ngFor="let ev_it of events_list">
                             <div class="event-card">
                                 <div class="img">
                                     <img src="{{ev_it.icon}}" alt="">
@@ -219,8 +219,8 @@
             <div class="text">Useful Links</div>
             <ul>
                 <li><a href="#">About Abhyuday</a></li>
-                <li><a href="#">About Department</a></li>
-                <li><a href="#">RIT Homepage</a></li>
+                <li><a href="http://msrit.edu/department/mca.html" target="_blank">About Department</a></li>
+                <li><a href="http://msrit.edu/" target="_blank">RIT Homepage</a></li>
 
             </ul>
         </div>

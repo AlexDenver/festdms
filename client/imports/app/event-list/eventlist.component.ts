@@ -9,11 +9,11 @@ import  Images  from "../../../../imports/collections/images";
 
 
 @Component({
-  selector: 'eventpub',
-  templateUrl: 'eventpub.html',
-  styleUrls: ['eventpub.scss']
+  selector: 'eventlist',
+  templateUrl: 'eventlist.html',
+  styleUrls: ['eventlist.scss']
 })
-export class EventpubComponent implements OnInit{
+export class EventListComponent implements OnInit{
     events_sub_obs: ObservableCursor<MyFestEvent>;
     images: ObservableCursor<any>;
     events_sub: Observable<MyFestEvent[]>;

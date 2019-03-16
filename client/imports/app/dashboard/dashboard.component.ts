@@ -8,7 +8,7 @@ import{MyFestService}from'../myfest.services';
 import{Observable}from'rxjs';
 import{MyFestEvent}from'imports/models/events';
 import{MeteorObservable,zoneOperator,ObservableCursor}from'meteor-rxjs';
-import{EventsCollection}from'imports/collections/all';
+import{EventsCollection, MyFestVars}from'imports/collections/all';
 import Images from'imports/collections/images';
 
 @Component({
@@ -34,12 +34,14 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     evconfirmpwd: any;
     events_sub_obs: ObservableCursor < MyFestEvent > ;
     users_sub_obs: any;
+    fest_sub_obs: any;
 
     events_sub: MyFestEvent[] ;
     users_sub: Observable < MyFestEvent[] > ;
-
+    festvars: any;
     EventsListSubscription: Subscription;
     UsersListSubscription: Subscription;
+    FestVarsSubscription: Subscription;
 
 
     menu_toggle: boolean = false;
@@ -69,6 +71,13 @@ export class DashboardComponent implements AfterViewInit, OnInit {
             // })
         });
 
+        MeteorObservable.subscribe('fest_vars').subscribe(() => {        
+            this.fest_sub_obs = MyFestVars.find({})
+            this.fest_sub_obs.subscribe(c => {
+                this.festvars = c[0];                
+            })
+        });
+
         // MeteorObservable.subscribe('files.images.all').subscribe(() => {
         //     this.images = Images.Images.find({})                
         // });
@@ -83,6 +92,10 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     setNavState(st) {
         this.navState = st;
         this.menu_toggle = false;
+    }
+    updateVars(){
+        console.log("Update", this.festvars)
+        Meteor.call('updateFestVars', this.festvars);
     }
     logout() {
         Meteor.logout();

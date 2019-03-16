@@ -26,6 +26,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
   hours: number = 0;
   minutes: number = 0;
   seconds: number = 0;
+  rounds: number = 0;
   isMobile=$(document).width()<768;
     
   events_sub_obs: ObservableCursor<MyFestEvent>;
@@ -33,9 +34,15 @@ export class HomeComponent implements AfterViewInit, OnInit {
   
   events_sub: Observable<MyFestEvent[]>;
   event_copy: Observable<JSON>;
-  events_list;
+  events_list = [];
   EventsListSubscription: Subscription;
+  filled_areas = new Array();
+  filled_el = new Array();
+  imgs = [];
+  ready = false;
+  img_max_size=this.isMobile?80:150;
   constructor(private mf: MyFestService){    
+    
 
   //   Events.insert({
   //     name: {
@@ -53,14 +60,14 @@ export class HomeComponent implements AfterViewInit, OnInit {
   config: SwiperConfigInterface = {
     // a11y: true,
     // slidesPerView: this.isMobile? 1 : 5,
-    slidesPerView: this.isMobile? 1 : 4,
+    slidesPerView: this.isMobile? 1.14 : 4,
     slidesPerGroup: this.isMobile?1 :3,
-    // centeredSlides: this.isMobile? false: false,
+    centeredSlides: this.isMobile? true: false,
     scrollbar: false,
     nextButton: '.swiper-button-next',
     prevButton: '.swiper-button-prev',
     spaceBetween: this.isMobile? 10: 20,    
-    
+    initialSlide: this.isMobile?1:0
     observer: true,  
     // navigation: true
     
@@ -83,8 +90,8 @@ export class HomeComponent implements AfterViewInit, OnInit {
   
   
   ngAfterViewInit(): void {
-    //console.log("Hello")
-    //console.log(particleJS);
+    //// console.log("Hello")
+    //// console.log(particleJS);
     // particleJS("particle-js");
     window['particle']("particles-js", {
       "particles": {
@@ -197,12 +204,12 @@ export class HomeComponent implements AfterViewInit, OnInit {
       "retina_detect": true
     });
         
-    //console.log("L2")
+    //// console.log("L2")
     //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
     //Add 'implements AfterViewInit' to the class.
       
     
-    //console.log('Hello',this.ev)
+    //// console.log('Hello',this.ev)
   }
  
   ngOnInit(): void {
@@ -213,20 +220,34 @@ export class HomeComponent implements AfterViewInit, OnInit {
       // for(let i = 25; i < el.length; i++)
       //   el[i].remove();
     }
+    
     let selfx = this;
     this.EventsListSubscription = MeteorObservable.subscribe('events_sub').subscribe(()=> {      
       this.events_sub_obs = EventsCollection.find({});
       this.events_sub_obs.subscribe(c => {
         this.events_list = c;
-        // //console.log(c);
+        selfx.rounds  =0;
+        c.map((function(e){
+          selfx.rounds += e.rounds.length;
+        }))
+        // //// console.log(c);
         setTimeout(()=>{
-          selfx.directiveRef.update();
+          if(selfx.directiveRef)
+            selfx.directiveRef.update();
         }, 200)
       })
    });
-
+  //  // console.log("Hello Here.")
+  //  // console.log(this.mf.getImages())
+   setTimeout(()=>{
+     this.mf.getImages().subscribe(c => {
+       this.imgs = c[0].allPeople;
+      //  // console.log(c)
+       this.initFacesBox();
+     })
+   },1500)
+    
     this.startTimer();
-    this.initFacesBox();
   }
 
 
@@ -241,7 +262,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
     // countdown
     
     this.timer = setInterval(function() {
-      ////console.log("Change")
+      ////// console.log("Change")
       // get today's date
       const today = new Date().getTime();
 
@@ -292,7 +313,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
           if(tries==25){
             tries = 1;
             size = size/size_cut;
-            ////console.log("Resized", size)
+            ////// console.log("Resized", size)
           }
       } while(selfx.check_overlap(area) && ++tries<=25);
       selfx.filled_areas.push(area);
@@ -307,7 +328,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
         $(face.elx).width(face.dim.width);
         $(face.elx).css({left:face.dim.x, top: face.dim.y});
 
-        $(face.elx).addClass('active').find('img').attr('src', this.imgs[Math.floor(Math.random()*this.imgs.length)]);
+        $(face.elx).addClass('active').find('img').attr('src', this.imgs[selfx.imgs[Math.floor(Math.random()*selfx.imgs.length)%selfx.imgs.length].url]);
         if(iterator==(random_face_count-1))
           selfx.ready = true;
       }, 200+(iterator*100));      
@@ -316,11 +337,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
     
   }
 
-  filled_areas = new Array();
-  filled_el = new Array();
-  imgs = new Array();
-  ready = false;
-  img_max_size=this.isMobile?80:150;
+  
   initFacesBox(){
     let selfx=this;
     var min_x = 0;
@@ -328,33 +345,35 @@ export class HomeComponent implements AfterViewInit, OnInit {
     var counter = 0;
     var min_y = 0;
     var max_y = $('.people-wrap').outerHeight() - 100;
-    ////console.log(max_x, max_y)
+    ////// console.log(max_x, max_y)
     $('.person').each(function(ix, el) {
         var rand_x=0;
         var rand_y=0;
         var area;
         let tries=1;
         var size = ((ix<5&&(!selfx.isMobile)?120:80)+Math.random()*(selfx.img_max_size));
+        let size_cut = 2;        
+        $('.person img').eq(counter++).attr('src', selfx.imgs[Math.floor(Math.random()*selfx.imgs.length)%selfx.imgs.length].url).parent().addClass('active');
+        
 
-        let size_cut = 2;
+        
+          
         // if()
-        $.ajax({
-          url: 'https://randomuser.me/api/',
-          dataType: 'json',
-          success: function(data) {
-            $('.person img').eq(counter++).attr('src', data.results[0].picture.large).parent().addClass('active');
-            selfx.imgs.push(data.results[0].picture.large)
-            if(counter>=$('.person img').length-1)
-              selfx.ready = true;
-          },
-          error: function(){
-            counter++;
-            // selfx.imgs.push(data.results[0].picture.large)
-          }
-        });
-        selfx.imgs = [
+        // $.ajax({
+        //   url: 'https://randomuser.me/api/',
+        //   dataType: 'json',
+        //   success: function(data) {
+        //     $('.person img').eq(counter++).attr('src', data.results[0].picture.large).parent().addClass('active');
+        //     selfx.imgs.push(data.results[0].picture.large)
+        //     if(counter>=$('.person img').length-1)
+        //       selfx.ready = true;
+        //   },
+        //   error: function(){
+        //     counter++;
+        //     // selfx.imgs.push(data.results[0].picture.large)
+        //   }
+        // });
 
-        ]
 
         do {
             rand_x = Math.round(min_x + ((max_x - min_x)*(Math.random() % 1)));
@@ -363,8 +382,8 @@ export class HomeComponent implements AfterViewInit, OnInit {
             if(tries==25){
               tries = 1;
               size = size/size_cut;
-              //console.log("Resized")
-              //console.log("Init",size)
+              //// console.log("Resized")
+              //// console.log("Init",size)
             }
         } while(selfx.check_overlap(area) && (++tries<=25));
         $(this).height(size)
@@ -375,7 +394,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
         $(this).css({left:rand_x, top: rand_y});
     });
 
-    
+    selfx.ready = true;
   }
   check_overlap(area) {
     for (var i = 0; i < this.filled_areas.length; i++) {

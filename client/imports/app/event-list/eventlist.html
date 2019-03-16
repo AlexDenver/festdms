@@ -1,0 +1,28 @@
+<!-- <pre>{{events_sub | json}}</pre> -->
+
+        <div class="event-wrap">
+            <div class="top">
+                    <div class="back-wrap">
+                            <div class="back"  [routerLink]="[ '/' ]" > <i class="fas fa-angle-left"></i> back</div>
+                        </div>
+                <h1> <i class="fab fa-earlybirds"></i> Events</h1>
+            </div>
+            <div class="main">
+                <div class="cards-wrap wrapper">
+                    <div class="card" *ngFor="let ev of events_sub" [routerLink]="[ '/event', ev.name.themed.split(' ').join('-') ]">
+                        <div class="icon">
+                            <img src="{{ev.icon}}" alt="{{ev.name.actual}}">
+                        </div>
+                        <div class="title">
+                            {{ev.name.themed}}
+                        </div>
+                        <div class="sub-title">
+                            A {{ev.name.actual}} Event
+                        </div>
+                        <div class="read"> <i class="fas fa-info-circle"></i> Read More</div>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+        

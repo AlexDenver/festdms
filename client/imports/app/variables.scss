@@ -38,3 +38,8 @@ $box_shadow: 0 3px 6px 0 rgba(0,0,0,0.16);
 
 $title_size: 20px;
 $normal_size: 15px;
+
+input.ng-invalid.ng-dirty {
+    color: #ec1943 !important;
+    border-bottom: 2px dashed;
+}

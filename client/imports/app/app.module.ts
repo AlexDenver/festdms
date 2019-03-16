@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { TodoAddComponent } from './todo-add/todo-add.component';
 import { HomeComponent } from './home/home.component';
+import {RegisterComponent} from './register/register.component'
 import { TodoListComponent } from './todo-list/todo-list.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
@@ -23,6 +24,7 @@ import { AccountsModule } from 'angular2-meteor-accounts-ui';
 import { EventComponent } from './event/event.component';
 
 
+import {EventListComponent} from './event-list/eventlist.component'
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { EventpubComponent } from './eventpub/eventpub.component';
@@ -30,6 +32,7 @@ import  {Roles}  from 'meteor/alanning:roles'
 import { MyFestService } from './myfest.services';
 import { RoleGuard } from './roleguard.services';
 import { AuthService }from './auth.service';
+import { from } from 'rxjs';
 
 
 
@@ -71,6 +74,12 @@ let routes = [
   },{
     path: 'event/:id',
     component: EventpubComponent
+  },{
+    path: 'events',
+    component: EventListComponent
+  },{
+    path: 'register',
+    component: RegisterComponent
   }
   ,
   // 404 Page
@@ -100,7 +109,9 @@ let routes = [
     HomeComponent,
     DashboardComponent,
     EventComponent,
-    EventpubComponent
+    EventpubComponent,
+    RegisterComponent,
+    EventListComponent
   ],
   bootstrap: [
     AppComponent

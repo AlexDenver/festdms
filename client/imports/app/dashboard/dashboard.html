@@ -3,7 +3,7 @@
     <div class="links" (click)="setNavState('events')">Events</div>
     <div class="links" (click)="setNavState('participants')">Participants</div>
     <div class="links" (click)="setNavState('users')">Users</div>
-    <div class="links" >Settings</div>    
+    <div class="links" (click)="setNavState('settings')">Settings</div>    
     <div class="links" (click)="logout()" href="#">Logout</div>        
 </nav>
 
@@ -67,7 +67,31 @@
 
     </div>
 
+    <div class="settings" *ngIf="navState=='settings'">
+        <pre>{{festvars | json}}</pre>
+            <div class="section images">
+                    <div class="title">People of AB Section</div>
+                    
+                    <div class="iterator-input">
+                        <div class="image" *ngFor="let p of festvars.allPeople, let i = index">
+                            <label>
+                                <span>Image {{i+1}}: </span>
+                                <div class="grid">
+                                    <input type="text" name="image.url{{i}}" [(ngModel)]="p.url">
+                                    <input type="text" name="name.name{{i}}" [(ngModel)]="p.name">
+                                </div>
+                            </label>
+                            <div class="split">
+                                <div class="sub-title"></div>
+                                <div class="del" (click)="festvars.allPeople.splice(i,1)"> <i class="fas fa-times-circle"></i> </div>
+                            </div> 
+                        </div>                
+                        <div class="add" (click)="festvars.allPeople.push({url: '', name: ''})">Add</div>
+                    </div>
 
+                    <div class="save btn" (click)="updateVars()" >Save</div>
+                </div>
+    </div>
     
 </div>
 
