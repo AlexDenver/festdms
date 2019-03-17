@@ -3,7 +3,8 @@
 .event-wrap {
 
     .top {
-        .back {
+        position: relative;
+        .back, .register {
             color: #fff;
             font-weight: 900;
             font-size: 1.2rem;
@@ -13,9 +14,15 @@
             box-shadow: $box_shadow;
             border-radius: 10px;
             position: absolute;
-            top: 10px;
+            top: 50%;
+            transform: translateY(-50%);
             left: 10px;
             cursor: pointer;
+        }
+        .register{
+            right: 20px;
+            background: $secondaryDark;
+            left: unset;
         }
         h1 {
             display: grid;

@@ -2,6 +2,7 @@
     <h3>Menu</h3>
     <div class="links" (click)="setNavState('events')">Events</div>
     <div class="links" (click)="setNavState('participants')">Participants</div>
+    <div class="links" [routerLink]="[ '/teams' ]">Manage Teams</div>    
     <div class="links" (click)="setNavState('users')">Users</div>
     <div class="links" (click)="setNavState('settings')">Settings</div>    
     <div class="links" (click)="logout()" href="#">Logout</div>        
@@ -69,9 +70,8 @@
     </div>
 
     <div class="users-section" *ngIf="navState=='participants'">
-        
-            <div class="all-events">
-                <div class="event-wrap">
+        <div class="all-events">            
+            <div class="event-wrap">
                     <div class="event-card" *ngFor="let participant of teams">
                         <div class="icon">
                             <img src="{{participant.icon}}" alt="">

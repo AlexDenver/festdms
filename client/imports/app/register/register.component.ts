@@ -3,7 +3,7 @@ import { ObservableCursor, MeteorObservable } from 'meteor-rxjs';
 import { MyFestEvent } from 'imports/models/events';
 import { Observable, Subscription, of } from 'rxjs';
 import { EventsCollection } from 'imports/collections/all';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd, Route } from '@angular/router';
 import {Meteor} from 'meteor/meteor';
 import  Images  from "../../../../imports/collections/images";
 
@@ -34,7 +34,7 @@ export class RegisterComponent implements OnInit{
     registered: Observable<boolean>;
     myForm;
     submissionReady = false;
-    constructor(private route: ActivatedRoute, private zone: NgZone){
+    constructor(private route: ActivatedRoute, private zone: NgZone, private router: Router){
         this.EventsListSubscription = MeteorObservable.subscribe('events_sub').subscribe(()=> {
             this.events_sub_obs = EventsCollection.find({});
             this.events_sub_obs.subscribe(c => {
@@ -47,8 +47,8 @@ export class RegisterComponent implements OnInit{
          this.reg_flag = false;
          this.names = new Set();
          let self = this;
-         this.max_parti = 5;
-            
+         this.max_parti = 5;                  
+  
         //  this.registered;
          
     }
@@ -158,7 +158,12 @@ export class RegisterComponent implements OnInit{
     } 
 
     ngOnInit(): void {
-      
+      this.router.events.subscribe((evt) => {
+        if (!(evt instanceof NavigationEnd)) {
+            return;
+        }
+        document.getElementsByTagName("app")[0].scrollIntoView();
+      });
     }
     ngOnDestroy(): void {
       this.EventsListSubscription.unsubscribe();

@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, NgZone } from '@angular/core';
 
 import { SwiperComponent, SwiperDirective, SwiperConfigInterface } from 'ngx-swiper-wrapper';
 
@@ -10,7 +10,7 @@ import { MyFestService } from '../myfest.services';
 import { EventsCollection } from 'imports/collections/all';
 import {MyFestEvent} from 'imports/models/events'
 import { MeteorObservable, ObservableCursor } from 'meteor-rxjs';
-import { Observable, timer, interval } from 'rxjs';
+import { Observable, timer, interval, of } from 'rxjs';
 
 @Component({
   selector: 'home',
@@ -30,8 +30,9 @@ export class HomeComponent implements AfterViewInit, OnInit {
   isMobile=$(document).width()<768;
     
   events_sub_obs: ObservableCursor<MyFestEvent>;
-  
-  
+  particleObj;
+  diff=1;
+  hideTimer=false;
   events_sub: Observable<MyFestEvent[]>;
   event_copy: Observable<JSON>;
   events_list = [];
@@ -41,7 +42,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
   imgs = [];
   ready = false;
   img_max_size=this.isMobile?80:150;
-  constructor(private mf: MyFestService){    
+  constructor(private mf: MyFestService, private zone: NgZone){    
     
 
   //   Events.insert({
@@ -90,15 +91,11 @@ export class HomeComponent implements AfterViewInit, OnInit {
   //   "uid": "X1WAP"
   // }	
   
-  
-  ngAfterViewInit(): void {
-    //// console.log("Hello")
-    //// console.log(particleJS);
-    // particleJS("particle-js");
-    window['particle']("particles-js", {
+  initParticle(i=1){
+    this.particleObj = window['particle']("particles-js", {
       "particles": {
         "number": {
-          "value": 150,
+          "value": 150*i,
           "density": {
             "enable": true,
             "value_area": 800
@@ -133,7 +130,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
           }
         },
         "size": {
-          "value": 3,
+          "value": 3*i,
           "random": true,
           "anim": {
             "enable": false,
@@ -144,7 +141,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
         },
         "line_linked": {
           "enable": true,
-          "distance": 150,
+          "distance": 150*i,
           "color": "#F0A202",
           "opacity": 0.4,
           "width": 2
@@ -165,7 +162,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
         }
       },
       "interactivity": {
-        "detect_on": "canvas",
+        "detect_on": "window",
         "events": {
           "onhover": {
             "enable": false,
@@ -205,7 +202,13 @@ export class HomeComponent implements AfterViewInit, OnInit {
       },
       "retina_detect": true
     });
-        
+  }
+  ngAfterViewInit(): void {
+    //// console.log("Hello")
+    //// console.log(particleJS);
+    // particleJS("particle-js");
+    
+    this.initParticle(1)
     //// console.log("L2")
     //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
     //Add 'implements AfterViewInit' to the class.
@@ -234,6 +237,13 @@ export class HomeComponent implements AfterViewInit, OnInit {
         }))
         // //// console.log(c);
         setTimeout(()=>{
+          selfx.mf.getImages().subscribe(c => {
+            selfx.imgs = c[0].allPeople;
+           //  // console.log(c)
+           selfx.initFacesBox();
+          })
+        },2500)
+        setTimeout(()=>{
           if(selfx.directiveRef)
             selfx.directiveRef.update();
         }, 200)
@@ -241,13 +251,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
    });
   //  // console.log("Hello Here.")
   //  // console.log(this.mf.getImages())
-   setTimeout(()=>{
-     this.mf.getImages().subscribe(c => {
-       this.imgs = c[0].allPeople;
-      //  // console.log(c)
-       this.initFacesBox();
-     })
-   },2500)
+   
     
     this.startTimer();
   }
@@ -259,27 +263,45 @@ export class HomeComponent implements AfterViewInit, OnInit {
 
   startTimer(){
     const year = (new Date().getFullYear()) + 1;
-    const fourthOfJuly = new Date('28 Mar 2019 9:00').getTime();
+    const festDay = new Date('28 Mar 2019 9:00').getTime();
+    // const festDay = new Date('17 Mar 2019 18:19:00').getTime();
     let self = this;
     // countdown
     
+    let exploded = false;
     this.timer = setInterval(function() {
       ////// console.log("Change")
       // get today's date
       const today = new Date().getTime();
 
       // get the difference
-      const diff = fourthOfJuly - today;
-
+      self.diff = festDay - today;
       // math
-      self.days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      self.hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      self.minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      self.seconds = Math.floor((diff % (1000 * 60)) / 1000);
-      if((self.seconds%2==0)&& self.ready){
-        self.ready = false;
-        self.randomizePic(5);        
+      self.seconds = Math.floor((self.diff % (1000 * 60)) / 1000);
+      if(self.diff > 0){
+
+        self.days = Math.floor(self.diff / (1000 * 60 * 60 * 24));
+        self.hours = Math.floor((self.diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        self.minutes = Math.floor((self.diff % (1000 * 60 * 60)) / (1000 * 60));
+      }else{
+        // this.hideTimer.set(true);        
+        self.zone.runTask(()=>{
+          self.hideTimer = true;
+          // console.log(self.diff)
+          if(self.diff<=0 && self.diff>-2500 && !exploded){
+            // Future Scope.
+            exploded = true;
+            // this.particleObj.destroy();
+            self.initParticle(1.7)
+          }
+
+        })
       }
+      
+        if((self.seconds%2==0)&& self.ready){
+          self.ready = false;
+          self.randomizePic(5);        
+        }
       
 
     }, 1000);

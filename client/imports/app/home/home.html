@@ -61,7 +61,7 @@
                 <img src="assets/ab-logo.png" alt="">
                 <div class="tagline">In Tech We Trust</div>
 
-                <div class="countdown">
+                <div class="countdown" *ngIf="!hideTimer">
                     <div id="timer">
 
                         <div class="days">
@@ -105,7 +105,7 @@
         <div class="left">
             <div class="title w400">
                 {{events_list.length}} Challenging Events
-                <span class="">{{rounds}} Generic Rounds</span>
+                <span class="">{{rounds}} Exigent Rounds</span>
                 <span class="">2 Fun Filled Days</span>
                 <span class="w900 color-one">One Place to Be</span>
             </div>
