@@ -46,7 +46,7 @@ export class EventpubComponent implements OnInit{
                 let ev = this.id.split('-').join(' ')
                 this.events_sub_obs = EventsCollection.find({"name.themed": ev});
                 this.events_sub_obs.subscribe(c => {
-                  this.EventInfo = c;
+                  this.EventInfo = c[0];
                   
 
                 })

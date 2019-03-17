@@ -2,7 +2,7 @@
     {{EventInfo |json}}
 </pre> -->
 
-
+<title>AB6 - {{EventInfo.name.themed}}</title>
 <div class="event-wrap">
     <div class="top">
         <div class="back-wrap">
@@ -13,30 +13,30 @@
                 <div class="icon">
                     <img src="assets/form.svg" alt="">
                 </div>
-                <div class="text">₹{{EventInfo[0].fees}}</div>
+                <div class="text">₹{{EventInfo.fees}}</div>
             </div>
             <div class="prize card" title="Prize Money, First place">
                 <div class="icon">
                     <img src="assets/prize.svg" alt="">
                 </div>
-                <div class="text">₹{{EventInfo[0].prizemoney[0]}}</div>
+                <div class="text">₹{{EventInfo.prizemoney[0]}}</div>
             </div>
             <div class="particpant card" title="No of Participants">
                 <div class="icon">
                     <img src="assets/user.svg" alt="">
                 </div>
-                <div class="text">{{EventInfo[0].participants}} <small>human{{EventInfo[0].participants>0?'s':''}}</small> </div>
+                <div class="text">{{EventInfo.participants}} <small>human{{EventInfo.participants>0?'s':''}}</small> </div>
             </div>
         </div>
     </div>
     <div class="main ">
         <div class="event-row wrapper logo-title">
             <div class="logo">
-                <img src="{{EventInfo[0].icon}}" alt="">
+                <img src="{{EventInfo.icon}}" alt="">
             </div>
             <div class="event-id">
-                <div class="title">{{EventInfo[0].name.themed}}</div>
-                <div class="sub-title">{{EventInfo[0].name.actual}}</div>
+                <div class="title">{{EventInfo.name.themed}}</div>
+                <div class="sub-title">{{EventInfo.name.actual}}</div>
             </div>
             <div class="cta">
                 <div class="btn reg" [routerLink]="[ '/register']">Register</div>
@@ -44,7 +44,7 @@
         </div>
         <div class="event-row wrapper event-text">
             <div class="event-heads">
-                <div class="ev-head-card" *ngFor="let evHead of EventInfo[0].eventHeads">
+                <div class="ev-head-card" *ngFor="let evHead of EventInfo.eventHeads">
                     <div class="image">
                         <img src="{{evHead.dp}}" alt="">
                     </div>
@@ -60,7 +60,7 @@
                 <div class="rules-box">
                     <div class="sub-title">Rules: </div>
                     <ul>
-                        <li *ngFor="let rule of EventInfo[0].rules">{{rule}}</li>
+                        <li *ngFor="let rule of EventInfo.rules">{{rule}}</li>
                     </ul>
                 </div>
             </div>
