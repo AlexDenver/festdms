@@ -1,0 +1,85 @@
+@import '../variables.scss';
+
+.team-wrap{
+    .back {
+        color: $primaryColor;
+        background: $secondaryDark;
+        font-weight: 900;
+        font-size: 1.2rem;
+        width: max-content;
+        margin: 0;
+        padding: 10px 15px;
+        box-shadow: $box_shadow;
+        border-radius: 10px;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        cursor: pointer;
+    }
+    margin-top: 50px;
+    .wrapper{
+        margin: auto;
+    }
+    .team-all, .team-one{
+        display: grid;
+        grid-gap: $radius;
+        grid-template-columns: repeat(4, 1fr);
+        .team-card{
+            background: $primaryColor;
+            box-shadow: $box_shadow;
+            padding: $radius;
+            border-radius: $radius;
+            display: grid;
+            grid-gap: 10px;
+            cursor: pointer;
+            transition: 0.5s ease;
+            &:hover{
+                transform: translateY(-15px);
+            }
+            .team-college {
+                font-weight: 900;
+                color: #fff;
+                text-align: center;
+                margin-bottom: 10px;
+                font-size: 1.2rem;
+                
+            }
+            .team-size, .team-id {
+                display: grid;
+                grid-auto-flow: column;
+                justify-content: left;
+                align-items: center;
+                grid-gap: 10px;
+                font-weight: 900;
+            }
+            .icon{
+                height: 70px;
+                width: 70px;
+                margin: 10px;
+                margin-left: auto;
+                img{
+                    height: 100%;
+                    width: 100%;
+                    object-fit: cover;
+                }
+            }
+            .footer {
+                text-align: center;
+            }
+        }
+    }
+    
+    .header{
+        display: grid;
+        grid-auto-flow: column;        
+        justify-content: space-between;
+        grid-gap: 10px;
+        align-items: center;
+        .college{
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 30px 0;
+        }
+    }
+
+}

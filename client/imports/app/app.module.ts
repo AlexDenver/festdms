@@ -22,6 +22,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 
 import { AccountsModule } from 'angular2-meteor-accounts-ui';
 import { EventComponent } from './event/event.component';
+import { TeamComponent } from './team/team.component';
 
 
 import {EventListComponent} from './event-list/eventlist.component'
@@ -80,8 +81,13 @@ let routes = [
   },{
     path: 'register',
     component: RegisterComponent
-  }
-  ,
+  },{
+    path: 'teams',
+    component: TeamComponent
+  },{
+    path: 'teams/:id',
+    component: TeamComponent
+  },
   // 404 Page
   {
     path: '**',
@@ -111,7 +117,8 @@ let routes = [
     EventComponent,
     EventpubComponent,
     RegisterComponent,
-    EventListComponent
+    EventListComponent,
+    TeamComponent
   ],
   bootstrap: [
     AppComponent

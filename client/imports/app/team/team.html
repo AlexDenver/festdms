@@ -1,0 +1,102 @@
+<div class="team-wrap">
+   
+    <div class="wrapper" *ngIf="!id">
+            <!-- <div class="back" [routerLink]="[ '/teams' ]"><i class="fas fa-angle-left"></i>  back</div> -->
+        <div class="team-all">
+            <div class="team-card" [routerLink]="[ '/teams/', participant.reg_uid ]" *ngFor="let participant of teams">
+                
+                <div class="icon">
+                    <img src="{{participant.icon}}" alt="">
+                </div>
+                <div class="team-college">{{participant.college}}</div>
+                <div class="team-id">
+                    <span class="fa-stack">
+                        <i class="fas fa-circle fa-stack-2x"></i>                    
+                        <i class="fas fa-hashtag fa-stack-1x fa-inverse"></i>
+                    </span>
+                    {{participant.reg_uid}}
+                </div>            
+                <div class="team-size">
+                    <span class="fa-stack">
+                        <i class="fas fa-circle fa-stack-2x"></i>                    
+                        <i class="fas fa-users fa-stack-1x fa-inverse"></i>                            
+                    </span>                
+                    {{team_member_count[participant.reg_uid]}}
+                </div>
+                <div class="team-email">
+                    <div class="team-mail">
+                            <span class="fa-stack">
+                                    <i class="fas fa-circle fa-stack-2x"></i>                    
+                                    <i class="fas fa-inbox fa-stack-1x fa-inverse"></i>                            
+                                </span>                                        
+                        {{participant.email}}
+                    </div>
+                </div>
+                <div class="footer status">
+                    <span class="fa-stack">
+                        <i class="fas fa-circle fa-stack-2x"></i>                    
+                        <i class="fas fa-user-alt-slash fa-stack-1x fa-inverse"></i>                            
+                    </span>                            
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="wrapper" *ngIf="id">
+            <div class="back" [routerLink]="[ '/teams' ]"><i class="fas fa-angle-left"></i>  back</div>
+            <div class="header">
+                <div class="college"> <i class="fas fa-university"></i> {{members[0].college}}</div>
+                <div class="team-email">
+                    <div class="team-mail">
+                        {{members[0].email}}
+                            <span class="fa-stack">
+                                <i class="fas fa-circle fa-stack-2x"></i>                    
+                                <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>                                                               
+                            </span>                                        
+                    </div>
+                </div>
+            </div>
+            <div class="team-one">
+                <div class="team-card" *ngFor="let participant of members">
+                
+                    <div class="icon">
+                        <img src="{{participant.icon}}" alt="">
+                    </div>                
+                    <div class="team-id">
+                        <span class="fa-stack">
+                            <i class="fas fa-circle fa-stack-2x"></i>                    
+                            <i class="fas fa-heart fa-stack-1x fa-inverse"></i>                        
+                        </span>
+                        {{participant.event}}
+                    </div>            
+                    <div class="team-member" *ngFor="let name of participant.names">
+                        <span class="fa-stack">
+                            <i class="fas fa-circle fa-stack-2x"></i>                    
+                            <i class="fas fa-user fa-stack-1x fa-inverse"></i>                            
+                        </span>                
+                        <span>{{name.name}}</span>
+                    </div>
+
+                    <div class="team-phone">
+                        <div class="team-mail">
+                                <span class="fa-stack">
+                                        <i class="fas fa-circle fa-stack-2x"></i>                    
+                                        <i class="fas fa-phone fa-stack-1x fa-inverse"></i>                            
+                                    </span>                                        
+                            {{participant.contact}}
+                        </div>
+                    </div>
+                    <div class="footer status">
+                        <span class="fa-stack">
+                            <i class="fas fa-circle fa-stack-2x"></i>                    
+                            <i class="fas fa-user-alt-slash fa-stack-1x fa-inverse"></i>                            
+                        </span>                            
+                    </div>
+                    
+                    
+                </div>
+            </div>
+    </div>
+</div>

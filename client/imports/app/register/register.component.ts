@@ -79,17 +79,18 @@ export class RegisterComponent implements OnInit{
       return false;
       else{
         // console.log(this.participants);
-        x.reset();
-        this.names = new Set();
         let participants = this.participants;
-        this.participants = [];   
-        this.submissionReady = true;     
+        this.submissionReady = true; 
+        console.log(participants, "this is here")    
         Meteor.call("registerTeam", participants,  function(err, data){
           // console.log(err, data)
           if(!err){            
             self.setRegData(data);
+            x.reset();
           }
         })
+        this.names = new Set();
+        this.participants = [];   
         this.reg_flag = false;
         this.registered = of(true);
         return false;

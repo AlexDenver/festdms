@@ -88,6 +88,10 @@ Meteor.methods({
       icon: ev.icon
     });
   },
+  rem_parti(id){
+    PartiCollection.remove({reg_uid: id})
+    return true;
+  },
   removeEvent(_id: string) {
     EventsCollection.remove({
       _id
@@ -207,6 +211,20 @@ if (Meteor.isServer) {
       const user = Meteor.users.findOne({_id: this.userId});
       return ((Roles.userIsInRole(userId, ['manage-event']) && doc.handler==user.username) || user.profile.type=='admin')
         
+    }
+  })
+  PartiCollection.allow({
+    remove: function(userId, doc){
+      if(Roles.userIsInRole(userId, ['all']))
+      return true;
+      else
+      return false; 
+    },
+    update: function(userId, doc, fields){
+      if(Roles.userIsInRole(userId, ['manage-participants', 'all']))
+        return true;
+      else
+        return false;
     }
   })
 }

@@ -68,6 +68,29 @@
 
     </div>
 
+    <div class="users-section" *ngIf="navState=='participants'">
+        
+            <div class="all-events">
+                <div class="event-wrap">
+                    <div class="event-card" *ngFor="let participant of teams">
+                        <div class="icon">
+                            <img src="{{participant.icon}}" alt="">
+                        </div>
+                        <div class="title">{{participant.college}}</div>
+                        <div class="ev_id">{{participant.reg_uid}}</div>
+                        <div class="ev_id">{{participant.event}}</div>                        
+                        <div class="ev_id">{{team_member_count[participant.reg_uid]}}</div>                        
+                        <div class="ev_id">{{participant.email}}</div>                        
+                        <div class="delete" (click)="deleteParti(participant.reg_uid)">             
+                                <i class="fas fa-trash-alt"></i>     
+                                Delete       
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+
     <div class="settings" *ngIf="navState=='settings'">
         <pre>{{festvars | json}}</pre>
             <div class="section images">

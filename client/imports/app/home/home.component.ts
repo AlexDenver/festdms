@@ -247,7 +247,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
       //  // console.log(c)
        this.initFacesBox();
      })
-   },1500)
+   },2500)
     
     this.startTimer();
   }

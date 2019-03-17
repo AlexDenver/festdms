@@ -48,7 +48,9 @@
                     display: grid;
                     place-content: center;
                     border-bottom: 4px solid;
-
+                    &:empty{
+                        border: none;
+                    }
                     img {
                         padding: 10% 20%;
                         width: auto;

@@ -8,7 +8,7 @@ import{MyFestService}from'../myfest.services';
 import{Observable}from'rxjs';
 import{MyFestEvent}from'imports/models/events';
 import{MeteorObservable,zoneOperator,ObservableCursor}from'meteor-rxjs';
-import{EventsCollection, MyFestVars}from'imports/collections/all';
+import{EventsCollection, MyFestVars, PartiCollection}from'imports/collections/all';
 import Images from'imports/collections/images';
 
 @Component({
@@ -34,10 +34,12 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     evconfirmpwd: any;
     events_sub_obs: ObservableCursor < MyFestEvent > ;
     users_sub_obs: any;
+    parti_sub_obs: any;
     fest_sub_obs: any;
 
     events_sub: MyFestEvent[] ;
     users_sub: Observable < MyFestEvent[] > ;
+    parti_data: Observable < any >
     festvars: any;
     EventsListSubscription: Subscription;
     UsersListSubscription: Subscription;
@@ -51,9 +53,12 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     upload: any;
     IFiles: Subscription;
     images: any;
+    teams: any;
+    team_member_count: any;
     imageData: any = '';
     constructor(private router: Router,private zone: NgZone) {
         this.d = "Alex"
+        this.team_member_count = {}
         // this.events_sub = this.mf.findEventsDyn({})
         // this.events_sub = this.mf.findEvents({});
         MeteorObservable.subscribe('events_sub').subscribe(() => {
@@ -69,6 +74,32 @@ export class DashboardComponent implements AfterViewInit, OnInit {
             // this.users_sub_obs.subscribe(c => {
             //   this.users_sub = c;
             // })
+        });
+
+        MeteorObservable.subscribe('parti_sub').subscribe(() => {
+            this.parti_sub_obs = PartiCollection.find({});
+            let self = this;
+            this.parti_sub_obs.subscribe(c => {
+                let uid = new Set();
+                this.teams = []
+                this.parti_data = c.map((d)=>{
+                    console.log(d)
+                    let team = {}; 
+                    if(!uid.has(d.reg_uid)){
+                        team['reg_uid'] = d.reg_uid;
+                        team['college'] = d.college
+                        team['email'] = d.email;
+                        self.teams.push(team);
+                        self.team_member_count[d.reg_uid] = 1
+                        uid.add(d.reg_uid)
+                    }else{
+
+                        self.team_member_count[d.reg_uid] += 1
+                    }
+                })
+                console.log(c);
+            //   this.users_sub = c;
+            })
         });
 
         MeteorObservable.subscribe('fest_vars').subscribe(() => {        
@@ -309,6 +340,12 @@ export class DashboardComponent implements AfterViewInit, OnInit {
  
     }
 
+    deleteParti(id){
+        Meteor.call("rem_parti", id, function(err, d){
+            if(!err)
+                toastr.success("Removed.")
+        })
+    }
     createEvent() {
         let self = this;
         if (this.evname.length > 0 && this.evusn.length > 0 && this.evpwd.length > 0 && this.evconfirmpwd.length > 0) {

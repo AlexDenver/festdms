@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 
-import { EventsCollection, MyFestVars } from '../../../imports/collections/all';
+import { EventsCollection, MyFestVars, PartiCollection } from '../../../imports/collections/all';
 
 
 
@@ -22,6 +22,9 @@ Meteor.publish('fest_vars', function() {
   
 });
 
+Meteor.publish('parti_sub', function() {
+  return PartiCollection.find({});
+});
 
 Meteor.publish('users_sub', function() {
   return Meteor.users.find({});
