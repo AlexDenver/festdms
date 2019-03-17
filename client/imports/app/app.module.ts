@@ -28,7 +28,7 @@ import { TeamComponent } from './team/team.component';
 import {EventListComponent} from './event-list/eventlist.component'
 
 import { ReactiveFormsModule } from '@angular/forms';
-import { EventpubComponent } from './eventpub/eventpub.component';
+import { EventpubComponent, SafeHtmlPipe } from './eventpub/eventpub.component';
 import  {Roles}  from 'meteor/alanning:roles'
 import { MyFestService } from './myfest.services';
 import { RoleGuard } from './roleguard.services';
@@ -118,7 +118,8 @@ let routes = [
     EventpubComponent,
     RegisterComponent,
     EventListComponent,
-    TeamComponent
+    TeamComponent,
+    SafeHtmlPipe
   ],
   bootstrap: [
     AppComponent

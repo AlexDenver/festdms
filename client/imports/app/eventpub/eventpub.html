@@ -60,7 +60,7 @@
                 <div class="rules-box">
                     <div class="sub-title">Rules: </div>
                     <ul>
-                        <li *ngFor="let rule of EventInfo.rules">{{rule}}</li>
+                        <li *ngFor="let rule of EventInfo.rules" [innerHTML]="rule | safeHtml"></li>
                     </ul>
                 </div>
             </div>
