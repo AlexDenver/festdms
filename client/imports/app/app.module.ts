@@ -7,10 +7,8 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { TodoAddComponent } from './todo-add/todo-add.component';
 import { HomeComponent } from './home/home.component';
 import {RegisterComponent} from './register/register.component'
-import { TodoListComponent } from './todo-list/todo-list.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 import { SwiperModule } from 'ngx-swiper-wrapper';
@@ -23,6 +21,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AccountsModule } from 'angular2-meteor-accounts-ui';
 import { EventComponent } from './event/event.component';
 import { TeamComponent } from './team/team.component';
+import { AboutComponent } from './about/about.component';
 
 
 import {EventListComponent} from './event-list/eventlist.component'
@@ -45,14 +44,6 @@ const DEF_SWIPER_CONFIG: SwiperConfigInterface = {
 
 
 let routes = [
-  {
-    path: 'todoList',
-    component: TodoListComponent
-  },
-  {
-    path: 'todoAdd',
-    component: TodoAddComponent
-  },
   // Home Page
   {
     path: '',
@@ -87,6 +78,9 @@ let routes = [
   },{
     path: 'teams/:id',
     component: TeamComponent
+  },{
+    path: 'about',
+    component: AboutComponent
   },
   // 404 Page
   {
@@ -108,8 +102,6 @@ let routes = [
   ],
   declarations: [
     AppComponent,
-    TodoAddComponent,
-    TodoListComponent,
     PageNotFoundComponent,
     AuthComponent,
     HomeComponent,
@@ -119,7 +111,8 @@ let routes = [
     RegisterComponent,
     EventListComponent,
     TeamComponent,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    AboutComponent
   ],
   bootstrap: [
     AppComponent

@@ -45,6 +45,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     UsersListSubscription: Subscription;
     FestVarsSubscription: Subscription;
 
+    ClearSubScription: Subscription[] = [];
 
     menu_toggle: boolean = false;
     addEventActive: boolean = false;
@@ -61,14 +62,15 @@ export class DashboardComponent implements AfterViewInit, OnInit {
         this.team_member_count = {}
         // this.events_sub = this.mf.findEventsDyn({})
         // this.events_sub = this.mf.findEvents({});
-        MeteorObservable.subscribe('events_sub').subscribe(() => {
+        this.ClearSubScription[0] = MeteorObservable.subscribe('events_sub').subscribe(() => {
             this.events_sub_obs = EventsCollection.find({});
             this.events_sub_obs.subscribe(c => {
                 this.events_sub = c;
             })
         });
+        
 
-        MeteorObservable.subscribe('users_sub').subscribe(() => {
+        this.ClearSubScription[1] = MeteorObservable.subscribe('users_sub').subscribe(() => {
             this.users_sub_obs = Meteor.users.find({});
             this.users_sub = this.users_sub_obs.fetch();
             // this.users_sub_obs.subscribe(c => {
@@ -76,7 +78,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
             // })
         });
 
-        MeteorObservable.subscribe('parti_sub').subscribe(() => {
+        this.ClearSubScription[2] = MeteorObservable.subscribe('parti_sub').subscribe(() => {
             this.parti_sub_obs = PartiCollection.find({});
             let self = this;
             this.parti_sub_obs.subscribe(c => {
@@ -102,7 +104,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
             })
         });
 
-        MeteorObservable.subscribe('fest_vars').subscribe(() => {        
+        this.ClearSubScription[3] = MeteorObservable.subscribe('fest_vars').subscribe(() => {        
             this.fest_sub_obs = MyFestVars.find({})
             this.fest_sub_obs.subscribe(c => {
                 this.festvars = c[0];                
@@ -440,7 +442,8 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     }
 
     ngOnDestroy(): void {
-        
+        for(let i = 0 ; i < this.ClearSubScription.length ; i++)
+            this.ClearSubScription[i].unsubscribe();
     }
 
     ngAfterViewInit() {

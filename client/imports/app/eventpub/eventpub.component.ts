@@ -24,12 +24,12 @@ export class EventpubComponent implements OnInit{
     IFiles: Subscription;  
     imgurl: any;
     constructor(private route: ActivatedRoute){
-        this.EventsListSubscription = MeteorObservable.subscribe('events_sub').subscribe(()=> {
-            this.events_sub_obs = EventsCollection.find({});
-            this.events_sub_obs.subscribe(c => {
-              this.events_sub = c;
-            })
-         });
+        // this.EventsListSubscription = MeteorObservable.subscribe('events_sub').subscribe(()=> {
+        //     this.events_sub_obs = EventsCollection.find({});
+        //     this.events_sub_obs.subscribe(c => {
+        //       this.events_sub = c;
+        //     })
+        //  });
          
          
          // console.log(route.params)

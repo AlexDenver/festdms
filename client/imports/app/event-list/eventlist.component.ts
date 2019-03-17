@@ -37,30 +37,12 @@ export class EventListComponent implements OnInit{
     }
     ngOnInit(): void {
         
-        this.route_sub = this.route.params.subscribe(params => {
-            this.id = params['id'];
-            
-            // console.log(EventsCollection.find({}).fetch())
-            
-            this.EventsListSubscription = MeteorObservable.subscribe('events_sub').subscribe(()=> {
-                let ev = this.id.split('-').join(' ')
-                this.events_sub_obs = EventsCollection.find({"name.themed": ev});
-                this.events_sub_obs.subscribe(c => {
-                  this.EventInfo = c;
-                  
-
-                })
-             });
-             let self = this;
-             
-            
-         });
+        
 
 
          
     }
     ngOnDestroy(): void {
       this.EventsListSubscription.unsubscribe();
-      
     }
 }

@@ -56,6 +56,7 @@
 
 <div class="sections">
     <div class="section hero">
+        <span class="about-btn" [routerLink]="[ '/about' ]">About</span>
         <div class="left wrap">
             <div class="logo">
                 <img src="assets/ab-logo.png" alt="">
@@ -210,15 +211,15 @@
 <footer>
     <div class="top">
         <div class="college-logo">
-            <img src="./assets/rit-logo.svg" alt="">
+            <img class="ritlogo-invert" src="./assets/rit-logo.svg" alt="">
         </div>
         <div class="ab-logo">
-            <img src="./assets/ab-logo.png" alt="">
+            <img class="ablogo-invert" src="./assets/ab-logo.png" alt="">
         </div>
         <div class="links">
             <div class="text">Useful Links</div>
             <ul>
-                <li><a href="#">About Abhyuday</a></li>
+                <li><a [routerLink]="[ '/about' ]">About Abhyuday</a></li>
                 <li><a href="http://msrit.edu/department/mca.html" target="_blank">About Department</a></li>
                 <li><a href="http://msrit.edu/" target="_blank">RIT Homepage</a></li>
 

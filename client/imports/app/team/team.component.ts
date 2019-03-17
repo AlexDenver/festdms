@@ -23,8 +23,9 @@ export class TeamComponent implements OnInit {
     route_sub: any;
     id: any = false;
     members: any;
+    ParitcipantSubscription: Subscription;
     constructor(private zone: NgZone, private router: Router, private route: ActivatedRoute){
-        MeteorObservable.subscribe('parti_sub').subscribe(() => {
+        this.ParitcipantSubscription = MeteorObservable.subscribe('parti_sub').subscribe(() => {
             
             if(this.id)
                 this.parti_sub_obs_id = PartiCollection.find({reg_uid: this.id});
@@ -81,6 +82,10 @@ export class TeamComponent implements OnInit {
         this.route_sub = this.route.params.subscribe(params => {
             this.id = params['id'];
         })
+    }
+    ngOnDestroy(): void {
+        this.ParitcipantSubscription.unsubscribe()
+        
     }
 
 }

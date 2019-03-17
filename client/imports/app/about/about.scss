@@ -1,6 +1,6 @@
 @import '../variables.scss';
 
-.event-wrap {
+.about-wrap {
 
     .top {
         position: relative;
@@ -40,56 +40,6 @@
             }
         }
         background: $primaryColor;
-
-        .card-wrap {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            width: min-content;
-            justify-content: right;
-            grid-gap: 40px;
-            color: $primaryColor;
-            grid-gap: 2.2%;
-            padding: 50px 5%;
-            margin-left: auto;
-
-            .card {
-                box-shadow: $box_shadow;
-                border-radius: 10px;
-
-                margin: 0px;
-                text-align: center;
-                display: grid;
-                justify-content: center;
-                align-content: space-between;
-                grid-template-columns: 1fr;
-                grid-template-rows: 1fr auto;
-                align-content: space-between;
-                min-width: 200px;
-
-                .icon {
-                    display: grid;
-                    place-content: center;
-                    border-bottom: 4px solid;
-
-                    img {
-                        padding: 10% 20%;
-                        width: auto;
-
-                    }
-                }
-
-                .text {
-                    font-size: 2rem;
-                    padding: 0 20%;
-                    line-height: 1.8;
-
-                    small {
-                        font-size: small;
-                        font-weight: 900;
-                    }
-                }
-            }
-        }
     }
 
 
@@ -97,21 +47,39 @@
         background: $white;
         color: $secondaryDark;
         min-height: 80vh;
+        margin: 50px auto;
+        .text-title{
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.5;
+        }
+        .sub-title{
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-top: 25px;
+        }
+        p{
+            font-size: 1.3rem;
+            letter-spacing: 1px;            
+        }
         .cards-wrap{
             display: grid;
-            margin: 50px auto;
+            margin: 10px auto;
             grid-template-columns: repeat(3, 1fr);
             grid-gap: 50px;
             justify-content: space-evenly;
             .card{
                 display: grid;
-                justify-content: space-around;
+                justify-content: left;
                 box-shadow: $box_shadow;
-                grid-gap: 10px;
-                padding: 25px;
-                text-align: center;
+                grid-gap: 50px;   
+                border-radius: 50px;  
+                padding: 10px;
+                grid-template-columns: auto auto;                           
                 transition: ease 0.3s;
                 cursor: pointer;
+                align-items: center;
+                justify-content: center;
                 overflow: hidden;
                 .read{
                     display: none;                    
@@ -120,15 +88,8 @@
                     font-size: 1.3rem;
                     font-weight: 600;
                 }
-                .icon{
-                    height: 100px;
-                    img{
-                        width: 100%;
-                        height: 100%;
-                    }
-                }
-                &:hover{
-                    transform: translateY(-15px);
+                i{
+                    font-size: 5rem;
                 }
             }
         }
@@ -141,7 +102,13 @@
 
 @media (max-width: 768px) {
 
-    .event-wrap {
+    .about-wrap {
+        .text-title{
+            margin-top: 50px;
+        }
+        p{
+            font-size: 1.2rem;
+        }
         .top {
             position: relative;
             .back, .register {                
@@ -160,11 +127,19 @@
         }
 
         .main {
+            margin: 0 20px;
             .cards-wrap {
                 grid-template-columns: auto;
-                padding: 20px;
+                grid-gap: 10px;
+                padding: 10px;
+                justify-content: unset;
                 .card{
-                    
+                    justify-content: left;
+                    grid-gap: 10px;
+                    padding: 10px 20px;
+                    i{
+                        font-size: 3rem;
+                    }
                     .read{                        
                         display: initial;
                         font-size: 0.8rem;

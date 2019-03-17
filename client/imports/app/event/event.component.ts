@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit, Output, Input, NgZone } from '@angula
 import jQuery from 'jquery';
 import { MyFestEvent } from 'imports/models/events';
 import { ObservableCursor, MeteorObservable } from 'meteor-rxjs';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { EventsCollection } from 'imports/collections/all';
 import { FormsModule } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -37,9 +37,10 @@ export class EventComponent implements OnInit {
   original = true;
   imageData;
   changed = false;
+  ClearSubScription:Subscription[] = [];
   constructor( private router: Router, private zone: NgZone){
 
-    this.EventsListSubscription = MeteorObservable.subscribe('event_sub').subscribe(()=> {
+    this.ClearSubScription[0] = this.EventsListSubscription = MeteorObservable.subscribe('event_sub').subscribe(()=> {
       this.events_sub_obs = EventsCollection.find({});
       if(this.original){
         this.setEventCopy(this.events_sub_obs.fetch()[0]);
@@ -158,6 +159,11 @@ export class EventComponent implements OnInit {
       }
     });
 
+  }
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    this.ClearSubScription[0].unsubscribe();
   }
 
 }

@@ -41,7 +41,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
   filled_el = new Array();
   imgs = [];
   ready = false;
-  img_max_size=this.isMobile?80:150;
+  img_max_size=this.isMobile?120:150;
   constructor(private mf: MyFestService, private zone: NgZone){    
     
 
@@ -324,7 +324,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
       var area;
       var max_y = $('.people-wrap').outerHeight() - 100;
       $(elx).removeClass('active').delay(500);
-      var size = (80+Math.random()*(this.img_max_size));
+      var size = (120+Math.random()*(this.img_max_size));
    
       var rand_x;
       var rand_y;
@@ -375,7 +375,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
         var rand_y=0;
         var area;
         let tries=1;
-        var size = ((ix<5&&(!selfx.isMobile)?120:80)+Math.random()*(selfx.img_max_size));
+        var size = ((ix<5&&(!selfx.isMobile)?120:120)+Math.random()*(selfx.img_max_size));
         let size_cut = 2;        
         $('.person img').eq(counter++).attr('src', selfx.imgs[Math.floor(Math.random()*selfx.imgs.length)%selfx.imgs.length].url).parent().addClass('active');
         
@@ -403,13 +403,13 @@ export class HomeComponent implements AfterViewInit, OnInit {
             rand_x = Math.round(min_x + ((max_x - min_x)*(Math.random() % 1)));
             rand_y = Math.round(min_y + ((max_y - min_y)*(Math.random() % 1)));
             area = {x: rand_x, y: rand_y, width: size, height: size};
-            if(tries==25){
+            if(tries==50){
               tries = 1;
               size = size/size_cut;
               //// console.log("Resized")
               //// console.log("Init",size)
             }
-        } while(selfx.check_overlap(area) && (++tries<=25));
+        } while(selfx.check_overlap(area) && (++tries<=50));
         $(this).height(size)
         $(this).width(size)
         selfx.filled_areas.push(area);
@@ -443,6 +443,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
+    this.EventsListSubscription.unsubscribe();
     clearInterval(this.timer)
   }
 }
