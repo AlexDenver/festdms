@@ -3,7 +3,7 @@ body{
     background: $primaryColor;
 }
 .event-wrap {
-
+    
     .top {
         .back {
             color: #fff;
@@ -67,7 +67,7 @@ body{
     .main {
         background: $primaryColor;
         color: $secondaryDark;
-        min-height: 90vh;
+        min-height: 75vh;
         height: 100%;
         .wrapper{
             margin: auto;
