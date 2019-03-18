@@ -2011,11 +2011,3 @@ declare module "meteor/tracker" {
     function onInvalidate(callback: Function): void;
   }
 }
-
-
-declare module "meteor/alanning:roles" {
-  export module Roles {
-    function userIsInRole(id?: any,value?: any): boolean{  }
-    function addUsersToRoles(id?: any,value?: any): boolean{ }
-  }
-}

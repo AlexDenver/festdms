@@ -47,7 +47,7 @@ export class RegisterComponent implements OnInit{
          this.reg_flag = false;
          this.names = new Set();
          let self = this;
-         this.max_parti = 5;                  
+         this.max_parti = 12;                  
   
         //  this.registered;
          
