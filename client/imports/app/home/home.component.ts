@@ -28,7 +28,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
   seconds: number = 0;
   rounds: number = 0;
   isMobile=$(document).width()<768;
-    
+  is_faces_init:boolean = false;
   events_sub_obs: ObservableCursor<MyFestEvent>;
   particleObj;
   diff=1;
@@ -73,7 +73,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
     autoplay: this.isMobile?2500: 0,
     autoplayDisableOnInteraction: false
     // navigation: true
-    
+   
     
   };
   index = 0;
@@ -236,13 +236,16 @@ export class HomeComponent implements AfterViewInit, OnInit {
           selfx.rounds += e.rounds.length;
         }))
         // //// console.log(c);
-        setTimeout(()=>{
-          selfx.mf.getImages().subscribe(c => {
-            selfx.imgs = c[0].allPeople;
-           //  // console.log(c)
-           selfx.initFacesBox();
-          })
-        },2500)
+        if(!this.is_faces_init){
+          this. is_faces_init =true;
+          setTimeout(()=>{
+            selfx.mf.getImages().subscribe(c => {
+              selfx.imgs = c[0].allPeople;
+             //  // console.log(c)
+             selfx.initFacesBox();
+            })
+          },2500)
+        }
         setTimeout(()=>{
           if(selfx.directiveRef)
             selfx.directiveRef.update();
@@ -316,6 +319,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
       this.filled_areas.splice(n, 1);
       var elx = this.filled_el[n];
       this.filled_el.splice(n, 1);
+      console.log(this.filled_areas, this.filled_el);
       var selfx = this;
       var min_x = 0;
       var max_x = $('.people-wrap').outerWidth() -100;

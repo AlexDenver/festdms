@@ -25,7 +25,7 @@ import { MyFestEvent } from 'imports/models/events';
 
     festvars: Observable<MyFestEvent[]>;
     FestVarsSubscription: Subscription;
-
+    
 
     constructor() {  
           
@@ -34,7 +34,7 @@ import { MyFestEvent } from 'imports/models/events';
       });
       
       
-      MeteorObservable.subscribe('fest_vars').subscribe(() => {        
+      this.FestVarsSubscription = MeteorObservable.subscribe('fest_vars').subscribe(() => {        
         this.fest_sub_obs = MyFestVars.find({})
         this.fest_sub_obs.subscribe(c => {
             this.festvars = c[0];                
@@ -86,6 +86,9 @@ import { MyFestEvent } from 'imports/models/events';
     ngOnDestroy() {
       if (this.EventsListSubscription) {
         this.EventsListSubscription.unsubscribe();
+      }
+      if(this.FestVarsSubscription){
+        this.FestVarsSubscription.unsubscribe();
       }
     }
     removeTodo(_id: string) {
