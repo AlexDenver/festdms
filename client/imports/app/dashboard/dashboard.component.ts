@@ -358,6 +358,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
                         themed: ''
                     },
                     fees: 0,
+                    description: '',
                     participants: 0,
                     registration_fee: 0,
                     prizemoney: [0],

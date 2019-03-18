@@ -119,6 +119,13 @@
             padding: 10px;
             border-radius: 5px;
         }
+        textarea {
+            width: 100%;
+            border: none;
+            border-bottom: 2px solid #007dff;
+            height: 70px;
+            font-family: Montserrat;
+        }
     }
     .rules{
          .iterator-input {

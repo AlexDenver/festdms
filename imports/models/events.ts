@@ -8,6 +8,7 @@ export interface MyFestEvent {
   participants: number;
   registration_fee: number;
   prizemoney: Array<number>;
+  description: String;
   rounds: [{
     round: number;    
     name: string;

@@ -1,6 +1,5 @@
 
 
-
 <div class="event-form">
 
     <form name="eventform" #myForm="ngForm" id="eventform">
@@ -19,6 +18,11 @@
                 <label>
                     <span>Event Common Name: </span>
                     <input type="text" name="event_copy.name.actual" [(ngModel)]="event_copy.name.actual">
+                </label>
+
+                <label>
+                    <span>Event Description: </span>
+                    <textarea name="event_copy.description" [(ngModel)]="event_copy.description"></textarea>
                 </label>
         
                 <label>

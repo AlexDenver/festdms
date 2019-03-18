@@ -77,6 +77,7 @@ Meteor.methods({
   addEvent(ev: any) {
     EventsCollection.insert({
       name: ev.name,
+      description: ev.description,
       participants: ev.participants,
       registration_fee: ev.reg_fee,
       prizemoney: ev.prizemoney,
