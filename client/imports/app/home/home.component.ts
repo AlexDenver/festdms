@@ -319,7 +319,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
       this.filled_areas.splice(n, 1);
       var elx = this.filled_el[n];
       this.filled_el.splice(n, 1);
-      console.log(this.filled_areas, this.filled_el);
+      // console.log(this.filled_areas, this.filled_el);
       var selfx = this;
       var min_x = 0;
       var max_x = $('.people-wrap').outerWidth() -100;
