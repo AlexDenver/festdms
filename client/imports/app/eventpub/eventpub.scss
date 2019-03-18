@@ -181,13 +181,13 @@
 
             .rules {
                 color: #fff;
-                &:empty {
-                    display: none;
-                }
                 .description{
                     font-size: 1.3rem;
                     margin-bottom: 50px;
                     color: $secondaryDark;
+                    &:empty {
+                        display: none;
+                    }
                 }
                 .sub-title {
                     font-weight: 600;
