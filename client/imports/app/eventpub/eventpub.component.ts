@@ -44,7 +44,7 @@ export class EventpubComponent implements OnInit{
             
             this.EventsListSubscription = MeteorObservable.subscribe('events_sub').subscribe(()=> {
                 let ev = this.id.split('-').join(' ')
-                this.events_sub_obs = EventsCollection.find({"name.themed": { $regex : new RegExp(ev, "i") }});
+                this.events_sub_obs = EventsCollection.find({"name.themed": { $regex: new RegExp('^' + ev.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') + '$', 'i') }});
                 this.events_sub_obs.subscribe(c => {
                   this.EventInfo = c[0];
                   
