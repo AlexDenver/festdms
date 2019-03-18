@@ -181,6 +181,9 @@
 
             .rules {
                 color: #fff;
+                &:empty {
+                    display: none;
+                }
                 .description{
                     font-size: 1.3rem;
                     margin-bottom: 50px;
