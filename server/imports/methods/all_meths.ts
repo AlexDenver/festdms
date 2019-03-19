@@ -8,7 +8,11 @@ import {MailService}  from "@sendgrid/mail"
 
 import {Blaze} from "meteor/blaze"
 
-let getEmail2 = (college, count)=>{
+let getEmail2 = (college, count,ev)=>{
+  let li = '';
+  ev.map((d)=>{
+    li+='<li><b>'+d.event+': </b>'+d.names.join(',')+'</li>'
+  })
   return `<html lang="en"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,11 +23,17 @@ let getEmail2 = (college, count)=>{
   <div style="padding:20px; text-align: center; background: #16324F">
           <a href="http://app.abhyudayrit.com"><img src="http://ab6.herokuapp.com/assets/ab-logo.png" style="height: 15%; width: 15%" alt=""></a>
   </div>
-  <div>
-      <h1>Yay! ${college} registered for Abhyuday 6.0 with ${count} events</h1>
+  <div style="margin: 0 20px;">
+      <h1>Yay! ${college} registered for Abhyuday 6.0 for ${count} event</h1>
+      <div>
+        ${college} </br> ${ev[0].email}
+      </div>
+      <ul>
+        ${li}
+      </ul>
   </div>
   <div style="padding: 10px"></div>
-  <div>
+  <div style="margin: 0 20px">
       <p><span style="font-weight: 600;">Team AB6</span></p>
   </div><div style="padding: 10px 20px;background: #ffb20f;"> 
      <p> <img src="http://ab6.herokuapp.com/assets/rit-logo.svg" style="height: 25%; width: 25%" alt=""></p>
@@ -31,6 +41,7 @@ let getEmail2 = (college, count)=>{
 
 </body></html>`
 }
+
 let getEmail = (d)=>{
   return `
   <!DOCTYPE html>
@@ -44,22 +55,30 @@ let getEmail = (d)=>{
       <div style="padding:20px; text-align: center; background: #16324F">
               <a href="http://app.abhyudayrit.com"><img src="http://ab6.herokuapp.com/assets/ab-logo.png" style="height: 25%; width: 25%" alt=""></a>
       </div>
-      <div>
+      <div style="
+    margin: 20px;
+">
           <h1>Yay! You have successfully registered for Abhyuday 6.0</h1>
       </div>
       <div style="padding: 10px"></div>
-      <div>
+      <div style="
+    margin: 20px;
+">
           <p>We will be waiting for you at our Campus, we are glad you used the online registration form and made the lives of our volunteers easier. Use the code given below, and provide it to the members of the reception committee when asked to finalise your registration.
               </p>
       </div>
-      <div>
-          <h1>Your Code: <span style="color: #ffb20f;border: 2px dashed; margin-left: 20px; padding: 5px;">${d}</span></h1>
+      <div style="
+    margin: 20px;
+">
+          <h1>Your Unique Code: <span style="color: #ffb20f;border: 2px dashed; margin-left: 20px; padding: 5px;">${d}</span></h1>
       </div>
       <div style="padding: 20px"></div>
       <div style="font-style: italic; font-size: smaller; text-align: center;"><span>dont forget to get a signed permission letter from your institution to be eligible for participation</span></div>
       
 
-<div>
+<div style="
+    margin: 20px;
+">
           <p>Thanks,<br>Regards.<br><span style="font-weight: 600;">Team AB6</span></p>
       </div><div style="padding: 10px 20px;background: #ffb20f;"> 
          <p> <img src="http://ab6.herokuapp.com/assets/rit-logo.svg" style="height: 25%; width: 25%" alt=""></p>
@@ -151,21 +170,21 @@ Meteor.methods({
     let c = PartiCollection.find({}).fetch().length+1;
     let uid = 'AB' + (d<9?('0'+d):d) + ev[0].college.trim().slice(-2) + (c<9?('0'+c:c);
     uid = uid.toUpperCase();
-    const sgMail = require('@sendgrid/mail');
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-
-
-    // MailService.setApiKey(process.env.SENDGRID_API_KEY);
     ev = ev.map((e)=>{
       e.reg_uid = uid;
       return e
     })
-    console.log(ev);
+
+
+    var mailgun = require("mailgun-js");
+    var DOMAIN = 'mg.abhyudayrit.com'
+    var mailgun = require('mailgun-js')({apiKey: process.env.MAILGUN_API_KEY, domain: DOMAIN});
+
+
     const msg = {
       to: ev[0].email,
       from: 'AB6 Reception Committee <greetings@abhyudayrit.com>',
-      subject: 'Registartion Successful, UID: '+uid,
-      text: 'and easy to do anywhere, even with Node.js',
+      subject: 'Registartion Successful, UID: '+uid,    
       html:  getEmail(uid) //'<strong>and easy to do anywhere, even with Node.js</strong>',
     };
 
@@ -175,21 +194,17 @@ Meteor.methods({
       from: 'AB6 Reception Committee <greetings@abhyudayrit.com>',
       subject: 'New Registration!, UID: '+uid,
       text: 'and easy to do anywhere, even with Node.js',
-      html:  getEmail2(ev[0].college, ev.length) //'<strong>and easy to do anywhere, even with Node.js</strong>',
+      html:  getEmail2(ev[0].college, ev.length,ev) //'<strong>and easy to do anywhere, even with Node.js</strong>',
     }
-    sgMail.send(msg);
-    sgMail.send(msg2);
 
-    // const sgMail = Npm.require('@sendgrid/mail');    
+    mailgun.messages().send(msg, function (error, body) {
+      console.log(body);
+    });
+
+    mailgun.messages().send(msg2, function (error, body) {
+      console.log(body);
+    });
     
-    // const msg = {
-    //   to: 'dnvr.dsz@gmail.com',
-    //   from: 'test@example.com',
-    //   subject: 'Sending with SendGrid is Fun',
-    //   text: 'and easy to do anywhere, even with Node.js',
-    //   html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-    // };
-    // MailService.send(msg);
     for(let i=0; i < ev.length; i++)
       PartiCollection.insert(ev[i]);
     
