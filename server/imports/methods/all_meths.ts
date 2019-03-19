@@ -8,12 +8,33 @@ import {MailService}  from "@sendgrid/mail"
 
 import {Blaze} from "meteor/blaze"
 
+let getEmail2 = (college, count)=>{
+  return `<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Registered Email</title>
+</head>
+<body style="font-family: 'Montserrat',Helvetica, 'Century Gothic',sans-serif;">
+  <div style="padding:20px; text-align: center; background: #16324F">
+          <a href="http://app.abhyudayrit.com"><img src="http://ab6.herokuapp.com/assets/ab-logo.png" style="height: 15%; width: 15%" alt=""></a>
+  </div>
+  <div>
+      <h1>Yay! ${college} registered for Abhyuday 6.0 with ${count} events</h1>
+  </div>
+  <div style="padding: 10px"></div>
+  <div>
+      <p><span style="font-weight: 600;">Team AB6</span></p>
+  </div><div style="padding: 10px 20px;background: #ffb20f;"> 
+     <p> <img src="http://ab6.herokuapp.com/assets/rit-logo.svg" style="height: 25%; width: 25%" alt=""></p>
+  </div>
 
+</body></html>`
+}
 let getEmail = (d)=>{
   return `
   <!DOCTYPE html>
-  <html lang="en">
-  <head>
+  <html lang="en"><head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -36,11 +57,15 @@ let getEmail = (d)=>{
       </div>
       <div style="padding: 20px"></div>
       <div style="font-style: italic; font-size: smaller; text-align: center;"><span>dont forget to get a signed permission letter from your institution to be eligible for participation</span></div>
-      <div>
+      
+
+<div>
           <p>Thanks,<br>Regards.<br><span style="font-weight: 600;">Team AB6</span></p>
+      </div><div style="padding: 10px 20px;background: #ffb20f;"> 
+         <p> <img src="http://ab6.herokuapp.com/assets/rit-logo.svg" style="height: 25%; width: 25%" alt=""></p>
       </div>
-  </body>
-  </html>
+  
+  </body></html>
 `
 }
 
@@ -143,7 +168,17 @@ Meteor.methods({
       text: 'and easy to do anywhere, even with Node.js',
       html:  getEmail(uid) //'<strong>and easy to do anywhere, even with Node.js</strong>',
     };
+
+
+    const msg2 = {
+      to: "dnvr.dsz@gmail.com",
+      from: 'AB6 Reception Committee <greetings@abhyudayrit.com>',
+      subject: 'New Registration!, UID: '+uid,
+      text: 'and easy to do anywhere, even with Node.js',
+      html:  getEmail2(ev[0].college, ev.length) //'<strong>and easy to do anywhere, even with Node.js</strong>',
+    }
     sgMail.send(msg);
+    sgMail.send(msg2);
 
     // const sgMail = Npm.require('@sendgrid/mail');    
     
