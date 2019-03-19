@@ -40,6 +40,11 @@ $title_size: 20px;
 $normal_size: 15px;
 
 input.ng-invalid.ng-dirty {
-    color: #ec1943 !important;
-    border-bottom: 2px dashed;
+    color: #EF2F3C !important;
+    border-bottom: 2px dashed #EF2F3C !important;
+    border-bottom-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+.new-event input.ng-invalid.ng-dirty{
+    border: 1px dashed #EF2F3C !important;
 }

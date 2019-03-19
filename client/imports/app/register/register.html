@@ -9,11 +9,11 @@
         <div class="input-wrap" >
             <small *ngIf="!reg_flag">Lets begin by entering, </small>
             <div class="rel-wrap">
-                <input id="college" required (change)="startRegistration()" type="text" placeholder="College Name" value="" name="collegeName" [(ngModel)]="collegeName">
+                <input autocomplete="off" id="college" required (change)="startRegistration()" type="text" placeholder="College Name" value="" name="collegeName" [(ngModel)]="collegeName">
                 <label for="college"> <i class="fas fa-university overin"></i></label>
             </div>
             <div class="email">
-                <input type="email" email required placeholder="Email Address" name="email" [(ngModel)]="email">
+                <input autocomplete="off" type="email" email required placeholder="Email Address" name="email" [(ngModel)]="email">
             </div>
         </div>
     </div>
@@ -37,8 +37,8 @@
                        <i class="fas fa-times-circle"></i>
                     </div>
                </div>
-                <input required [disabled]="participant.lock" type="text" placeholder="Enter Participant {{i+1}} Name" *ngFor="let person of participant.names, let i = index" name="{{participant.event}}.participant.names.{{i}}" [(ngModel)]="participant.names[i].name">
-                <input required [disabled]="participant.lock" pattern="[0-9]{10}" type="text" placeholder="Enter Contact Number" name="{{participant.event}}.i.participant.contact" [(ngModel)]="participant.contact">
+                <input autocomplete="off" required [disabled]="participant.lock" type="text" placeholder="Enter Participant {{i+1}} Name" *ngFor="let person of participant.names, let i = index" name="{{participant.event}}.participant.names.{{i}}" [(ngModel)]="participant.names[i].name">
+                <input autocomplete="off" required [disabled]="participant.lock" pattern="[0-9]{10}" type="text" placeholder="Enter Contact Number" title="Enter 10 Digit Number only"  name="{{participant.event}}.i.participant.contact" [(ngModel)]="participant.contact">
                 <div class="footer">
                     <!-- <div class="delete"></div>
                     <div class="check" (click)="lockEvent(j)" *ngIf="!participant.lock">

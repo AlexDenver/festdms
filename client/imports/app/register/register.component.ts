@@ -93,6 +93,9 @@ export class RegisterComponent implements OnInit{
         this.participants = [];   
         this.reg_flag = false;
         this.registered = of(true);
+        for(let i = 0; i < this.events_sub.length; i++){
+          this.events_sub[i].used = false;
+        }
         return false;
       }
     }
