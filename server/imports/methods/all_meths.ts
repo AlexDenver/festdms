@@ -11,7 +11,7 @@ import {Blaze} from "meteor/blaze"
 let getEmail2 = (college, count,ev)=>{
   let li = '';
   ev.map((d)=>{
-    li+='<li><b>'+d.event+': </b>'+d.names.join(',')+'</li>'
+    li+='<li><b>'+d.event+': </b>'+d.names.map((d)=> d.name).join(',')+'</li>'
   })
   return `<html lang="en"><head>
   <meta charset="UTF-8">
