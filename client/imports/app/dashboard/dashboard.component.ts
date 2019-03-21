@@ -36,7 +36,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     users_sub_obs: any;
     parti_sub_obs: any;
     fest_sub_obs: any;
-
+    roles;
     events_sub: MyFestEvent[] ;
     users_sub: Observable < MyFestEvent[] > ;
     parti_data: Observable < any >
@@ -265,6 +265,25 @@ export class DashboardComponent implements AfterViewInit, OnInit {
 
         console.log(d)
  
+    }
+
+    createUser(){
+        let usn = this.evusn,
+            type = this.roles,
+            pwd = this.evpwd,
+            cpwd = this.evconfirmpwd;
+        if(pwd!=cpwd){
+            toastr.error("Passwords Dont Match")
+        }else{
+            Meteor.call("createNewUser", {usn: usn, type: type, pwd: pwd}, function(er, data){
+                if(!er){
+                    toastr.success("Success!");
+                }else{
+                    toastr.error(er)
+                }
+            })
+        }
+
     }
 
     updateIcon(old, evid){

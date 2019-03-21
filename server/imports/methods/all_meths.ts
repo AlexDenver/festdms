@@ -93,11 +93,15 @@ Meteor.users.after.insert(function (userId, user) {
   console.log(userId, user);
 
   if (user.profile.type === "admin") {
-      Roles.addUsersToRoles(user._id, ['add-event','manage-event', 'manage-participants', 'view-participant', 'view-event', 'all'])
+      Roles.addUsersToRoles(user._id, ['add-event','manage-event', 'manage-participants', 'view-participant', 'view-event', 'all', 'notif'])
   } else if (user.profile.type === "eventhead") {
-      Roles.addUsersToRoles(user._id, ['manage-event', 'manage-participants', 'view-participants', 'view-event'])
-  } else if(user.profile.type="participant") {
+      Roles.addUsersToRoles(user._id, ['manage-event', 'manage-participants', 'view-participants', 'view-event', 'notif'])
+  } else if(user.profile.type==="participant") {
       Roles.addUsersToRoles(user._id, ['view-participant'])
+  } else if(user.profile.type === "reception"){
+    Roles.addUsersToRoles(user._id, ['manage-participants', 'view-participants', 'view-event', 'notif'])
+  } else if(user.profile.type === "certificate"){
+    Roles.addUsersToRoles(user._id, ['view-participants', 'view-scores', 'notif' ])
   }
 });
 
@@ -132,6 +136,9 @@ Meteor.methods({
       fees: ev.fees,
       icon: ev.icon
     });
+  },
+  createNewUser(d){
+    return Accounts.createUser({username: d.usn, password: d.pwd, profile: {type:  d.type}})    
   },
   rem_parti(id){
     PartiCollection.remove({reg_uid: id})

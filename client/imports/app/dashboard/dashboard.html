@@ -25,7 +25,7 @@
                     </div>
                 </div>
     
-                <div class="new-event" [ngClass]="{'active': addEventActive}">
+                <div class="new event" [ngClass]="{'active': addEventActive}">
                         <div class="add" *ngIf="!addEventActive"  (click)="addEventStart()">
                                 <i class="fas fa-plus"></i>
                                 <small>Add New Event</small>
@@ -64,6 +64,27 @@
                                 Delete       
                         </div>
                     </div>
+                    <div class="new user" [ngClass]="{'active': addEventActive}">
+                        <div class="add" *ngIf="!addEventActive"  (click)="addEventStart()">
+                                <i class="fas fa-plus"></i>
+                                <small>Add New Event</small>
+                        </div>
+                        <form action="" id="addEventForm" *ngIf="addEventActive"  name="new_user_form" (ngSubmit)="createUser()" >
+                            <input type="text" placeholder="Username" name="evusn" [(ngModel)]="evusn" autocomplete="off">                            
+                            <select name="roles" placeholder="Enter Comma Seperated Roles" [(ngModel)]="roles" class="roles">
+                                <option value="eventhead">Event Head</option>
+                                <option value="reception">Reception</option>
+                                <option value="certificate">Certificate Committee</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                            <input type="password" placeholder="Enter Password" name="evpwd" [(ngModel)]="evpwd" autocomplete="off">
+                            <input type="password" placeholder="Confirm Password" name="evconfirmpwd" [(ngModel)]="evconfirmpwd"  autocomplete="off">
+                            <div class="btn-wrap">
+                                <button (click)="cancelAddEvent()" class="btn cancel">Cancel</button>
+                                <button type="submit" class="btn ok">Add User</button>
+                            </div>
+                        </form>
+                </div>
                 </div>
             </div>
 
@@ -86,6 +107,7 @@
                                 Delete       
                         </div>
                     </div>
+                    
                 </div>
             </div>
 
