@@ -11,8 +11,9 @@ export interface MyFestEvent {
   description: String;
   rounds: [{
     round: number;    
-    name: string;
+    name: string;    
     qualifying: number;
+    criteria: any
   }];
   rules: Array<string>;
   eventHeads: [{

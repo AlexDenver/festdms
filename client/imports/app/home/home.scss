@@ -445,7 +445,7 @@ footer{
         .college-logo{
             
             img{
-                width: 70%;
+                width: 50%;
             }
         }
         .ab-logo {
@@ -609,11 +609,11 @@ footer{
 
         .top{
             grid-template-columns: auto auto;
-            
+            grid-gap: 20px;
             padding: 20px;
             .college-logo{            
                 img{
-                    width: 270px;
+                    width: 200px;
                 }
             }
             .ab-logo {                      

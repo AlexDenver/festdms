@@ -85,7 +85,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
                 let uid = new Set();
                 this.teams = []
                 this.parti_data = c.map((d)=>{
-                    console.log(d)
+                    // console.log(d)
                     let team = {}; 
                     if(!uid.has(d.reg_uid)){
                         team['reg_uid'] = d.reg_uid;
@@ -99,7 +99,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
                         self.team_member_count[d.reg_uid] += 1
                     }
                 })
-                console.log(c);
+                // console.log(c);
             //   this.users_sub = c;
             })
         });
@@ -384,7 +384,8 @@ export class DashboardComponent implements AfterViewInit, OnInit {
                     rounds: [{
                         name: '',
                         round: 0,
-                        qualifying: 0
+                        qualifying: 0,
+                        criteria: {}
                     }],
                     rules: [''],
                     eventHeads: [{

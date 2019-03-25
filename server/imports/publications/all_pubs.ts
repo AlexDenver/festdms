@@ -16,6 +16,17 @@ Meteor.publish('event_sub', function() {
   else
     return false;
 });
+
+Meteor.publish('myParticipants', function() {
+  const user = Meteor.users.findOne({_id: this.userId});
+  if(user){
+    let ev =  EventsCollection.findOne({handler: user.username});
+    return PartiCollection.find({event: ev.name.themed})
+  }else
+    return false;
+});
+
+
 Meteor.publish('fest_vars', function() {
     
     return MyFestVars.find({});

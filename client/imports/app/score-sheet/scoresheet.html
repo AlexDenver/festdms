@@ -1,0 +1,18 @@
+<div class="back" [routerLink]="[ '/manage/', 'score']"><i class="fas fa-angle-left"></i> back</div>
+<form action=""  #myForm="ngForm">
+    <div class="score-wrap wrapper">
+        <h3 class="title">{{parti_sub.names[0].name}}</h3>
+        <div class="criteria" *ngFor="let ev of getCriterias(events_sub.rounds), let i = index" >        
+            
+            <label>
+                <div class="split">
+                    <span>{{ev.text}}</span>
+                    <div class="score">{{score[i].val}}</div>
+                </div>
+                <input type="hidden" name="{{i}}_criteria_text" [(ngModel)]="score[i].text">
+                <input min="0" max={{ev.max}} step="{{ev.step}}" value="0" type="range" name="{{i}}_criteria" id="" [(ngModel)]="score[i].val">
+            </label>
+        </div>
+        <button class="btn" type="submit" (click)="applyScore()" [disabled]="done || (!myForm.form.touched)" >Apply</button>
+    </div>
+</form>

@@ -23,6 +23,8 @@ export class AuthComponent implements AfterViewInit, OnInit {
         //   this.data = Meteor.call('userLogin', {username: this.usn, password: this.pwd});
         this.data = Meteor.loginWithPassword(this.usn, this.pwd, function(err){
             if(err){
+              toastr.error("Error: Invalid Credentials");
+              
                 return false;
             }
             else{      
@@ -35,7 +37,7 @@ export class AuthComponent implements AfterViewInit, OnInit {
 
                 // this.ngZone.run(() => this.router.navigate(['manage/event'])).then();
                 self._ngZone.run(() => {
-                  self.router.navigate(['manage/event'])
+                  self.router.navigate(['manage/', 'event'])
                 });
               }else if(user.profile.type=='reception'){
                 self._ngZone.run(() => {

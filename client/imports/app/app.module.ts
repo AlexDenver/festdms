@@ -25,6 +25,7 @@ import { AboutComponent } from './about/about.component';
 
 
 import {EventListComponent} from './event-list/eventlist.component'
+import { ScoreSheetComponent } from './score-sheet/scoresheet.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { EventpubComponent, SafeHtmlPipe } from './eventpub/eventpub.component';
@@ -59,7 +60,7 @@ let routes = [
     data: { roles: ['all'] }
     
   },{
-    path: 'manage/event',
+    path: 'manage/:state',
     component: EventComponent,
     // canActivate: [RoleGuard],
     data: { roles: ['manage-event', 'all'] }
@@ -82,11 +83,16 @@ let routes = [
     path: 'about',
     component: AboutComponent
   },
+  {
+    path: 'scores/:id',
+    component: ScoreSheetComponent
+  },
   // 404 Page
   {
     path: '**',
     component: PageNotFoundComponent
   }
+  
 ]
 
 
@@ -112,7 +118,8 @@ let routes = [
     EventListComponent,
     TeamComponent,
     SafeHtmlPipe,
-    AboutComponent
+    AboutComponent,
+    ScoreSheetComponent
   ],
   bootstrap: [
     AppComponent

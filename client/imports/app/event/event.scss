@@ -193,3 +193,53 @@
         }
     }
 }
+
+
+
+.round-form{
+    .section{
+        .iterator-input{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-auto-flow: unset;
+            grid-gap: 10px;
+            justify-content: left;
+            max-width: 100%;
+            overflow: unset;
+            padding: 0;
+            margin: 0;
+            input{
+                width: auto;
+            }
+            .add{
+                min-height: 150px;
+            }
+    
+        }
+    }
+}
+
+
+.participants.wrapper{
+    margin: 50px auto;
+}
+.parti-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: $radius;
+    .parti{
+        padding: $radius;
+        cursor: pointer;
+        background: $primaryColor;
+        border-radius: $radius;
+        
+    }
+}
+
+
+@media (max-width: 760px){
+    .parti-wrap{
+        grid-template-columns:  1fr;
+
+    }
+}

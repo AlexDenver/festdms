@@ -5,7 +5,7 @@ $radius: 10px;
 $space: 4rem;
 $box_shadow: 0 3px 6px 0 rgba(0,0,0,0.16);
 
-%btn{
+%btn, .btn{
     padding: 0.34em 1.1em;
     border-radius: $radius;
     cursor: pointer;
@@ -47,4 +47,120 @@ input.ng-invalid.ng-dirty {
 }
 .new-event input.ng-invalid.ng-dirty{
     border: 1px dashed #EF2F3C !important;
+}
+
+
+
+
+
+.side-spmenu {
+    background: $primaryColor;
+    position: fixed;
+
+    h3 {
+        color: #afdefa;
+        font-size: 1.9em;
+        padding: 20px;
+        margin: 0;
+        font-weight: 300;
+        background: #0d77b6;
+    }
+
+    .links {
+        display: block;
+        color: #fff;
+        font-size: 1.1em;
+        font-weight: 300;
+        text-decoration: none;
+        &:hover {
+            background: #258ecd;
+        }
+
+        &:active {
+            background: #afdefa;
+            color: $primaryColor;
+        }
+    }
+}
+
+/* Orientation-dependent styles for the content of the menu */
+
+.side-spmenu-vertical {
+    width: 240px;
+    height: 100%;
+    top: 0;
+    z-index: 1000;
+
+    .links {
+        cursor: pointer;
+        border-bottom: 1px solid #258ecd;
+        padding: 1em;
+        text-decoration: none;
+    }
+}
+
+
+
+/* Vertical menu that slides from the left or right */
+
+.side-spmenu-left {
+    left: -240px;
+
+    &.side-spmenu-open {
+        left: 0px;
+    }
+}
+
+.side-spmenu-right.side-spmenu-open {
+    right: 0px;
+}
+
+.side-spmenu,
+.side-spmenu-push {
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+@media screen and (max-width: 55.1875em) {
+    .side-spmenu-horizontal {
+        font-size: 75%;
+        height: 110px;
+    }
+
+    .side-spmenu-top {
+        top: -110px;
+    }
+
+    .side-spmenu-bottom {
+        bottom: -110px;
+    }
+}
+
+@media screen and (max-height: 26.375em) {
+    .side-spmenu-vertical {
+        font-size: 90%;
+        width: 190px;
+    }
+
+    .side-spmenu-left,
+    .side-spmenu-push-toleft {
+        left: -190px;
+    }
+
+    .side-spmenu-right {
+        right: -190px;
+    }
+
+    .side-spmenu-push-toright {
+        left: 190px;
+    }
+}
+
+
+
+.menu-toggle {
+    padding: 10px;
+    background: $primaryColor;
+    cursor: pointer;
 }

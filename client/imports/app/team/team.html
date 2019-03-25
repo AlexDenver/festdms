@@ -35,7 +35,7 @@
                 <div class="footer status">
                     <span class="fa-stack">
                         <i class="fas fa-circle fa-stack-2x"></i>                    
-                        <i class="fas fa-user-alt-slash fa-stack-1x fa-inverse"></i>                            
+                        <i class="fas fa-user-alt-slash fa-stack-1x fa-inverse" [ngClass]="{'fa-user-check': checkin_all[participant.reg_uid]}"></i>                            
                     </span>                            
                 </div>
                 
@@ -59,7 +59,7 @@
                 </div>
             </div>
             <div class="team-one">
-                <div class="team-card" *ngFor="let participant of members">
+                <div class="team-card" *ngFor="let participant of members, let i = index">
                 
                     <div class="icon">
                         <img src="{{participant.icon}}" alt="">
@@ -71,12 +71,13 @@
                         </span>
                         {{participant.event}}
                     </div>            
-                    <div class="team-member" *ngFor="let name of participant.names">
+                    <div class="team-member" *ngFor="let name of participant.names, let j = index">
                         <span class="fa-stack">
                             <i class="fas fa-circle fa-stack-2x"></i>                    
                             <i class="fas fa-user fa-stack-1x fa-inverse"></i>                            
-                        </span>                
-                        <span>{{name.name}}</span>
+                        </span>
+                        <input type="text" (change)="showSave(participant._id)" name="{{participant._id+''+j}}" [(ngModel)]="members[i].names[j].name" class="name" value="{{members[i].names[j].name}}" *ngIf="canEdit">       
+                        <span *ngIf="!canEdit" class="team-member-name">{{name.name}}</span>                 
                     </div>
 
                     <div class="team-phone">
@@ -91,12 +92,25 @@
                     <div class="footer status">
                         <span class="fa-stack">
                             <i class="fas fa-circle fa-stack-2x"></i>                    
-                            <i class="fas fa-user-alt-slash fa-stack-1x fa-inverse"></i>                            
-                        </span>                            
+                            <i class="fas fa-user-alt-slash fa-stack-1x fa-inverse" [ngClass]="{'fa-user-check': participant.checkin}"></i>                            
+                        </span>  
+                        <span class="fa-stack" *ngIf="save[participant._id]" (click)="updateParticipant(participant._id, {names: members[i].names})">
+                            <i class="fas fa-circle fa-stack-2x"></i>                    
+                            <i class="fas fa-check fa-stack-1x fa-inverse"></i>                            
+                        </span>        
+                        
+                        <span class="fa-stack"  *ngIf="!participant.checkin && canEdit" (click)="checkinParticipant(participant._id)">
+                            <i class="fas fa-circle fa-stack-2x"></i>                    
+                            <i class="fas fa-sign-in-alt fa-stack-1x fa-inverse" ></i>                            
+                        </span>  
+                        
+                        
                     </div>
                     
                     
                 </div>
             </div>
+            <div class="btn" *ngIf="canEdit" (click)="checkinAll()">Check-in All <i class="fas fa-sign-in-alt"></i></div>
     </div>
+
 </div>

@@ -217,6 +217,18 @@ Meteor.methods({
     
 
     return uid;
+  },
+  updateParticipant(names, id){
+    PartiCollection.update({_id: id}, {$set: {names: names.names}})
+  },
+  checkinAll(uid){
+    PartiCollection.update({reg_uid: uid}, {$set: {checkin: true}}, {multi: true});
+  },
+  checkinOne(id){
+    PartiCollection.update({_id: id}, {$set: {checkin: true}});
+  },
+  applyScore(id,round,score){
+    return PartiCollection.update({_id: id}, {$push: {scores: score}});
   }
 })
 

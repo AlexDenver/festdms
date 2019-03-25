@@ -1,35 +1,38 @@
-import { Component, OnInit, AfterViewInit, Output, Input, NgZone } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Output, Input, NgZone, PipeTransform, Pipe } from '@angular/core';
 import jQuery from 'jquery';
 import { MyFestEvent } from 'imports/models/events';
 import { ObservableCursor, MeteorObservable } from 'meteor-rxjs';
 import { Observable, Subscription } from 'rxjs';
-import { EventsCollection } from 'imports/collections/all';
+import { EventsCollection, PartiCollection } from 'imports/collections/all';
 import { FormsModule } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
 import Images from 'imports/collections/images';
 import {UploadFS} from 'meteor/jalik:ufs';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import  {Roles}  from 'meteor/alanning:roles'
 import { Tracker } from 'meteor/tracker';
 // import { Router } from '@angular/router';
-
+import {ArraySortPipe} from "../app.pipe";
 
 // import {toastr} from 'meteor/flawless:meteor-toastr'
+
+
+
 
 
 @Component({
   selector: 'event',
   templateUrl: 'event.html',
-  styleUrls: ['event.scss'],
+  styleUrls: ['event.scss']
 })
 
 export class EventComponent implements OnInit { 
   
-  
+  menu_toggle: boolean = false;
   
   events_sub_obs: ObservableCursor<MyFestEvent>;
   
-
+  navState:string = 'event' 
   events_sub: Observable<MyFestEvent[]>;
   event_copy: Observable<MyFestEvent>;
   event_first;
@@ -38,7 +41,12 @@ export class EventComponent implements OnInit {
   imageData;
   changed = false;
   ClearSubScription:Subscription[] = [];
-  constructor( private router: Router, private zone: NgZone){
+  route_sub: any;
+  myPartiSub: Subscription;
+  parti_sub_obs: Observable<any>;
+  parti_sub: Observable<any>;
+  sorted_parti: Observable<any>;
+  constructor( private router: Router, private zone: NgZone, private route: ActivatedRoute){
 
     this.ClearSubScription[0] = this.EventsListSubscription = MeteorObservable.subscribe('event_sub').subscribe(()=> {
       this.events_sub_obs = EventsCollection.find({});
@@ -50,11 +58,58 @@ export class EventComponent implements OnInit {
         this.events_sub = c[0];
       })
    });
+
+   
+   this.myPartiSub = MeteorObservable.subscribe('myParticipants').subscribe(()=>{
+     console.log("here")
+     this.parti_sub_obs = PartiCollection.find({});
+     this.parti_sub_obs.subscribe(c =>{
+       console.log(c)
+       c.map((cp=>{
+         let total = 0;
+         cp.scores.map((sc)=>{
+           sc.map((v)=>{
+
+             total += v.val;
+           })
+         })
+         cp.total = total;
+       }))
+       this.parti_sub = c;
+       
+        this.sorted_parti = this.parti_sub;
+        // this.sorted_parti.sort();
+        this.sorted_parti.sort(function(a, b) {          
+          
+             return -a.total;
+        })
+        
+        console.log(this.sorted_parti);
+
+     })
+   })
+
+
   }
-  setEventCopy(c){
-    
+  setNavState(st) {
+    this.navState = st;
+    this.menu_toggle = false;
+  }
+  toggleMenu() {
+      this.menu_toggle = !this.menu_toggle;
+  }
+  setEventCopy(c){    
+    console.log(c)
+    c.rounds = c.rounds.map((d)=>{
+      if(!d.criteria){
+        d.criteria = []
+      }
+      return d;
+    })
     this.event_copy = c;
+    
   }
+
   save(){
     Meteor.call('updateEvent', this.event_copy._id ,this.event_copy, function(err, res){
       if(err){
@@ -159,6 +214,11 @@ export class EventComponent implements OnInit {
       }
     });
 
+
+    this.route_sub = this.route.params.subscribe(params => {      
+      this.navState = params['state']
+    })
+
   }
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
@@ -167,3 +227,4 @@ export class EventComponent implements OnInit {
   }
 
 }
+
