@@ -81,8 +81,8 @@ export class EventComponent implements OnInit {
         // this.sorted_parti.sort();
         this.sorted_parti.sort(function(a, b) {          
           
-             return -a.total;
-        })
+             return a.total - b.total ;
+        }).reverse();
         
         console.log(this.sorted_parti);
 
@@ -109,7 +109,20 @@ export class EventComponent implements OnInit {
     this.event_copy = c;
     
   }
-
+  disqualify(id, uid, $event){
+    $event.stopPropagation(); // Only seems to
+    $event.preventDefault();
+    if(confirm("Are you Sure you want to Knock Out: " + uid)){
+      Meteor.call("knockOut", id, (err, data)=>{
+        if(!err)
+          toastr.success("Participant Knocked Out.");    
+        else
+          toastr.error("Error Occured.");    
+      })
+    }else{
+      toastr.warning("Knock-out Cancelled.");      
+    }
+  }
   save(){
     Meteor.call('updateEvent', this.event_copy._id ,this.event_copy, function(err, res){
       if(err){

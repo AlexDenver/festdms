@@ -93,7 +93,7 @@
     <div class="users-section" *ngIf="navState=='participants'">
         <div class="all-events">            
             <div class="event-wrap">
-                    <div class="event-card" *ngFor="let participant of teams">
+                    <div class="event-card" *ngFor="let participant of teams" >
                         <div class="icon">
                             <img src="{{participant.icon}}" alt="">
                         </div>
@@ -114,7 +114,7 @@
     </div>
 
     <div class="settings" *ngIf="navState=='settings'">
-        <pre>{{festvars | json}}</pre>
+        <!-- <pre>{{festvars | json}}</pre> -->
             <div class="section images">
                     <div class="title">People of AB Section</div>
                     
@@ -134,6 +134,25 @@
                         </div>                
                         <div class="add" (click)="festvars.allPeople.push({url: '', name: ''})">Add</div>
                     </div>
+
+
+                    <div class="iterator-input">
+                        <div class="image" *ngFor="let p of festvars.teamcodes, let i = index">
+                            <label>
+                                <span>Code {{i+1}}: </span>
+                                <div class="grid">
+                                    <input type="text" name="image.url{{i}}" [(ngModel)]="p.code">                                    
+                                </div>
+                            </label>
+                            <div class="split">
+                                <div class="sub-title"></div>
+                                <div class="del" (click)="festvars.teamcodes.splice(i,1)"> <i class="fas fa-times-circle"></i> </div>
+                            </div> 
+                        </div>                
+                        <div class="add" (click)="festvars.teamcodes.push({code: '', used: false})">Add</div>
+                    </div>
+
+                    
 
                     <div class="save btn" (click)="updateVars()" >Save</div>
                 </div>

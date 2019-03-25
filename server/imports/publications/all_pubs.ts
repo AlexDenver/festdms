@@ -34,7 +34,10 @@ Meteor.publish('fest_vars', function() {
 });
 
 Meteor.publish('parti_sub', function() {
-  return PartiCollection.find({});
+  if(Meteor.user().profile.type=='certificate')
+    return PartiCollection.find({checkin: true});
+  else
+    return PartiCollection.find({});
 });
 
 Meteor.publish('users_sub', function() {

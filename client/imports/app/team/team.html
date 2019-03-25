@@ -2,12 +2,17 @@
    
     <div class="wrapper" *ngIf="!id">
             <!-- <div class="back" [routerLink]="[ '/teams' ]"><i class="fas fa-angle-left"></i>  back</div> -->
+            <div class="logout-btn">
+                <div class="logout" (click)="logout()"><i class="fas fa-sign-out-alt"></i> Logout</div>
+            </div>
+
+            <div class="input-wrap">
+                <input type="text" (input)="search()" [(ngModel)]="query" name="search" placeholder="Search">
+            </div>
         <div class="team-all">
-            <div class="team-card" [routerLink]="[ '/teams/', participant.reg_uid ]" *ngFor="let participant of teams">
+            <div class="team-card" [routerLink]="[ '/teams/', participant.reg_uid ]" *ngFor="let participant of (teams)" [hidden]="!participant.checkin && userType=='certificate'">
                 
-                <div class="icon">
-                    <img src="{{participant.icon}}" alt="">
-                </div>
+
                 <div class="team-college">{{participant.college}}</div>
                 <div class="team-id">
                     <span class="fa-stack">
@@ -15,7 +20,17 @@
                         <i class="fas fa-hashtag fa-stack-1x fa-inverse"></i>
                     </span>
                     {{participant.reg_uid}}
-                </div>            
+                </div>  
+                
+                <div class="team-id" *ngIf="participant.teamcode">
+                    <span class="fa-stack">
+                        <i class="fas fa-circle fa-stack-2x"></i>                    
+                        <i class="fas fa-chess-queen fa-stack-1x fa-inverse"></i>
+                    </span>
+                    {{participant.teamcode}}
+                </div>                 
+
+
                 <div class="team-size">
                     <span class="fa-stack">
                         <i class="fas fa-circle fa-stack-2x"></i>                    
@@ -58,6 +73,15 @@
                     </div>
                 </div>
             </div>
+            <div class="teamcode">
+                <label for="" *ngIf="!members[0].teamcode && userType=='reception'">
+                    <div>Select Team Code</div>
+                    <select name="teamCode" [(ngModel)]="teamCode" value="Select Teamcode">                        
+                        <option value="{{c.code}}" *ngFor="let c of festvars.teamcodes"  [disabled]="c.used">{{c.code}}</option>
+                    </select>
+                </label>
+                <div class="title">Team: <span>{{members[0].teamcode}}</span></div>
+            </div>
             <div class="team-one">
                 <div class="team-card" *ngFor="let participant of members, let i = index">
                 
@@ -70,7 +94,17 @@
                             <i class="fas fa-heart fa-stack-1x fa-inverse"></i>                        
                         </span>
                         {{participant.event}}
-                    </div>            
+                    </div>     
+                    
+                    <div class="team-id" *ngIf="userType=='certificate'">
+                        <span class="fa-stack">
+                            <i class="fas fa-circle fa-stack-2x"></i>                    
+                            <i class="fas fa-trophy fa-stack-1x fa-inverse"></i>                        
+                        </span>
+                        {{participant.total}}
+                    </div>     
+                    
+                    
                     <div class="team-member" *ngFor="let name of participant.names, let j = index">
                         <span class="fa-stack">
                             <i class="fas fa-circle fa-stack-2x"></i>                    

@@ -223,16 +223,55 @@
 .participants.wrapper{
     margin: 50px auto;
 }
+[hidden]{
+    display: none !important;
+}
+.disq{
+    padding: 5px 10px;
+    background: #030303;
+    justify-self: right;
+    border-radius: 20px;
+    display: grid;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    grid-template-columns: auto auto;
+    text-align: center;
+    grid-gap: 10px;
+    color: #fff;
+    font-weight: 900;
+
+}
+h1{
+    margin: 20px 0;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
 .parti-wrap {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: $radius;
     .parti{
-        padding: $radius;
+        padding: 30px 15px;
         cursor: pointer;
         background: $primaryColor;
         border-radius: $radius;
+        display: grid;
+        grid-gap: 15px;
+        .score{
+            justify-self: center;
+            font-size: 1.3rem;
+            font-weight: 500;
+        }
         
+    }
+}
+.disqualified{
+  
+    margin-top: 50px;
+    .parti{        
+        opacity: 0.5;
+        cursor: unset;
     }
 }
 

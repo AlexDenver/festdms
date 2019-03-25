@@ -54,11 +54,11 @@ export class ScoreSheetComponent implements OnInit{
      
      this.myPartiSub = MeteorObservable.subscribe('myParticipants').subscribe(()=>{
        console.log("here")
-       this.parti_sub_obs = PartiCollection.find({reg_uid: this.rid});
+       this.parti_sub_obs = PartiCollection.find({_id: this.rid});
        this.parti_sub_obs.subscribe(c =>{
          console.log(c)
          this.parti_sub = c[0];
-         this.currentRound = c.scores.length;
+         this.currentRound = c[0].scores.length;
        })
      })
   
@@ -70,7 +70,7 @@ export class ScoreSheetComponent implements OnInit{
       Meteor.call("applyScore", this.parti_sub._id, this.currentRound, this.score, (err,d)=>{
         if(!err){
           toastr.success("Scores Applied!")
-          this.zone.run(() => this.router.navigate(['/manage', 'scores']));
+          this.zone.run(() => this.router.navigate(['/manage', 'score']));
         }
       })
     }

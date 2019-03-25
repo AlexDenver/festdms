@@ -195,10 +195,10 @@
 </div>
 
 
-
 <div class="participants wrapper" *ngIf="navState=='score'">
+    <h1 class="title">Active Participants</h1>
     <div class="parti-wrap">
-        <div class="parti" *ngFor="let parti of sorted_parti" [hidden]="parti.disqualifed" [routerLink]="[ '/scores/', parti.reg_uid ]">
+        <div class="parti" *ngFor="let parti of sorted_parti" [hidden]="parti.disqualified || !parti.checkin" [routerLink]="[ '/scores/', parti._id ]">
             <div class="team-code">
                     <span class="fa-stack">
                         <i class="fas fa-circle fa-stack-2x"></i>                    
@@ -206,31 +206,65 @@
                     </span>
                     {{parti.reg_uid}}
             </div>
+            <div class="team-id">
+                    <span class="fa-stack">
+                        <i class="fas fa-circle fa-stack-2x"></i>                    
+                        <i class="fas fa-star-of-life fa-stack-1x fa-inverse"></i>
+                    </span>
+                    {{parti.teamcode}}
+                </div>   
             <div class="team-member" *ngFor="let name of parti.names, let j = index">
                 <span class="fa-stack">
                     <i class="fas fa-circle fa-stack-2x"></i>                    
                     <i class="fas fa-user fa-stack-1x fa-inverse"></i>                            
                 </span>                
                 <span class="team-member-name">{{name.name}}</span>                 
-            </div>
-
-            <div class="score" *ngFor="let score of parti.scores">
-                {{score}} 
-            </div>
-
-        </div>
-    </div>
-
-
-
-
-    <div class="disqualified">
-        <div class="parti" *ngFor="let parti of parti_sub" [hidden]="!parti.disqualifed">
-                {{parti.reg_uid + 'disq'}}
+            </div>            
             <div class="score">
-
+                <i class="fas fa-trophy"></i>
+                {{parti.total}} 
             </div>
+            <div class="disq" (click)="disqualify(parti._id, parti.reg_uid, $event)">
+                    
+                    
+                <i class="fas fa-user-alt-slash "></i>                            
+                    
+                <span>
+                    K-O 
+                </span> 
+            </div>
+        </div>
+    </div>
+
+
+
+
+<div class="disqualified">
+    <h1 class="title">Knocked-Out Participants</h1>
+    <div class="parti-wrap ">
+        <div class="parti" *ngFor="let parti of parti_sub" [hidden]="!parti.disqualified || !parti.checkin">
+                
+                <div class="team-code">
+                        <span class="fa-stack">
+                            <i class="fas fa-circle fa-stack-2x"></i>                    
+                            <i class="fas fa-hashtag fa-stack-1x fa-inverse"></i>
+                        </span>
+                        {{parti.reg_uid}}
+                </div>
+                <div class="team-member" *ngFor="let name of parti.names, let j = index">
+                    <span class="fa-stack">
+                        <i class="fas fa-circle fa-stack-2x"></i>                    
+                        <i class="fas fa-user fa-stack-1x fa-inverse"></i>                            
+                    </span>                
+                    <span class="team-member-name">{{name.name}}</span>                 
+                </div>            
+                <div class="score">
+                    <i class="fas fa-trophy"></i>
+                    {{parti.total}} 
+                </div>                
 
         </div>
     </div>
+</div>    
+    
 </div>

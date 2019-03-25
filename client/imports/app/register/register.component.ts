@@ -6,7 +6,7 @@ import { EventsCollection } from 'imports/collections/all';
 import { Router, ActivatedRoute, NavigationEnd, Route } from '@angular/router';
 import {Meteor} from 'meteor/meteor';
 import  Images  from "../../../../imports/collections/images";
-
+import  {Roles}  from 'meteor/alanning:roles'
 
 @Component({
   selector: 'register',
@@ -34,6 +34,8 @@ export class RegisterComponent implements OnInit{
     registered: Observable<boolean>;
     myForm;
     submissionReady = false;
+    USER;
+    oldId = false;
     constructor(private route: ActivatedRoute, private zone: NgZone, private router: Router){
         this.EventsListSubscription = MeteorObservable.subscribe('events_sub').subscribe(()=> {
             this.events_sub_obs = EventsCollection.find({});
@@ -41,6 +43,7 @@ export class RegisterComponent implements OnInit{
               this.events_sub = c;
             })
          });
+         this.USER = Meteor.user();
          this.participants = [];                         
          this.selectEvent = false;
          this.collegeName = '';
@@ -84,7 +87,8 @@ export class RegisterComponent implements OnInit{
         console.log(participants, "this is here")    
         Meteor.call("registerTeam", participants,  function(err, data){
           // console.log(err, data)
-          if(!err){            
+          if(!err){   
+            Meteor.call("rem_parti", self.oldId);
             self.setRegData(data);
             x.reset();
           }
@@ -113,6 +117,32 @@ export class RegisterComponent implements OnInit{
       // console.log(this.uid);
     }
     startRegistration(){
+      let self = this;
+      if(Roles.userIsInRole(this.USER, ["manage-participants", "all"])){        
+        if(this.collegeName.slice(0,3).toLowerCase()=='#ab'){
+          let id = this.collegeName.slice(1,9);
+          self.oldId = id;
+          Meteor.call("loadFormData", id, (err, data)=>{            
+            if(data.length==0){
+              toastr.error("Invalid Registration ID");
+            }else{
+              toastr.success("Success");                            
+              self.zone.runTask(function(){
+                self.collegeName = data[0].college;
+                self.email = data[0].email;
+                self.participants = data;
+                data.map((d)=>{
+                  d.names.map((name)=>{                  
+                    self.names.add(name.name);
+                  })
+                })
+                
+              })
+            }
+          })
+        }
+      }
+
       this.reg_flag = true;
     }
     removeEvent(i){

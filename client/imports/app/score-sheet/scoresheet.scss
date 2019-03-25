@@ -7,6 +7,17 @@
     border-radius: $radius;
 }
 
+.page-title{
+    font-size: 2rem;
+    font-weight: 800;
+    text-align: center;
+    margin-top: 20px;
+}
+.text{
+    text-align: center;
+    margin-top: 10px;
+}
+
 .split {
     grid-template-columns: 1fr 1fr;
     display: grid;

@@ -1,6 +1,7 @@
 <div class="back" [routerLink]="[ '/manage/', 'score']"><i class="fas fa-angle-left"></i> back</div>
 <form action=""  #myForm="ngForm">
-    <div class="score-wrap wrapper">
+    <div class="page-title">Round {{currentRound+1}}</div>
+    <div class="score-wrap wrapper" *ngIf="getCriterias(events_sub.rounds).length!=0">
         <h3 class="title">{{parti_sub.names[0].name}}</h3>
         <div class="criteria" *ngFor="let ev of getCriterias(events_sub.rounds), let i = index" >        
             
@@ -14,5 +15,8 @@
             </label>
         </div>
         <button class="btn" type="submit" (click)="applyScore()" [disabled]="done || (!myForm.form.touched)" >Apply</button>
+    </div>
+    <div *ngIf="getCriterias(events_sub.rounds).length==0">
+        <div class="text">Info Doesn't Exist, Add Round Info In "Round Overview" Tab .</div>
     </div>
 </form>

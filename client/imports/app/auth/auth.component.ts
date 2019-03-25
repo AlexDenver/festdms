@@ -43,6 +43,10 @@ export class AuthComponent implements AfterViewInit, OnInit {
                 self._ngZone.run(() => {
                   self.router.navigate(['teams'])
                 });
+              }else if(user.profile.type=='certificate'){
+                self._ngZone.run(() => {
+                  self.router.navigate(['teams'])
+                });
               }
 
                 // self.router.navigate(['manage/event']);
@@ -53,19 +57,32 @@ export class AuthComponent implements AfterViewInit, OnInit {
 
   ngOnInit(){
     if(Meteor.userId()){
-
+      let self = this;
       Tracker.autorun(() => {
         let user = Meteor.user();
         console.log("Run")
         if(user)
-          if(user.username=='admin')
-            this._ngZone.run(() => {
-              this.router.navigate(['dashboard']);
+          if(user.username=='admin') 
+            // this.ngZone.run(() => this.router.navigate(['dashboard'])).then();
+            self._ngZone.run(() => {
+              self.router.navigate(['dashboard']);
+            })
+          else if(user.profile.type=='eventhead'){
+
+            // this.ngZone.run(() => this.router.navigate(['manage/event'])).then();
+            self._ngZone.run(() => {
+              self.router.navigate(['manage/', 'event'])
             });
-          else
-            this._ngZone.run(() => {
-              this.router.navigate(['manage/event']);
+          }else if(user.profile.type=='reception'){
+            self._ngZone.run(() => {
+              self.router.navigate(['teams'])
             });
+          }else if(user.profile.type=='certificate'){
+            self._ngZone.run(() => {
+              self.router.navigate(['teams'])
+            });
+          }
+            
       }); 
     }
   }

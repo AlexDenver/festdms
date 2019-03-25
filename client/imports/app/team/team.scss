@@ -1,5 +1,36 @@
 @import '../variables.scss';
-
+[hidden]{
+    display: none !important;
+}
+.logout {
+    justify-content: right;
+    display: grid;
+    grid-auto-flow: column;
+    grid-gap: 5px;
+    align-items: center;
+    font-weight: 500;
+    line-height: 1.2;
+    background: $primaryColor;
+    width: max-content;
+    margin-left: auto;
+    color: #fff;
+    padding: 15px 20px;
+    border-radius: 5px;
+    margin-right: 10px;
+    margin-bottom: 50px;
+    cursor: pointer;
+}
+.input-wrap{
+    margin-bottom: 50px;
+    input {
+        display: grid;
+        // margin: auto;
+        width: auto;
+        border-radius: 50px;
+        padding: 20px 30px;
+        font-size: 1.2rem;
+    }
+}
 .team-wrap{
     .back {
         color: $primaryColor;
@@ -33,11 +64,29 @@
         background: #ffb10f;
         width: max-content;
     }
+    select {
+        padding: 10px 50px;
+        font-size: 2rem;
+        background: none;
+        border: 2px solid;
+        border-radius: 10px;
+        margin: 20px 0;
+    }
+    .title{
+        font-size: 1.4rem;
+        margin: 20px 0;
+        span{
+            font-weight: 600;        
+        }
+    }
     .team-all, .team-one{
         display: grid;
         grid-column-gap: $radius;
         grid-row-gap: $radius*2;
         grid-template-columns: repeat(4, 1fr);
+
+        
+        
         .team-card{
             background: $primaryColor;
             box-shadow: $box_shadow;

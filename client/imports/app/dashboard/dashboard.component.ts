@@ -107,7 +107,9 @@ export class DashboardComponent implements AfterViewInit, OnInit {
         this.ClearSubScription[3] = MeteorObservable.subscribe('fest_vars').subscribe(() => {        
             this.fest_sub_obs = MyFestVars.find({})
             this.fest_sub_obs.subscribe(c => {
-                this.festvars = c[0];                
+                this.festvars = c[0];     
+                if(!this.festvars.teamcodes)           
+                    this.festvars.teamcodes = [];
             })
         });
 

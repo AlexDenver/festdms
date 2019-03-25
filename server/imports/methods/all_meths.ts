@@ -178,6 +178,8 @@ Meteor.methods({
     let uid = 'AB' + (d<9?('0'+d):d) + ev[0].college.trim().slice(-2) + (c<9?('0'+c:c);
     uid = uid.toUpperCase();
     ev = ev.map((e)=>{
+      if(e._id)
+      delete e._id;
       e.reg_uid = uid;
       return e
     })
@@ -224,11 +226,22 @@ Meteor.methods({
   checkinAll(uid){
     PartiCollection.update({reg_uid: uid}, {$set: {checkin: true}}, {multi: true});
   },
+  addTeamCode(uid, code){
+    PartiCollection.update({reg_uid: uid}, {$set: {teamcode: code}}, {multi: true});
+    MyFestVars.update({"teamcodes.code": code}, {$set: {"teamcodes.$.used": true}});
+  }
+  ,
   checkinOne(id){
     PartiCollection.update({_id: id}, {$set: {checkin: true}});
   },
   applyScore(id,round,score){
     return PartiCollection.update({_id: id}, {$push: {scores: score}});
+  },
+  loadFormData(id){
+    return PartiCollection.find({reg_uid: id}).fetch();
+  },
+  knockOut(id){
+    PartiCollection.update({_id: id}, {$set: {disqualified: true}});
   }
 })
 
