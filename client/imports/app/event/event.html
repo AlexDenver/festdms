@@ -1,14 +1,14 @@
 <nav (click)="toggleMenu()" class="side-spmenu side-spmenu-vertical side-spmenu-left"
     [ngClass]="{'side-spmenu-open': menu_toggle}" id="side-spmenu-s1">
     <h3>Menu</h3>
-    <div class="links" [routerLink]="[ '/manage', 'event' ]">Event Overview</div>
-    <div class="links" [routerLink]="[ '/manage', 'round' ]">Round Overview</div>
-    <div class="links" [routerLink]="[ '/manage', 'score' ]">Score Overview</div>
-    <div class="links" [routerLink]="[ '/manage', 'notifications' ]">Notifications Overview</div>
-    <div class="links" (click)="logout()" href="#">Logout</div>
+    <div class="links" [routerLink]="[ '/manage', 'event' ]"><i class="fas fa-dice"></i> &nbsp;Event Overview</div>
+    <div class="links" [routerLink]="[ '/manage', 'round' ]"><i class="fas fa-clipboard-check"></i> &nbsp;Round Overview</div>
+    <div class="links" [routerLink]="[ '/manage', 'score' ]"><i class="fas fa-trophy"></i> &nbsp;Score Overview</div>
+    <div class="links" [routerLink]="[ '/manage', 'notifications' ]"><i class="fas fa-bell"></i> &nbsp;Notifications</div>
+    <div class="links" (click)="logout()" href="#"><i class="fas fa-sign-out-alt"></i> &nbsp;Logout</div>
 </nav>
 
-<div class="menu-toggle" (click)="toggleMenu()">Toggle Menu</div>
+<div class="menu-toggle" (click)="toggleMenu()"><i class="fas fa-bars fa-2x"></i> Toggle Menu</div>
 <div class="event-form" *ngIf="navState=='event'">
     <form name="eventform" #myForm="ngForm" id="eventform">
         <div class="page-title">{{event_copy.name.actual}} Event Details</div>

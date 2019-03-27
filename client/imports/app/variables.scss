@@ -68,9 +68,9 @@ input.ng-invalid.ng-dirty {
 
     .links {
         display: block;
-        color: #fff;
+        color: $secondaryDark;
         font-size: 1.1em;
-        font-weight: 300;
+        font-weight: 500;
         text-decoration: none;
         &:hover {
             background: #258ecd;
@@ -163,6 +163,11 @@ input.ng-invalid.ng-dirty {
     padding: 10px;
     background: $primaryColor;
     cursor: pointer;
+    display: grid;
+    grid-auto-flow: column;
+    align-items: center;
+    justify-content: left;
+    grid-gap: 10px;
 }
 
 

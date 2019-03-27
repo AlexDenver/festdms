@@ -444,6 +444,7 @@ body {
 .card {
     .del{
         text-align: right;
+        cursor: pointer;
     }
     // @include dimensions(500px, 100px);
     min-height: 100px;
