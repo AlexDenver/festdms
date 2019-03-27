@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NotifCollection } from 'imports/collections/all';
 import { MeteorObservable } from 'meteor-rxjs';
-
+import {SafeHtmlPipe} from "../eventpub/eventpub.component"
 @Component({
     selector: 'notifications',
     templateUrl: 'notifications.html',

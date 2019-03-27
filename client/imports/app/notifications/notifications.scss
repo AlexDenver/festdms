@@ -111,6 +111,7 @@ html {
         grid-column: 2 / 3;
         grid-row: 1;
         align-self: end;
+        text-align: right;
     }
 
     h3 {
@@ -119,6 +120,7 @@ html {
         font-style: italic;
         font-weight: 900;
         grid-row: 2;
+        text-align: right;
     }
 
     div.bio {

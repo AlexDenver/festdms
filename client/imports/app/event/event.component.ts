@@ -14,7 +14,7 @@ import { Tracker } from 'meteor/tracker';
 // import { Router } from '@angular/router';
 import {ArraySortPipe} from "../app.pipe";
 import { timingSafeEqual } from 'crypto';
-
+import {SafeHtmlPipe} from "../eventpub/eventpub.component"
 // import {toastr} from 'meteor/flawless:meteor-toastr'
 
 
@@ -275,13 +275,3 @@ export class EventComponent implements OnInit {
 
 
 
-import { DomSanitizer } from '@angular/platform-browser'
-import { PipeTransform, Pipe } from "@angular/core";
-
-@Pipe({ name: 'safeHtml'})
-export class SafeHtmlPipe implements PipeTransform  {
-  constructor(private sanitized: DomSanitizer) {}
-  transform(value) {
-    return this.sanitized.bypassSecurityTrustHtml(value);
-  }
-}
