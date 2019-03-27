@@ -150,6 +150,18 @@
 
 // Settings Section
 .settings{
+    .single{
+        display: grid;
+        grid-gap: 10px;
+        small{
+            font-weight: 900;
+        }
+        input {
+            padding: 10px;
+            border-radius: 5px;
+            width: calc(100% - 20px);
+        }
+    }
     .section{
         display: grid;
         grid-gap: 20px;
@@ -180,8 +192,11 @@
         font-size: 1.6rem;
         text-transform: uppercase;
         font-weight: 500;
-        box-shadow: $box_shadow;
+        box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
         cursor: pointer;
+        justify-self: left;
+        background: #2196F3;
+        color: #fff;
     }
     .images{
         box-shadow: $box_shadow;

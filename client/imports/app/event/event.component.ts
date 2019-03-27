@@ -87,7 +87,6 @@ export class EventComponent implements OnInit {
          let total = 0;
          cp.scores.map((sc)=>{
            sc.map((v)=>{
-
              total += v.val;
            })
          })

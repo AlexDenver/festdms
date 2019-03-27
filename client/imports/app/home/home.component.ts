@@ -241,6 +241,8 @@ export class HomeComponent implements AfterViewInit, OnInit {
           setTimeout(()=>{
             selfx.mf.getImages().subscribe(c => {
               selfx.imgs = c[0].allPeople;
+              if(c[0].options.festDay)
+                selfx.festDay = new Date(c[0].options.festDay).getTime() 
              //  // console.log(c)
              selfx.initFacesBox();
             })
@@ -264,10 +266,10 @@ export class HomeComponent implements AfterViewInit, OnInit {
 
   }
 
+  festDay = new Date('28 Mar 2019 9:00').getTime();
   startTimer(){
     const year = (new Date().getFullYear()) + 1;
-    const festDay = new Date('28 Mar 2019 9:00').getTime();
-    // const festDay = new Date('17 Mar 2019 18:19:00').getTime();
+    // festDay = new Date('27 Mar 2019 18:14:00').getTime();
     let self = this;
     // countdown
     
@@ -278,7 +280,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
       const today = new Date().getTime();
 
       // get the difference
-      self.diff = festDay - today;
+      self.diff = self.festDay - today;
       // math
       self.seconds = Math.floor((self.diff % (1000 * 60)) / 1000);
       if(self.diff > 0){

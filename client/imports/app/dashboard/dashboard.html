@@ -152,9 +152,14 @@
                         <div class="add" (click)="festvars.teamcodes.push({code: '', used: false})">Add</div>
                     </div>
 
-                    <label for="">
+                    <label for="" class="single">
                         <small>Notification Timeout</small>
                         <input type="number" placeholder="Notificaiton Timeout Miliseconds" [(ngModel)]="festvars.options.timeout" name="timeout">
+                    </label>
+
+                    <label for="" class="single">
+                        <small>Fest Day (Timer)</small>
+                        <input type="text" placeholder="DD Mmm YYYY H:MM / JS Date Format" [(ngModel)]="festvars.options.festDay" name="timeout">
                     </label>
 
                     <div class="save btn" (click)="updateVars()" >Save</div>

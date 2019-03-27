@@ -82,10 +82,16 @@
                 </div>
             </div>
 
-            <div class="ctas">
+            <div class="ctas" *ngIf="!hideTimer">
                 <a class="btn register" [routerLink]="[ '/register' ]">Register</a>
                 <a class="btn events-btn" [routerLink]="[ '/events' ]">Events</a>
             </div>
+
+            <div class="ctas" *ngIf="hideTimer">
+                <a class="btn register" [routerLink]="[ '/alerts' ]"><i class="fas fa-bell"></i>&nbsp; Announcements</a>
+                <a class="btn events-btn" [routerLink]="[ '/events' ]">Events</a>
+            </div>
+
         </div>
         <div class="right">
 

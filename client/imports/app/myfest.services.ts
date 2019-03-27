@@ -58,6 +58,9 @@ import { MyFestEvent } from 'imports/models/events';
       return this.fest_sub_obs;
       ;
     }
+    // getStartTime(): Observable<any> {
+    //   // if(this.fest)
+    // }
     setEvents(e){
       this.events_sub = e
     }
