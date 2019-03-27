@@ -164,3 +164,54 @@ input.ng-invalid.ng-dirty {
     background: $primaryColor;
     cursor: pointer;
 }
+
+
+
+
+
+
+
+.card.red{
+    &:after {
+        background: #ec1943;
+    }
+}
+.card.red .firstinfo h3{
+    color: #ec1943;
+}
+
+.card.pink{
+    &:after {
+        background: #FB5373;
+    }
+}
+.card.pink .firstinfo h3{
+    color: #FB5373;
+}
+
+
+.card.orange{
+    &:after {
+        background: #F26321;
+    }
+}
+.myNotif .card.orange .firstinfo h3{
+    color: #F26321;
+}
+.card.indigo{
+    &:after {
+        background: #133F7E;
+    }
+}
+ .card.indigo .firstinfo h3{
+    color: #133F7E;
+}
+
+.card.blue{
+    &:after {
+        background: #1C77C3;
+    }
+}
+.card.blue .firstinfo h3{
+    color: #1C77C3;
+}

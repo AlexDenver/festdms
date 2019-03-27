@@ -135,10 +135,11 @@ html {
         margin: 0 -15px;
         margin-bottom: -15px;
         padding: 15px;
-        border-radius: 0 0 4px 4px;
+        border-radius: 0;
     }
     
 }
+
 
 
 @keyframes animatop {
@@ -190,8 +191,45 @@ html {
     margin: 50px auto;
 }
 
+.head {
+    background: $primaryColor;
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 900;
+    text-align: center;
+    padding: 30px;
+    .back {
+        color: #fff;
+        font-weight: 900;
+        font-size: 1.2rem;
+        width: max-content;
+        margin: 0;
+        padding: 10px 15px;
+        box-shadow: $box_shadow;
+        border-radius: 10px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 10px;
+        cursor: pointer;
+    }
+}
 
 @media (max-width: 768px){
+    .head{
+        font-size: 1.5rem;
+        font-weight: 900;
+        text-align: right;
+        h1{
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+            i{
+                margin-left: 10px;
+            }
+        }
+        
+    }
     .cards-wrap{
         grid-template-columns: 1fr;
         margin: 50px 10px;
@@ -213,12 +251,3 @@ html {
 }
 
 
-
-.head {
-    background: $primaryColor;
-    color: #fff;
-    font-size: 2rem;
-    font-weight: 900;
-    text-align: center;
-    padding: 30px;
-}

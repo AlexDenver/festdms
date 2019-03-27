@@ -221,7 +221,11 @@ Meteor.methods({
     return uid;
   },
   createNotif(notif){
+    notif.deleted = false;
     return NotifCollection.insert(notif);
+  },
+  delNotif(id){
+    return NotifCollection.update({_id: id}, {$set: {"deleted": true}})
   },
   updateParticipant(names, id){
     PartiCollection.update({_id: id}, {$set: {names: names.names}})
@@ -245,6 +249,9 @@ Meteor.methods({
   },
   knockOut(id){
     PartiCollection.update({_id: id}, {$set: {disqualified: true}});
+  },
+  getNotifTimeout(){
+    return MyFestVars.find().fetch()[0].options.timeout / (60*1000)
   }
 })
 

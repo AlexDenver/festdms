@@ -9,7 +9,15 @@ Meteor.publish('events_sub', function() {
 });
 
 Meteor.publish('notifications', function() {
-  return NotifCollection.find({});
+  let all = NotifCollection.find({deleted: false, autodelete: true}).fetch();
+  let timeout = MyFestVars.find().fetch()[0].options.timeout | (15*60*1000);
+  all.map((noti=>{
+    if((new Date().getTime() - noti.at) > (timeout)){
+      NotifCollection.update({_id: noti._id}, {$set: {deleted: true}})
+    }
+  }))
+
+  return NotifCollection.find({deleted: false}, {sort: {at: -1}});
 });
 
 Meteor.publish('event_sub', function() {

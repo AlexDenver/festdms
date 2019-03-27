@@ -277,7 +277,7 @@
 <div class="participants notification wrapper" *ngIf="navState=='notifications'">
     <h1 class="title">Create Notification</h1>
     <!-- <pre>{{events_sub | json}}</pre> -->
-    <form action="">
+    <form action="" #notifForm="ngForm" >
 
         <label for="">
             <input required placeholder="Title" type="text" name="notif.title" [(ngModel)]="notif.title">
@@ -288,7 +288,7 @@
                 name="notif.text" [(ngModel)]="notif.text"></textarea>
         </label>
         <div>
-            <small>Auto Delete (15min Timeout)<br></small>
+            <small>Auto Delete ({{timeout}}min Timeout)<br></small>
             <label class="switch">
                 <input type="checkbox" name="autodelete" [(ngModel)]="notif.autodelete" checked="checked">
                 <span class="slider round"></span>
@@ -304,7 +304,7 @@
                 <option value="indigo">Indigo</option>
             </select>
 
-            <button type="submit" (click)="createNotif()">Create</button>
+            <button type="submit" (click)="createNotif(notifForm)">Create <i class="fas fa-bullhorn"></i></button>
         </div>
     </form>
 
@@ -317,6 +317,9 @@
             <div class="content cards-wrap wrapper">
                 <div class="rel-wrap" *ngFor="let notif of notifs">
                     <div class="card {{notif.color}}" >
+                            <div class="del" (click)="delNotif(notif._id)"> <i
+                                class="fas fa-times-circle"></i> 
+                            </div>
                         <div class="firstinfo"><img
                                 src="{{notif.icon}}" />
 

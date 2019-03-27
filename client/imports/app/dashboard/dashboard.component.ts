@@ -108,6 +108,8 @@ export class DashboardComponent implements AfterViewInit, OnInit {
             this.fest_sub_obs = MyFestVars.find({})
             this.fest_sub_obs.subscribe(c => {
                 this.festvars = c[0];     
+                if(!this.festvars.options)
+                    this.festvars['options'] = {};
                 if(!this.festvars.teamcodes)           
                     this.festvars.teamcodes = [];
             })

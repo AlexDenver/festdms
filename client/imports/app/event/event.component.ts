@@ -51,7 +51,7 @@ export class EventComponent implements OnInit {
   NotifSubscription: Subscription;
   notif_sub_obs: any;
   notifs
-
+  timeout = 15
   notif = {};
   constructor( private router: Router, private zone: NgZone, private route: ActivatedRoute){
     this.notif.autodelete = true;
@@ -66,9 +66,13 @@ export class EventComponent implements OnInit {
         this.events_sub = c[0];
       })
    });
-
+   let self = this;
+   Meteor.call("getNotifTimeout", (e,d)=>{
+     if(!e)
+      self.timeout = Math.round(d);
+   });
    this.NotifSubscription = MeteorObservable.subscribe('notifications').subscribe(()=> {
-        this.notif_sub_obs = NotifCollection.find({maker: Meteor.userId()});
+        this.notif_sub_obs = NotifCollection.find({maker: Meteor.userId(), {sort: {at: -1}});
         this.notif_sub_obs.subscribe(c => {
           this.notifs = c;
         })
@@ -105,7 +109,7 @@ export class EventComponent implements OnInit {
 
 
   }
-  createNotif(){
+  createNotif(nForm){
     if(!(this.notif['title'] && this.notif['text'])){
       toastr.error("All Fields Are Required");
       return;
@@ -118,8 +122,10 @@ export class EventComponent implements OnInit {
     Meteor.call("createNotif", this.notif, (err, data)=>{
       if(err){
         toastr.error("Error.")
+      }else{
+        nForm.reset();
       }
-      console.log(data)
+      // console.log(data)
     })
   }
   setNavState(st) {
@@ -139,6 +145,15 @@ export class EventComponent implements OnInit {
     })
     this.event_copy = c;
     
+  }
+  delNotif(id){
+    Meteor.call("delNotif", id, (err, data)=>{
+      if(err){
+        toastr.error("Error in Deleting");
+      }else{
+        toastr.success("Successfully Deleted.")
+      }
+    })
   }
   disqualify(id, uid, $event){
     $event.stopPropagation(); // Only seems to

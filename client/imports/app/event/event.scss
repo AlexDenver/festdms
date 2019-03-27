@@ -277,6 +277,13 @@ h1{
 
 
 @media (max-width: 760px){
+    .round-form{
+        .section{
+            .iterator-input{
+                grid-template-columns: 1fr;
+            }
+        }
+    }
     .parti-wrap{
         grid-template-columns:  1fr;
 
@@ -409,7 +416,6 @@ h1{
     min-height: $height;
 }
 
-// $primaryColor: $primaryColor;
 html {
     height: 100%;
 }
@@ -418,8 +424,7 @@ body {
 
     @extend %flex;    
     width: 100%;
-    min-height: 100%;
-    background: $primaryColor;
+    min-height: 100%;    
     font-size: 16px;
     overflow: hidden;
 }
@@ -437,6 +442,9 @@ body {
 }
 
 .card {
+    .del{
+        text-align: right;
+    }
     // @include dimensions(500px, 100px);
     min-height: 100px;
 
@@ -535,6 +543,61 @@ body {
 }
 
 
+
+
+
+.card.red{
+    &:after {
+        background: #ec1943;
+    }
+}
+.card.red .firstinfo h3{
+    color: #ec1943;
+}
+
+.card.pink{
+    &:after {
+        background: #FB5373;
+    }
+}
+.card.pink .firstinfo h3{
+    color: #FB5373;
+}
+
+
+.card.orange{
+    &:after {
+        background: #F26321;
+    }
+}
+.myNotif .card.orange .firstinfo h3{
+    color: #F26321;
+}
+.card.indigo{
+    &:after {
+        background: #133F7E;
+    }
+}
+ .card.indigo .firstinfo h3{
+    color: #133F7E;
+}
+
+.card.blue{
+    &:after {
+        background: #1C77C3;
+    }
+}
+.card.blue .firstinfo h3{
+    color: #1C77C3;
+}
+
+
+
+
+
+
+
+
 @keyframes animatop {
     0% {
         opacity: 0;
@@ -585,12 +648,26 @@ body {
 }
 
 
+
+
+
+.rel-wrap{
+    position: relative;
+}
+
+
+
+}
 @media (max-width: 768px){
-    .cards-wrap{
-        grid-template-columns: 1fr;
-        margin: 50px 10px;
-        .badgescard{
-            width: calc(100% - 20px);
+    
+    .myNotif{
+        
+        .cards-wrap{
+            grid-template-columns: 1fr;
+            margin: 50px 10px;
+            .badgescard{
+                width: calc(100% - 20px);
+            }
         }
     }
     .firstinfo{
@@ -599,13 +676,22 @@ body {
             height: 60px;
         }
     }
+    .notification{
+        .title{
+            margin-left: 10px;
+        }
+        form{
+            textarea, input, select, button{
+                font-size: 1rem;
+            }
+            margin: 10px;
+            .split{
+                grid-template-columns: auto;                
+            }
+            select, button {
+                width: 100%;
+            }
+        }
+    }
+    
 }
-
-
-.rel-wrap{
-    position: relative;
-}
-}
-
-
-

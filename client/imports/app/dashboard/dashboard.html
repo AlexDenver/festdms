@@ -152,7 +152,10 @@
                         <div class="add" (click)="festvars.teamcodes.push({code: '', used: false})">Add</div>
                     </div>
 
-                    
+                    <label for="">
+                        <small>Notification Timeout</small>
+                        <input type="number" placeholder="Notificaiton Timeout Miliseconds" [(ngModel)]="festvars.options.timeout" name="timeout">
+                    </label>
 
                     <div class="save btn" (click)="updateVars()" >Save</div>
                 </div>
