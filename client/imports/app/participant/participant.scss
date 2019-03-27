@@ -1,0 +1,73 @@
+@import "../variables.scss";
+.event-wrap {
+    
+    .top {
+        .back {
+            color: #fff;
+            font-weight: 900;
+            font-size: 1.2rem;
+            width: max-content;
+            margin: 0;
+            padding: 10px 15px;
+            box-shadow: $box_shadow;
+            border-radius: 10px;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            cursor: pointer;
+        }
+        background: $secondaryDark;
+        display: grid;
+        justify-content: center;
+        padding: 50px;
+        .input-wrap{
+            
+                grid-gap: 10px;
+                display: grid;            
+            small{
+                color: #fff;
+                font-weight: 500;                
+                display: block;
+
+            }                                       
+        
+            input{                                
+                color: #ffb20f;
+                font-weight: 600;
+            }
+            input {
+                padding: 20px 55px;
+                padding-left: 40px;
+                width: calc(100% - 95px);
+                margin: auto;
+                font-size: 1.5rem;
+                font-family: Montserrat;
+                font-weight: 500;
+                border-radius: 5px;
+            }
+        } 
+        .rel-wrap{
+            position: relative;
+            .overin{
+                position: absolute;
+                top: 50%;
+                right: 10px;
+                transform: translateY(-50%);
+                font-size: 2rem;
+                color: $primaryColor;
+            }
+        }
+
+    }
+
+
+    .main {
+        background: $primaryColor;
+        color: $secondaryDark;
+        min-height: 75vh;
+        height: 100%;
+        .wrapper{
+            margin: auto;
+        }
+    }
+}

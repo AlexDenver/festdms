@@ -6,7 +6,8 @@ const EventsCollection = new MongoObservable.Collection<MyFestEvent>('events');
 const MyFestVars = new MongoObservable.Collection<any>('myfestdb');
 const LogsCollection = new MongoObservable.Collection<any>('logs');
 const PartiCollection = new MongoObservable.Collection<any>('participants');
-export {EventsCollection, MyFestVars, LogsCollection, PartiCollection}
+const NotifCollection = new MongoObservable.Collection<any>('notifications');
+export {EventsCollection, MyFestVars, LogsCollection, PartiCollection, NotifCollection}
 
 // {
 //     'event': "Web:80",

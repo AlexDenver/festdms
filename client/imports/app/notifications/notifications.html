@@ -1,0 +1,23 @@
+<div class="wrap">
+    <div class="head">
+        <h1><i class="fas fa-bell"></i> Notifications</h1>
+    </div>
+    <div class="main">
+        <div class="content cards-wrap wrapper">
+
+            <div class="rel-wrap" *ngFor="let notif of notifs">
+                <div class="card {{notif.color}}" >
+                    <div class="firstinfo"><img
+                            src="{{notif.icon}}" />
+
+                        <h1>{{notif.title}}</h1>
+                        <h3>{{notif.user}}</h3>
+                        <div class="bio" [innerHTML]="notif.text | safeHtml"></div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

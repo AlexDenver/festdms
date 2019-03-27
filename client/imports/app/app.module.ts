@@ -34,6 +34,8 @@ import { MyFestService } from './myfest.services';
 import { RoleGuard } from './roleguard.services';
 import { AuthService }from './auth.service';
 import { from } from 'rxjs';
+import { ParticipantComponent } from './participant/participant.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 
 
@@ -82,10 +84,16 @@ let routes = [
   },{
     path: 'about',
     component: AboutComponent
+  },{
+    path: 'alerts',
+    component: NotificationsComponent
   },
   {
     path: 'scores/:id',
     component: ScoreSheetComponent
+  },{
+    path: 'participant/:id',
+    component: ParticipantComponent
   },
   // 404 Page
   {
@@ -119,7 +127,9 @@ let routes = [
     TeamComponent,
     SafeHtmlPipe,
     AboutComponent,
-    ScoreSheetComponent
+    ScoreSheetComponent,
+    ParticipantComponent,
+    NotificationsComponent
   ],
   bootstrap: [
     AppComponent

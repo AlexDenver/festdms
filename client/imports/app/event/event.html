@@ -1,9 +1,10 @@
-<nav  (click)="toggleMenu()" class="side-spmenu side-spmenu-vertical side-spmenu-left" [ngClass]="{'side-spmenu-open': menu_toggle}"
-    id="side-spmenu-s1">
+<nav (click)="toggleMenu()" class="side-spmenu side-spmenu-vertical side-spmenu-left"
+    [ngClass]="{'side-spmenu-open': menu_toggle}" id="side-spmenu-s1">
     <h3>Menu</h3>
     <div class="links" [routerLink]="[ '/manage', 'event' ]">Event Overview</div>
     <div class="links" [routerLink]="[ '/manage', 'round' ]">Round Overview</div>
     <div class="links" [routerLink]="[ '/manage', 'score' ]">Score Overview</div>
+    <div class="links" [routerLink]="[ '/manage', 'notifications' ]">Notifications Overview</div>
     <div class="links" (click)="logout()" href="#">Logout</div>
 </nav>
 
@@ -198,40 +199,41 @@
 <div class="participants wrapper" *ngIf="navState=='score'">
     <h1 class="title">Active Participants</h1>
     <div class="parti-wrap">
-        <div class="parti" *ngFor="let parti of sorted_parti" [hidden]="parti.disqualified || !parti.checkin" [routerLink]="[ '/scores/', parti._id ]">
+        <div class="parti" *ngFor="let parti of sorted_parti" [hidden]="parti.disqualified || !parti.checkin"
+            [routerLink]="[ '/scores/', parti._id ]">
             <div class="team-code">
-                    <span class="fa-stack">
+                <span class="fa-stack">
                         <i class="fas fa-circle fa-stack-2x"></i>                    
                         <i class="fas fa-hashtag fa-stack-1x fa-inverse"></i>
                     </span>
-                    {{parti.reg_uid}}
+                {{parti.reg_uid}}
             </div>
             <div class="team-id">
-                    <span class="fa-stack">
+                <span class="fa-stack">
                         <i class="fas fa-circle fa-stack-2x"></i>                    
                         <i class="fas fa-star-of-life fa-stack-1x fa-inverse"></i>
                     </span>
-                    {{parti.teamcode}}
-                </div>   
+                {{parti.teamcode}}
+            </div>
             <div class="team-member" *ngFor="let name of parti.names, let j = index">
                 <span class="fa-stack">
                     <i class="fas fa-circle fa-stack-2x"></i>                    
                     <i class="fas fa-user fa-stack-1x fa-inverse"></i>                            
-                </span>                
-                <span class="team-member-name">{{name.name}}</span>                 
-            </div>            
+                </span>
+                <span class="team-member-name">{{name.name}}</span>
+            </div>
             <div class="score">
                 <i class="fas fa-trophy"></i>
-                {{parti.total}} 
+                {{parti.total}}
             </div>
             <div class="disq" (click)="disqualify(parti._id, parti.reg_uid, $event)">
-                    
-                    
-                <i class="fas fa-user-alt-slash "></i>                            
-                    
+
+
+                <i class="fas fa-user-alt-slash "></i>
+
                 <span>
                     K-O 
-                </span> 
+                </span>
             </div>
         </div>
     </div>
@@ -239,32 +241,95 @@
 
 
 
-<div class="disqualified">
-    <h1 class="title">Knocked-Out Participants</h1>
-    <div class="parti-wrap ">
-        <div class="parti" *ngFor="let parti of parti_sub" [hidden]="!parti.disqualified || !parti.checkin">
-                
+    <div class="disqualified">
+        <h1 class="title">Knocked-Out Participants</h1>
+        <div class="parti-wrap ">
+            <div class="parti" *ngFor="let parti of parti_sub" [hidden]="!parti.disqualified || !parti.checkin">
+
                 <div class="team-code">
-                        <span class="fa-stack">
+                    <span class="fa-stack">
                             <i class="fas fa-circle fa-stack-2x"></i>                    
                             <i class="fas fa-hashtag fa-stack-1x fa-inverse"></i>
                         </span>
-                        {{parti.reg_uid}}
+                    {{parti.reg_uid}}
                 </div>
                 <div class="team-member" *ngFor="let name of parti.names, let j = index">
                     <span class="fa-stack">
                         <i class="fas fa-circle fa-stack-2x"></i>                    
                         <i class="fas fa-user fa-stack-1x fa-inverse"></i>                            
-                    </span>                
-                    <span class="team-member-name">{{name.name}}</span>                 
-                </div>            
+                    </span>
+                    <span class="team-member-name">{{name.name}}</span>
+                </div>
                 <div class="score">
                     <i class="fas fa-trophy"></i>
-                    {{parti.total}} 
-                </div>                
+                    {{parti.total}}
+                </div>
 
+            </div>
         </div>
     </div>
-</div>    
-    
+
+</div>
+
+
+
+
+<div class="participants notification wrapper" *ngIf="navState=='notifications'">
+    <h1 class="title">Create Notification</h1>
+    <!-- <pre>{{events_sub | json}}</pre> -->
+    <form action="">
+
+        <label for="">
+            <input required placeholder="Title" type="text" name="notif.title" [(ngModel)]="notif.title">
+        </label>
+        <label for="">
+            <textarea required
+                placeholder="Any Message You Want To be Published,&#10;You can Also add &#10;<li> List </li> &#10;tags to create a list (Maybe to publish Qualified Participants)"
+                name="notif.text" [(ngModel)]="notif.text"></textarea>
+        </label>
+        <div>
+            <small>Auto Delete (15min Timeout)<br></small>
+            <label class="switch">
+                <input type="checkbox" name="autodelete" [(ngModel)]="notif.autodelete" checked="checked">
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <div class="split">
+            <select name="color" [(ngModel)]="notif.color" required>
+                <option value="yellow" selected=selected>Yellow</option>
+                <option value="orange">Orange</option>
+                <option value="red">Red</option>
+                <option value="blue">Blue</option>
+                <option value="pink">Pink</option>
+                <option value="indigo">Indigo</option>
+            </select>
+
+            <button type="submit" (click)="createNotif()">Create</button>
+        </div>
+    </form>
+
+
+    <!-- <pre>{{notifs | json}}</pre> -->
+
+    <div class="active-notifs">
+        <h1 class="title" *ngIf="notifs.length > 0">Your Notifications</h1>
+        <div class="myNotif">
+            <div class="content cards-wrap wrapper">
+                <div class="rel-wrap" *ngFor="let notif of notifs">
+                    <div class="card {{notif.color}}" >
+                        <div class="firstinfo"><img
+                                src="{{notif.icon}}" />
+
+                            <h1>{{notif.title}}</h1>
+                            <h3>{{notif.user}}</h3>
+                            <div class="bio" [innerHTML]="notif.text | safeHtml"></div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>            
+        </div>
+    </div>
+
+
 </div>

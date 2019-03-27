@@ -1,2 +1,7 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <router-outlet></router-outlet>
+
+
+<div class="info" [ngClass]="{'seen': seen}" >
+    <p><i class="fab fa-bandcamp fa-pulse"></i> Abhyuady 6.0 is Open to BCA, BSc, MCA & MSc.</p> <button (click)="setSaveState();">ok</button>
+</div>

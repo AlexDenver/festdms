@@ -3,7 +3,7 @@ import jQuery from 'jquery';
 import { MyFestEvent } from 'imports/models/events';
 import { ObservableCursor, MeteorObservable } from 'meteor-rxjs';
 import { Observable, Subscription } from 'rxjs';
-import { EventsCollection, PartiCollection } from 'imports/collections/all';
+import { EventsCollection, PartiCollection, NotifCollection } from 'imports/collections/all';
 import { FormsModule } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
 import Images from 'imports/collections/images';
@@ -13,6 +13,7 @@ import  {Roles}  from 'meteor/alanning:roles'
 import { Tracker } from 'meteor/tracker';
 // import { Router } from '@angular/router';
 import {ArraySortPipe} from "../app.pipe";
+import { timingSafeEqual } from 'crypto';
 
 // import {toastr} from 'meteor/flawless:meteor-toastr'
 
@@ -46,8 +47,15 @@ export class EventComponent implements OnInit {
   parti_sub_obs: Observable<any>;
   parti_sub: Observable<any>;
   sorted_parti: Observable<any>;
-  constructor( private router: Router, private zone: NgZone, private route: ActivatedRoute){
 
+  NotifSubscription: Subscription;
+  notif_sub_obs: any;
+  notifs
+
+  notif = {};
+  constructor( private router: Router, private zone: NgZone, private route: ActivatedRoute){
+    this.notif.autodelete = true;
+    this.notif.color = 'yellow';
     this.ClearSubScription[0] = this.EventsListSubscription = MeteorObservable.subscribe('event_sub').subscribe(()=> {
       this.events_sub_obs = EventsCollection.find({});
       if(this.original){
@@ -59,6 +67,12 @@ export class EventComponent implements OnInit {
       })
    });
 
+   this.NotifSubscription = MeteorObservable.subscribe('notifications').subscribe(()=> {
+        this.notif_sub_obs = NotifCollection.find({maker: Meteor.userId()});
+        this.notif_sub_obs.subscribe(c => {
+          this.notifs = c;
+        })
+    });
    
    this.myPartiSub = MeteorObservable.subscribe('myParticipants').subscribe(()=>{
      console.log("here")
@@ -90,6 +104,23 @@ export class EventComponent implements OnInit {
    })
 
 
+  }
+  createNotif(){
+    if(!(this.notif['title'] && this.notif['text'])){
+      toastr.error("All Fields Are Required");
+      return;
+    }
+    this.notif['maker'] = Meteor.userId();
+    this.notif['user'] = this.events_sub.name.themed;
+    this.notif['icon'] = this.events_sub.icon;
+    this.notif['at'] = new Date().getTime();
+    console.log(this.notif) 
+    Meteor.call("createNotif", this.notif, (err, data)=>{
+      if(err){
+        toastr.error("Error.")
+      }
+      console.log(data)
+    })
   }
   setNavState(st) {
     this.navState = st;
@@ -241,3 +272,16 @@ export class EventComponent implements OnInit {
 
 }
 
+
+
+
+import { DomSanitizer } from '@angular/platform-browser'
+import { PipeTransform, Pipe } from "@angular/core";
+
+@Pipe({ name: 'safeHtml'})
+export class SafeHtmlPipe implements PipeTransform  {
+  constructor(private sanitized: DomSanitizer) {}
+  transform(value) {
+    return this.sanitized.bypassSecurityTrustHtml(value);
+  }
+}

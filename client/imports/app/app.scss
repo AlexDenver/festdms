@@ -1,0 +1,61 @@
+.info {
+    position: fixed;
+    bottom: 0;
+    background: #fff;
+    box-shadow: 0 0 2px 2px rgba(0,0,0,0.1);
+    padding: 20px;
+    width: 100%;
+    font-size: 1.5rem;
+    display: grid;
+    text-align: center;
+    grid-template-columns: auto auto;
+    grid-gap: 20px;
+    justify-content: center;
+    i{
+        color: #ffb10f;
+    }
+    button {
+        padding: 5px 40px;
+        background: none;
+        border: 1px solid #ffb10f;
+        border-radius: 20px;
+        cursor: pointer;
+        color: #1a2737;
+        text-transform: uppercase;
+        transition: 0.4s ease;
+        &:hover{
+            background: #ffb10f;            
+        }
+    }
+    animation: fadeIn 0.5s ease forwards;
+    z-index: 99;
+}
+
+.info.seen {
+    animation: fadeOut 0.5s ease forwards;
+}
+
+@keyframes fadeOut{
+    0%{
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    100%{
+        opacity: 0;
+        transform: translateY(100px);
+    }
+}
+
+
+@keyframes fadeIn{
+    0%{
+        opacity: 0;
+        transform: translateY(100px);
+    }
+
+    100%{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

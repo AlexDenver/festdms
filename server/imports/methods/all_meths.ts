@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { EventsCollection, MyFestVars, LogsCollection, PartiCollection } from '../../../imports/collections/all';
+import { EventsCollection, MyFestVars, LogsCollection, PartiCollection, NotifCollection } from '../../../imports/collections/all';
 import Images  from "../../../imports/collections/images";
 import Photos from  "../../../imports/collections/images";
 import { Roles } from 'meteor/alanning:roles'
@@ -220,6 +220,9 @@ Meteor.methods({
 
     return uid;
   },
+  createNotif(notif){
+    return NotifCollection.insert(notif);
+  },
   updateParticipant(names, id){
     PartiCollection.update({_id: id}, {$set: {names: names.names}})
   },
@@ -294,6 +297,20 @@ if (Meteor.isServer) {
       const user = Meteor.users.findOne({_id: this.userId});
       return ((Roles.userIsInRole(userId, ['manage-event']) && doc.handler==user.username) || user.profile.type=='admin')
         
+    }
+  })
+  NotifCollection.allow({
+    update: function(userId, doc, fields){
+      if(Roles.userIsInRole(userId, ['manage-event', 'all', 'manage-participants']))
+        return true;
+      else
+        return false;
+    }, 
+    insert: function(userId, doc){
+      if(Roles.userIsInRole(userId, ['manage-event', 'all', 'manage-participants']))
+        return true;
+      else
+        return false;
     }
   })
   PartiCollection.allow({

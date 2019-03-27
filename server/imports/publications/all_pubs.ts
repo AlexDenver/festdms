@@ -1,12 +1,15 @@
 import { Meteor } from 'meteor/meteor';
 
-import { EventsCollection, MyFestVars, PartiCollection } from '../../../imports/collections/all';
-
+import { EventsCollection, MyFestVars, PartiCollection, NotifCollection } from '../../../imports/collections/all';
 
 
 
 Meteor.publish('events_sub', function() {
   return EventsCollection.find({});
+});
+
+Meteor.publish('notifications', function() {
+  return NotifCollection.find({});
 });
 
 Meteor.publish('event_sub', function() {
