@@ -4,7 +4,7 @@
     background: #fff;
     box-shadow: 0 0 2px 2px rgba(0,0,0,0.1);
     padding: 20px;
-    width: 100%;
+    width: calc(100% - 40px);
     font-size: 1.5rem;
     display: grid;
     text-align: center;
@@ -58,4 +58,12 @@
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+@media (max-width: 768px){
+    .info {
+        grid-template-columns: auto ;
+        width: calc(100% - 40px) ;
+        font-size: 1.3rem ;
+    }   
 }
