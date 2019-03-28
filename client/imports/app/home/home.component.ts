@@ -241,8 +241,13 @@ export class HomeComponent implements AfterViewInit, OnInit {
           setTimeout(()=>{
             selfx.mf.getImages().subscribe(c => {
               selfx.imgs = c[0].allPeople;
-              if(c[0].options.festDay)
+              if(c[0].options.festDay){
+
+                console.log(c[0].options.festDay);
                 selfx.festDay = new Date(c[0].options.festDay).getTime() 
+                selfx.hideTimer = false;
+              }
+                selfx.initParticle(1);
              //  // console.log(c)
              selfx.initFacesBox();
             })

@@ -8,7 +8,7 @@ import{MyFestService}from'../myfest.services';
 import{Observable}from'rxjs';
 import{MyFestEvent}from'imports/models/events';
 import{MeteorObservable,zoneOperator,ObservableCursor}from'meteor-rxjs';
-import{EventsCollection, MyFestVars, PartiCollection}from'imports/collections/all';
+import{EventsCollection, MyFestVars, PartiCollection, NotifCollection}from'imports/collections/all';
 import Images from'imports/collections/images';
 
 @Component({
@@ -57,6 +57,13 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     teams: any;
     team_member_count: any;
     imageData: any = '';
+
+    NotifSubscription: Subscription;
+    notif_sub_obs: any;
+    notifs
+    timeout = 15
+    notif = {};
+    
     constructor(private router: Router,private zone: NgZone) {
         this.d = "Alex"
         this.team_member_count = {}
@@ -103,6 +110,13 @@ export class DashboardComponent implements AfterViewInit, OnInit {
             //   this.users_sub = c;
             })
         });
+        this.ClearSubScription[4] = MeteorObservable.subscribe('notifications').subscribe(()=> {
+            this.notif_sub_obs = NotifCollection.find({sort: {at: -1}});
+            this.notif_sub_obs.subscribe(c => {
+              this.notifs = c;
+            })
+        });
+
 
         this.ClearSubScription[3] = MeteorObservable.subscribe('fest_vars').subscribe(() => {        
             this.fest_sub_obs = MyFestVars.find({})
@@ -126,6 +140,35 @@ export class DashboardComponent implements AfterViewInit, OnInit {
         console.log(this.events_sub)
         // setInterval(()=>{console.log(this.mf.findUsers())},1000)
     }
+    createNotif(nForm){
+        if(!(this.notif['title'] && this.notif['text'])){
+            toastr.error("All Fields Are Required");
+            return;
+        }
+        this.notif['maker'] = Meteor.userId();
+        // this.notif['user'] = this.events_sub.name.themed;
+        // this.notif['icon'] = this.events_sub.icon;
+        this.notif['at'] = new Date().getTime();
+        console.log(this.notif) 
+        Meteor.call("createNotif", this.notif, (err, data)=>{
+            if(err){
+            toastr.error("Error.")
+            }else{
+            nForm.reset();
+            }
+            // console.log(data)
+        })
+    }
+    delNotif(id){
+    Meteor.call("delNotif", id, (err, data)=>{
+        if(err){
+        toastr.error("Error in Deleting");
+        }else{
+        toastr.success("Successfully Deleted.")
+        }
+    })
+    }
+    
     setNavState(st) {
         this.navState = st;
         this.menu_toggle = false;

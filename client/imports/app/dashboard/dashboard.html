@@ -4,6 +4,7 @@
     <div class="links" (click)="setNavState('participants')">Participants</div>
     <div class="links" [routerLink]="[ '/teams' ]">Manage Teams</div>    
     <div class="links" (click)="setNavState('users')">Users</div>
+    <div class="links" (click)="setNavState('notifications')">Notifications</div>
     <div class="links" (click)="setNavState('settings')">Settings</div>    
     <div class="links" (click)="logout()" href="#">Logout</div>        
 </nav>
@@ -164,6 +165,76 @@
 
                     <div class="save btn" (click)="updateVars()" >Save</div>
                 </div>
+    </div>
+    
+    <div class="participants notification wrapper" *ngIf="navState=='notifications'">
+        <h1 class="title">Create Notification</h1>
+        <!-- <pre>{{events_sub | json}}</pre> -->
+        <form action="" #notifForm="ngForm" >
+    
+            <label for="">
+                <input required placeholder="Title" type="text" name="notif.title" [(ngModel)]="notif.title">
+            </label>
+            <label for="">
+                <input required placeholder="Icon" type="text" name="notif.icon" [(ngModel)]="notif.icon">
+            </label>
+            <label for="">
+                <input required placeholder="Author" type="text" name="notif.user" [(ngModel)]="notif.user">
+            </label>
+            
+            <label for="">
+                <textarea required
+                    placeholder="Message"
+                    name="notif.text" [(ngModel)]="notif.text"></textarea>
+            </label>
+            <div>
+                <small>Auto Delete ({{timeout}}min Timeout)<br></small>
+                <label class="switch">
+                    <input type="checkbox" name="autodelete" [(ngModel)]="notif.autodelete" checked="checked">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <div class="split">
+                <select name="color" [(ngModel)]="notif.color" required>
+                    <option value="yellow" selected=selected>Yellow</option>
+                    <option value="orange">Orange</option>
+                    <option value="red">Red</option>
+                    <option value="blue">Blue</option>
+                    <option value="pink">Pink</option>
+                    <option value="indigo">Indigo</option>
+                </select>
+    
+                <button type="submit" (click)="createNotif(notifForm)">Create <i class="fas fa-bullhorn"></i></button>
+            </div>
+        </form>
+    
+    
+        <!-- <pre>{{notifs | json}}</pre> -->
+    
+        <div class="active-notifs">
+            <h1 class="title" *ngIf="notifs.length > 0">Your Notifications</h1>
+            <div class="myNotif">
+                <div class="content cards-wrap wrapper">
+                    <div class="rel-wrap" *ngFor="let notif of notifs">
+                        <div class="card {{notif.color}}" >
+                                <div class="del" (click)="delNotif(notif._id)"> <i
+                                    class="fas fa-times-circle"></i> 
+                                </div>
+                            <div class="firstinfo"><img
+                                    src="{{notif.icon}}" />
+    
+                                <h1>{{notif.title}}</h1>
+                                <h3>{{notif.user}}</h3>
+                                <div class="bio" [innerHTML]="notif.text | safeHtml"></div>
+    
+                            </div>
+                        </div>
+                    </div>
+                </div>            
+            </div>
+        </div>
+    
+    
     </div>
     
 </div>
