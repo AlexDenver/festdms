@@ -15,7 +15,7 @@
                             src="{{notif.icon}}" />
 
                         <h1>{{notif.title}}</h1>
-                        <h3>{{notif.user}}</h3>
+                        <h3>{{notif.user}} &nbsp;•&nbsp; <span style="filter:invert(1)">{{timeAt(notif.at)}}</span></h3>
                         <div class="bio" [innerHTML]="notif.text | safeHtml"></div>
 
                     </div>

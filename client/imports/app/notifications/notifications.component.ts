@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NotifCollection } from 'imports/collections/all';
 import { MeteorObservable } from 'meteor-rxjs';
+// import * as moment from "node_modules/mo";
+import { moment } from "meteor/momentjs:moment";
+
 import {SafeHtmlPipe} from "../eventpub/eventpub.component"
 @Component({
     selector: 'notifications',
@@ -12,6 +15,9 @@ import {SafeHtmlPipe} from "../eventpub/eventpub.component"
     NotifSubscription: Subscription;
     notif_sub_obs: any;
     notifs
+    timeAt(t){
+      return moment(t).fromNow();
+    }
     constructor(){
         // cookie.set()
         this.NotifSubscription = MeteorObservable.subscribe('notifications').subscribe(()=> {
