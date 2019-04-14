@@ -1,5 +1,5 @@
 # Fest Data Management System (FestDMS)
-[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/AlexDenver/festdms/raw/master/LICENSE)
+[![MIT License](https://img.shields.io/static/v1.svg?label=licence&message=MIT&color=FFB20F)](https://github.com/AlexDenver/festdms/raw/master/LICENSE)
 
 
 FestDMS is a revised version of [MyFest](https://github.com/alexdenver/myfest) a College Event Management System that was built static-ally with most of the changes requiring changes to the core files, FestDMS is a more user friendly approach to the common problems faced in most of the inter College Fests while handling data. 
