@@ -36,6 +36,7 @@ import { AuthService }from './auth.service';
 import { from } from 'rxjs';
 import { ParticipantComponent } from './participant/participant.component';
 import { NotificationsComponent } from './notifications/notifications.component';
+import { TributeComponent } from './tribute/tribute.component';
 
 
 
@@ -44,6 +45,7 @@ const DEF_SWIPER_CONFIG: SwiperConfigInterface = {
   slidesPerView: 'auto',
   
 };
+
 
 
 let routes = [
@@ -103,6 +105,12 @@ let routes = [
   
 ]
 
+if(Meteor.call('isTributeModeSet'))
+  routes.unshift({
+    path: '**',
+    component: TributeComponent
+  })
+
 
 
 @NgModule({
@@ -129,7 +137,8 @@ let routes = [
     AboutComponent,
     ScoreSheetComponent,
     ParticipantComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    TributeComponent
   ],
   bootstrap: [
     AppComponent

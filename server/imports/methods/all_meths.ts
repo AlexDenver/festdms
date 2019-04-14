@@ -252,6 +252,9 @@ Meteor.methods({
   },
   getNotifTimeout(){
     return MyFestVars.find().fetch()[0].options.timeout / (60*1000)
+  },
+  isTributeModeSet(){
+    return MyFestVars.find().fetch()[0].options.tribute
   }
 })
 
@@ -261,12 +264,9 @@ Meteor.methods({
 if (Meteor.isServer) {
   if ( Meteor.users.find().count() === 0 ) {
       let idx = Accounts.createUser({
-          username: 'admin',
-          email: 'dnvr.dsz@gmail.com',
-          password: 'appleboxspace',
-          profile: {
-              first_name: 'Alex',
-              last_name: 'Denver',     
+          username: 'admin',          
+          password: 'password',
+          profile: {              
               type: 'admin'
           },
         
