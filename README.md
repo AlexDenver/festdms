@@ -1,4 +1,4 @@
-# Fest Data Management System (FestDMS)
+# Fest Data Management System (FestDMS) [Work in-progress]
 [![MIT License](https://img.shields.io/static/v1.svg?label=licence&message=MIT&color=FFB20F)](https://github.com/AlexDenver/festdms/raw/master/LICENSE)
 
 
@@ -10,7 +10,7 @@ FestDMS helps you setup a live website which helps in the process of running a f
 Although the primary audiences for FestDMS are College Fests having more than one event to manage, this application can also be used by anyone wanting to manage their comepetetive events where Online Registrations and Result management is a requirement. 
 
 ## Features
-1. Customizable Landing Page 
+1. Customizable Landing Page [in-progress]
 2. Participant Registrations
 3. Participants Dashboard
     * Participants Overview (Reception Committee)
@@ -27,12 +27,12 @@ Although the primary audiences for FestDMS are College Fests having more than on
     * Create Notifications (Event Head, Committee Heads)
     * Notifications View (Public User)    
 7. Finances / Expenses Dashboard
-    * Record Expenses (Committee Members)
-    * Finances Overview (Finance Comittee)
+    * Record Expenses (Committee Members) [in-progress]
+    * Finances Overview (Finance Comittee) [in-progress]
 8. Admin Dashboard
     * Manage Events
     * Manage Users
-    * Manage Landing Page
+    * Manage Landing Page [in-progress]
     * Manage System Variables
     * View User Activity Logs
 
